@@ -1,0 +1,11 @@
+# id	zone	local	status	offset1	instant1	offset2	instant2	source
+madrid-winter-2024	Europe/Madrid	2024-01-15T12:00:00	Resolved	+01	2024-01-15T11:00:00Z			IANA-TZDB
+madrid-summer-2024	Europe/Madrid	2024-07-15T12:00:00	Resolved	+02	2024-07-15T10:00:00Z			IANA-TZDB
+madrid-fallback-2024	Europe/Madrid	2024-10-27T02:30:00	Ambiguous	+02	2024-10-27T00:30:00Z	+01	2024-10-27T01:30:00Z	IANA-TZDB
+madrid-spring-2024	Europe/Madrid	2024-03-31T02:30:00	Skipped						IANA-TZDB
+new-york-winter-2024	America/New_York	2024-01-15T12:00:00	Resolved	-05	2024-01-15T17:00:00Z			IANA-TZDB
+new-york-summer-2024	America/New_York	2024-07-15T12:00:00	Resolved	-04	2024-07-15T16:00:00Z			IANA-TZDB
+kathmandu-2024	Asia/Kathmandu	2024-06-01T12:00:00	Resolved	+05:45	2024-06-01T06:15:00Z			IANA-TZDB
+kolkata-2024	Asia/Kolkata	2024-06-01T12:00:00	Resolved	+05:30	2024-06-01T06:30:00Z			IANA-TZDB
+adelaide-winter-2024	Australia/Adelaide	2024-07-01T12:00:00	Resolved	+09:30	2024-07-01T02:30:00Z			IANA-TZDB
+adelaide-summer-2024	Australia/Adelaide	2024-01-15T12:00:00	Resolved	+10:30	2024-01-15T01:30:00Z			IANA-TZDB

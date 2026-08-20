@@ -1,0 +1,12 @@
+# id	zone	local	status	offset1	instant1	offset2	instant2	source
+madrid-1900	Europe/Madrid	1900-01-01T12:00:00	Resolved	-00:14:44	1900-01-01T12:14:44Z			IANA-TZDB
+madrid-1940-before-change	Europe/Madrid	1940-03-16T12:00:00	Resolved	+00	1940-03-16T12:00:00Z			IANA-TZDB
+madrid-1940-after-change	Europe/Madrid	1940-03-17T12:00:00	Resolved	+01	1940-03-17T11:00:00Z			IANA-TZDB
+barcelona-1900	Europe/Madrid	1900-01-01T12:00:00	Resolved	-00:14:44	1900-01-01T12:14:44Z			IANA-TZDB
+canary-1940-before-mainland-change	Atlantic/Canary	1940-03-16T12:00:00	Resolved	-01	1940-03-16T13:00:00Z			IANA-TZDB
+canary-1940-after-mainland-change	Atlantic/Canary	1940-03-17T12:00:00	Resolved	-01	1940-03-17T13:00:00Z			IANA-TZDB
+canary-1946-before-zone-change	Atlantic/Canary	1946-09-30T00:30:00	Resolved	-01	1946-09-30T01:30:00Z			IANA-TZDB
+canary-1946-after-zone-change	Atlantic/Canary	1946-09-30T02:30:00	Resolved	+00	1946-09-30T02:30:00Z			IANA-TZDB
+new-york-1883	America/New_York	1883-11-18T12:00:00	Ambiguous	-04:56:02	1883-11-18T16:56:02Z	-05	1883-11-18T17:00:00Z	IANA-TZDB
+kathmandu-1985	Asia/Kathmandu	1985-01-01T12:00:00	Resolved	+05:30	1985-01-01T06:30:00Z			IANA-TZDB
+kathmandu-1986	Asia/Kathmandu	1986-01-02T12:00:00	Resolved	+05:45	1986-01-02T06:15:00Z			IANA-TZDB

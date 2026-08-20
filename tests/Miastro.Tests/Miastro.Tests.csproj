@@ -1,16 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="MSTest" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="../../src/Miastro.Domain/Miastro.Domain.csproj" />
     <ProjectReference Include="../../src/Miastro.Application/Miastro.Application.csproj" />
@@ -19,5 +16,10 @@
     <ProjectReference Include="../../src/Miastro.Bootstrap/Miastro.Bootstrap.csproj" />
     <ProjectReference Include="..\..\src\Miastro.Infrastructure.SwissEphemeris\Miastro.Infrastructure.SwissEphemeris.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <ProjectReference Include="../../src/Miastro.Infrastructure.Geography/Miastro.Infrastructure.Geography.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/Miastro.Infrastructure.Time/Miastro.Infrastructure.Time.csproj" />
+  </ItemGroup>
 </Project>

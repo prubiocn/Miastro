@@ -1,0 +1,51 @@
+{
+  "provider": "GeoNames",
+  "snapshotDate": "2026-08-20",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "sourceBaseUrl": "https://download.geonames.org/export/dump/",
+  "files": [
+    {
+      "name": "cities500.zip",
+      "url": "https://download.geonames.org/export/dump/cities500.zip",
+      "size": 13528784,
+      "sha256": "9c144cdd80cd9ae454bc2bae034d52b84da5d612b77148c9a97a213cf68479e4"
+    },
+    {
+      "name": "alternateNamesV2.zip",
+      "url": "https://download.geonames.org/export/dump/alternateNamesV2.zip",
+      "size": 202746048,
+      "sha256": "9019c270253ff6d5b148e4020594ac956e38f25765d53dc45dda267db29e2119"
+    },
+    {
+      "name": "countryInfo.txt",
+      "url": "https://download.geonames.org/export/dump/countryInfo.txt",
+      "size": 31678,
+      "sha256": "93bafc525813f22e4711ff9ed6d626343094ce48c26388dc7c49189b3d7d5512"
+    },
+    {
+      "name": "admin1CodesASCII.txt",
+      "url": "https://download.geonames.org/export/dump/admin1CodesASCII.txt",
+      "size": 151536,
+      "sha256": "590651498043f674accda2b7f46d21286cda0e290b02f8561c5005eee9a5448c"
+    },
+    {
+      "name": "admin2Codes.txt",
+      "url": "https://download.geonames.org/export/dump/admin2Codes.txt",
+      "size": 2372900,
+      "sha256": "dfb1b884b7094070b3539be18076080aa75f66fd82e19e78acaf584b190856c4"
+    },
+    {
+      "name": "timeZones.txt",
+      "url": "https://download.geonames.org/export/dump/timeZones.txt",
+      "size": 13896,
+      "sha256": "ea6f8bdcc259c21c562e8f7e7e0b0457cb89403bed60c76aac49ccee9a9ed18c"
+    },
+    {
+      "name": "readme.txt",
+      "url": "https://download.geonames.org/export/dump/readme.txt",
+      "size": 8843,
+      "sha256": "b1957379b6c1242c700c98ac9a8aa0a09f56c3c0a50ee72175527005f48ef2c5"
+    }
+  ]
+}

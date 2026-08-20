@@ -1,25 +1,36 @@
 <Project>
-
-  <!-- MIASTRO_PHASE3_NATIVE_ASSETS_START -->
   <ItemGroup Condition="'$(MSBuildProjectName)' == 'Miastro.UI.Avalonia'">
     <Content Include="$(MSBuildThisFileDirectory)src/Miastro.Infrastructure.SwissEphemeris/native/linux-x64/libswe.so">
       <Link>native/linux-x64/libswe.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-
     <Content Include="$(MSBuildThisFileDirectory)src/Miastro.Infrastructure.SwissEphemeris/native/linux-x64/native-manifest.json">
       <Link>native/linux-x64/native-manifest.json</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-
     <Content Include="$(MSBuildThisFileDirectory)data/ephemeris/*">
       <Link>ephemeris/%(Filename)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-  <!-- MIASTRO_PHASE3_NATIVE_ASSETS_END -->
-
+  <PropertyGroup Label="MiastroPhase4Geodata">
+    <MiastroGeoDataDir Condition="'$(MIASTRO_GEODATA_DIR)' != ''">$(MIASTRO_GEODATA_DIR)</MiastroGeoDataDir>
+    <MiastroGeoDataDir Condition="'$(MiastroGeoDataDir)' == '' and Exists('$(MSBuildThisFileDirectory)data/geography/release/geonames.sqlite')">$(MSBuildThisFileDirectory)data/geography/release</MiastroGeoDataDir>
+    <MiastroGeoDataDir Condition="'$(MiastroGeoDataDir)' == '' and Exists('$(MSBuildThisFileDirectory)data/geography/generated/geonames.sqlite')">$(MSBuildThisFileDirectory)data/geography/generated</MiastroGeoDataDir>
+  </PropertyGroup>
+  <ItemGroup Label="MiastroPhase4Geodata" Condition="'$(MSBuildProjectName)' == 'Miastro.UI.Avalonia' and '$(MiastroGeoDataDir)' != '' and Exists('$(MiastroGeoDataDir)/geonames.sqlite') and Exists('$(MiastroGeoDataDir)/manifest.json')">
+    <Content Include="$(MiastroGeoDataDir)/geonames.sqlite">
+      <Link>geodata/geonames.sqlite</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="$(MiastroGeoDataDir)/manifest.json">
+      <Link>geodata/manifest.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

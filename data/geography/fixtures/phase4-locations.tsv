@@ -1,0 +1,9 @@
+# geoname_id	name	ascii_name	country	country_code	admin1	admin2	latitude	longitude	timezone_id	population	feature_class	feature_code	alternate_names	notes
+3114472	Pamplona	Pamplona	España	ES	Navarra	Navarra	42.81687	-1.64323	Europe/Madrid	209672	P	PPLA	Pampelune|Iruña|Iruna	public-fixture
+3672093	Pamplona	Pamplona	Colombia	CO	Norte de Santander	Pamplona	7.37565	-72.64795	America/Bogota	53587	P	PPLA2	Pamplona	public-fixture
+2514256	Málaga	Malaga	España	ES	Andalucía	Málaga	36.72016	-4.42034	Europe/Madrid	578460	P	PPLA2	Malaga	public-fixture
+3119841	A Coruña	A Coruna	España	ES	Galicia	A Coruña	43.37135	-8.39600	Europe/Madrid	246056	P	PPLA2	La Coruña|La Coruna|Corunna	public-fixture
+5128581	New York City	New York City	United States	US	New York	New York	40.71427	-74.00597	America/New_York	8804190	P	PPLA	New York|NYC	public-fixture
+1283240	Kathmandu	Kathmandu	Nepal	NP	Bagmati	Kathmandu	27.70169	85.32060	Asia/Kathmandu	1442271	P	PPLC	Katmandu	public-fixture
+2078025	Adelaide	Adelaide	Australia	AU	South Australia	Adelaide	-34.92866	138.59863	Australia/Adelaide	1387290	P	PPLA	Adelaida	public-fixture
+1275004	Kolkata	Kolkata	India	IN	West Bengal	Kolkata	22.56263	88.36304	Asia/Kolkata	4631392	P	PPLA	Calcutta	public-fixture

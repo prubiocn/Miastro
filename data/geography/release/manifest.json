@@ -1,0 +1,17 @@
+{
+  "provider": "GeoNames",
+  "snapshotDate": "2026-08-20",
+  "license": "CC BY 4.0",
+  "schemaVersion": "2",
+  "builderVersion": "phase4-geonames-release-2",
+  "database": "geonames.sqlite",
+  "databaseSize": 273686528,
+  "databaseSha256": "ede170983b1777b2bf0a1b471a82826e92f65b79de9882482dcaf901ce65b78d",
+  "sourceLockSha256": "e35d0db8ff9d695e04d20b2b9edb474cf5ffcf5eb665fec426010e091c4ff698",
+  "statistics": {
+    "locations": 235417,
+    "alternateNames": 1880224,
+    "ftsRows": 235417,
+    "timeZones": 394
+  }
+}
