@@ -196,7 +196,25 @@ Configura en Ubuntu:
 - test
 - publish linux-x64 self-contained
 
-La ejecución remota real del workflow no se ha verificado durante esta sesión local.
+La ejecución remota real del workflow ha sido verificada correctamente.
+
+Detalles de la ejecución:
+
+- Fecha: 2026-08-20T09:51:17Z
+- Rama: `main`
+- Commit: `5aaa50bdc46f6382df39f04aaf96ead3fd1de8e7`
+- Workflow: `Miastro CI`
+- Run ID: `32355996155`
+- Resultado: `success`
+- Job: `build-test-publish`
+- Checkout: PASS
+- Setup .NET 10: PASS
+- Restore: PASS
+- Build: PASS
+- Tests: PASS
+- Publish `linux-x64` self-contained: PASS
+- Estado global: SUCCESS
+- Ejecución: https://github.com/prubiocn/Miastro/actions/runs/32355996155
 
 ## 12. Limitaciones deliberadas de Fase 1
 
@@ -274,15 +292,47 @@ Quedan fuera de esta fase:
 - [PASS] Existe desktop entry instalado.
 - [PASS] Existe icono provisional instalado.
 - [PASS] Pipeline CI Ubuntu está definido en el repositorio.
-- [PENDING] Ejecución remota real de GitHub Actions no verificada en esta sesión.
+- [PASS] Ejecución remota real de GitHub Actions verificada correctamente.
 - [PASS] No se detecta implementación astrológica funcional de producción.
 
 ## 14. Resumen
 
-- PASS: 53
+- PASS: 54
 - FAIL: 0
-- PENDING: 1
+- PENDING: 0
 
 La implementación local de Fase 1 satisface los controles técnicos ejecutables en este entorno.
 
-Existe un elemento pendiente independiente del código local: verificar una ejecución remota real del workflow CI una vez que el repositorio se encuentre alojado en GitHub.
+No quedan elementos pendientes en la Fase 1.
+
+
+## 15. Cierre oficial de Fase 1
+
+Estado final:
+
+- PASS: 54
+- FAIL: 0
+- PENDING: 0
+
+GitHub Actions remoto:
+
+- Workflow: `Miastro CI`
+- Rama: `main`
+- Commit verificado: `5aaa50bdc46f6382df39f04aaf96ead3fd1de8e7`
+- Run ID: `32355996155`
+- Fecha de ejecución: `2026-08-20T09:51:17Z`
+- Resultado: `success`
+- Job `build-test-publish`: PASS
+- Checkout: PASS
+- Setup .NET 10: PASS
+- Restore: PASS
+- Build: PASS
+- Tests: PASS
+- Publish `linux-x64` self-contained: PASS
+- Estado global del workflow: PASS
+
+Ejecución verificada:
+
+https://github.com/prubiocn/Miastro/actions/runs/32355996155
+
+**FASE 1 — APROBADA Y CERRADA**
