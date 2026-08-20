@@ -443,3 +443,32 @@ Decisiones relevantes:
 **FASE 3 CERRADA.**
 
 La Fase 4 no forma parte de este cierre y no ha sido iniciada.
+
+
+## Evidencia CI de cierre
+
+Commit de implementación astronómica validado:
+
+`99e8de0cd595c78a15cf5f61d2824f20ec9cc2e0`
+
+Run de implementación:
+
+`32387889379`
+
+URL:
+
+`https://github.com/prubiocn/Miastro/actions/runs/32387889379`
+
+HEAD de `main` utilizado como baseline inmediato del cierre:
+
+`a41841d68a814f48e57c977fa96af66f9fa4243d`
+
+El baseline es descendiente del commit de implementación validado y su
+workflow `Miastro CI` también finalizó en `SUCCESS`.
+
+Validación local final:
+
+- build: PASS
+- tests: 166/166 PASS
+- FAIL: 0
+- PENDING: 0
