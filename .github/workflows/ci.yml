@@ -53,27 +53,27 @@ jobs:
           dotnet restore src/Miastro.UI.Avalonia/Miastro.UI.Avalonia.csproj --runtime linux-x64
 
       - name: Publish linux-x64 self-contained
-        run: >
-          dotnet publish
-          src/Miastro.UI.Avalonia/Miastro.UI.Avalonia.csproj
-          -c Release
-          -r linux-x64
-          --self-contained true
-          -o artifacts/publish/linux-x64
-          -p:DebugType=None
-          -p:DebugSymbols=false
-
+        run: |
+          rm -rf artifacts/publish/fase3-linux-x64
+          mkdir -p artifacts/publish/fase3-linux-x64
+          dotnet publish src/Miastro.UI.Avalonia/Miastro.UI.Avalonia.csproj --configuration Release --runtime linux-x64 --self-contained true --no-restore --output artifacts/publish/fase3-linux-x64
       - name: Verify published Swiss Ephemeris resources
         run: |
-          test -f artifacts/publish/linux-x64/native/linux-x64/libswe.so || test -f artifacts/publish/fase3-linux-x64/native/linux-x64/libswe.so
-          find artifacts -path '*/native/linux-x64/libswe.so' -print -quit | grep -q libswe.so
-          find artifacts -path '*/ephemeris/sepl_18.se1' -print -quit | grep -q sepl_18.se1
-
+          PUBLISH="artifacts/publish/fase3-linux-x64"
+          test -x "$PUBLISH/Miastro.UI.Avalonia"
+          test -f "$PUBLISH/native/linux-x64/libswe.so"
+          test -f "$PUBLISH/native/linux-x64/native-manifest.json"
+          test -f "$PUBLISH/ephemeris/manifest.json"
+          test -f "$PUBLISH/ephemeris/sepl_18.se1"
+          test -f "$PUBLISH/ephemeris/semo_18.se1"
+          test -f "$PUBLISH/ephemeris/seas_18.se1"
+          echo "PublishedSwissResources=PASS"
       - name: Build Phase 3 Debian package
         run: |
-          PUBLISH_DIR="$(find artifacts -type f -name Miastro.UI.Avalonia -printf '%h\\n' | head -n1)"
-          test -n "$PUBLISH_DIR"
+          PUBLISH_DIR="artifacts/publish/fase3-linux-x64"
           test -x "$PUBLISH_DIR/Miastro.UI.Avalonia"
+          test -f "$PUBLISH_DIR/native/linux-x64/libswe.so"
+          test -f "$PUBLISH_DIR/ephemeris/manifest.json"
           chmod +x tools/dev/build-fase3-deb.sh
           MIASTRO_PUBLISH_DIR="$PUBLISH_DIR" tools/dev/build-fase3-deb.sh
       - name: Install Phase 3 Debian package

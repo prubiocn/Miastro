@@ -17,8 +17,24 @@ command -v dpkg-deb >/dev/null 2>&1 || {
     exit 420
 }
 
-test -x "$PUBLISH/Miastro.UI.Avalonia"
-test -f "$PUBLISH/native/linux-x64/libswe.so"
+echo "PublishInput=$PUBLISH"
+
+if [[ ! -x "$PUBLISH/Miastro.UI.Avalonia" ]]; then
+    echo "ERROR: falta ejecutable publish: $PUBLISH/Miastro.UI.Avalonia"
+    exit 520
+fi
+
+if [[ ! -f "$PUBLISH/native/linux-x64/libswe.so" ]]; then
+    echo "ERROR: falta libswe.so: $PUBLISH/native/linux-x64/libswe.so"
+    find "$PUBLISH" -maxdepth 4 -type f -print || true
+    exit 521
+fi
+
+if [[ ! -f "$PUBLISH/ephemeris/manifest.json" ]]; then
+    echo "ERROR: falta manifiesto de efemérides: $PUBLISH/ephemeris/manifest.json"
+    find "$PUBLISH" -maxdepth 4 -type f -print || true
+    exit 522
+fi
 
 rm -rf "$STAGE"
 mkdir -p \
