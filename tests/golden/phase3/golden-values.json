@@ -1,0 +1,504 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "name": "Astrodienst Swiss Ephemeris Test Page",
+    "url": "https://www.astro.com/cgi/swetest.cgi",
+    "engineVersion": "2.10.03",
+    "captureDate": "2026-08-20",
+    "independentFromMiastroAdapter": true
+  },
+  "configuration": {
+    "ephemeris": "Swiss Ephemeris",
+    "zodiac": "tropical",
+    "referenceFrame": "geocentric",
+    "coordinates": "ecliptic",
+    "position": "apparent",
+    "speed": true,
+    "timeScale": "UT"
+  },
+  "tolerances": {
+    "longitudeDegrees": 0.0001,
+    "latitudeDegrees": 0.0001,
+    "longitudeSpeedDegreesPerDay": 0.0001,
+    "houseCuspDegrees": 0.0001,
+    "ascendantDegrees": 0.0001,
+    "midheavenDegrees": 0.0001
+  },
+  "modern": {
+    "instantUtc": "2024-01-01T12:00:00Z",
+    "positions": [
+      {
+        "object": "Sun",
+        "externalName": "Sun",
+        "longitude": 280.5484942,
+        "latitude": 0.0001484,
+        "longitudeSpeed": 1.0190236
+      },
+      {
+        "object": "Moon",
+        "externalName": "Moon",
+        "longitude": 161.9070341,
+        "latitude": 3.1825492,
+        "longitudeSpeed": 11.813886
+      },
+      {
+        "object": "Mercury",
+        "externalName": "Mercury",
+        "longitude": 262.2120264,
+        "latitude": 3.0349293,
+        "longitudeSpeed": -0.0988823
+      },
+      {
+        "object": "Venus",
+        "externalName": "Venus",
+        "longitude": 243.2204324,
+        "latitude": 1.9348853,
+        "longitudeSpeed": 1.2164938
+      },
+      {
+        "object": "Mars",
+        "externalName": "Mars",
+        "longitude": 267.6791578,
+        "latitude": -0.5553746,
+        "longitudeSpeed": 0.7417967
+      },
+      {
+        "object": "Jupiter",
+        "externalName": "Jupiter",
+        "longitude": 35.5843614,
+        "latitude": -1.1829175,
+        "longitudeSpeed": 0.004801
+      },
+      {
+        "object": "Saturn",
+        "externalName": "Saturn",
+        "longitude": 333.2879301,
+        "latitude": -1.6335352,
+        "longitudeSpeed": 0.0890311
+      },
+      {
+        "object": "Uranus",
+        "externalName": "Uranus",
+        "longitude": 49.3730609,
+        "latitude": -0.3059377,
+        "longitudeSpeed": -0.0215291
+      },
+      {
+        "object": "Neptune",
+        "externalName": "Neptune",
+        "longitude": 355.0835103,
+        "latitude": -1.2369718,
+        "longitudeSpeed": 0.0148212
+      },
+      {
+        "object": "Pluto",
+        "externalName": "Pluto",
+        "longitude": 299.3731916,
+        "latitude": -2.7678283,
+        "longitudeSpeed": 0.0310855
+      },
+      {
+        "object": "NorthTrueNode",
+        "externalName": "true Node",
+        "longitude": 21.0328986,
+        "latitude": 0.0,
+        "longitudeSpeed": -0.0771333
+      },
+      {
+        "object": "MeanLilith",
+        "externalName": "mean Apogee",
+        "longitude": 160.0289843,
+        "latitude": 3.3687494,
+        "longitudeSpeed": 0.111299
+      },
+      {
+        "object": "Chiron",
+        "externalName": "Chiron",
+        "longitude": 15.4649247,
+        "latitude": 1.3563968,
+        "longitudeSpeed": 0.0049186
+      },
+      {
+        "object": "Ceres",
+        "externalName": "Ceres",
+        "longitude": 255.6469324,
+        "latitude": 1.9120691,
+        "longitudeSpeed": 0.4081756
+      },
+      {
+        "object": "Pallas",
+        "externalName": "Pallas",
+        "longitude": 227.7604297,
+        "latitude": 18.8953766,
+        "longitudeSpeed": 0.3822131
+      },
+      {
+        "object": "Juno",
+        "externalName": "Juno",
+        "longitude": 171.3617143,
+        "latitude": -5.8073802,
+        "longitudeSpeed": 0.0855634
+      },
+      {
+        "object": "Vesta",
+        "externalName": "Vesta",
+        "longitude": 86.8729611,
+        "latitude": -2.3824146,
+        "longitudeSpeed": -0.2462061
+      }
+    ]
+  },
+  "historical": {
+    "instantUtc": "1900-01-01T12:00:00Z",
+    "positions": [
+      {
+        "object": "Sun",
+        "externalName": "Sun",
+        "longitude": 280.6632882,
+        "latitude": 7.23e-05,
+        "longitudeSpeed": 1.0198555
+      },
+      {
+        "object": "Moon",
+        "externalName": "Moon",
+        "longitude": 279.6163849,
+        "latitude": 1.7442643,
+        "longitudeSpeed": 14.4736457
+      },
+      {
+        "object": "Mercury",
+        "externalName": "Mercury",
+        "longitude": 259.6393506,
+        "latitude": 1.055912,
+        "longitudeSpeed": 1.2896034
+      },
+      {
+        "object": "Venus",
+        "externalName": "Venus",
+        "longitude": 306.9961525,
+        "latitude": -1.6864387,
+        "longitudeSpeed": 1.2433435
+      },
+      {
+        "object": "Mars",
+        "externalName": "Mars",
+        "longitude": 284.2530356,
+        "latitude": -0.9282442,
+        "longitudeSpeed": 0.7707464
+      },
+      {
+        "object": "Jupiter",
+        "externalName": "Jupiter",
+        "longitude": 241.2336136,
+        "latitude": 0.8144123,
+        "longitudeSpeed": 0.195048
+      },
+      {
+        "object": "Saturn",
+        "externalName": "Saturn",
+        "longitude": 267.7749547,
+        "latitude": 1.0073192,
+        "longitudeSpeed": 0.1162224
+      },
+      {
+        "object": "Uranus",
+        "externalName": "Uranus",
+        "longitude": 250.1669441,
+        "latitude": 0.0633319,
+        "longitudeSpeed": 0.0551576
+      },
+      {
+        "object": "Neptune",
+        "externalName": "Neptune",
+        "longitude": 85.2051343,
+        "latitude": -1.2994717,
+        "longitudeSpeed": -0.0271203
+      },
+      {
+        "object": "Pluto",
+        "externalName": "Pluto",
+        "longitude": 75.242841,
+        "latitude": -9.7758399,
+        "longitudeSpeed": -0.0171855
+      },
+      {
+        "object": "NorthTrueNode",
+        "externalName": "true Node",
+        "longitude": 260.2584348,
+        "latitude": 0.0,
+        "longitudeSpeed": -0.0244987
+      },
+      {
+        "object": "MeanLilith",
+        "externalName": "mean Apogee",
+        "longitude": 154.3887821,
+        "latitude": -4.97679,
+        "longitudeSpeed": 0.1120284
+      },
+      {
+        "object": "Chiron",
+        "externalName": "Chiron",
+        "longitude": 258.9520282,
+        "latitude": 4.7682227,
+        "longitudeSpeed": 0.1117399
+      },
+      {
+        "object": "Ceres",
+        "externalName": "Ceres",
+        "longitude": 271.2233412,
+        "latitude": -1.0251122,
+        "longitudeSpeed": 0.4062053
+      },
+      {
+        "object": "Pallas",
+        "externalName": "Pallas",
+        "longitude": 260.8205545,
+        "latitude": 26.8102073,
+        "longitudeSpeed": 0.4136907
+      },
+      {
+        "object": "Juno",
+        "externalName": "Juno",
+        "longitude": 292.5490792,
+        "latitude": 7.9531804,
+        "longitudeSpeed": 0.4021158
+      },
+      {
+        "object": "Vesta",
+        "externalName": "Vesta",
+        "longitude": 17.4352491,
+        "latitude": -7.2787386,
+        "longitudeSpeed": 0.2007115
+      }
+    ]
+  },
+  "retrograde": {
+    "instantUtc": "2024-01-01T12:00:00Z",
+    "position": {
+      "object": "Mercury",
+      "externalName": "Mercury",
+      "longitude": 262.2120264,
+      "latitude": 3.0349293,
+      "longitudeSpeed": -0.0988823
+    }
+  },
+  "houses": {
+    "instantUtc": "2024-01-01T12:00:00Z",
+    "madridPlacidus": {
+      "cusps": [
+        {
+          "house": 1,
+          "longitude": 11.9274739
+        },
+        {
+          "house": 2,
+          "longitude": 49.9097391
+        },
+        {
+          "house": 3,
+          "longitude": 75.1341072
+        },
+        {
+          "house": 4,
+          "longitude": 96.3725358
+        },
+        {
+          "house": 5,
+          "longitude": 118.652523
+        },
+        {
+          "house": 6,
+          "longitude": 147.6178424
+        },
+        {
+          "house": 7,
+          "longitude": 191.9274739
+        },
+        {
+          "house": 8,
+          "longitude": 229.9097391
+        },
+        {
+          "house": 9,
+          "longitude": 255.1341072
+        },
+        {
+          "house": 10,
+          "longitude": 276.3725358
+        },
+        {
+          "house": 11,
+          "longitude": 298.652523
+        },
+        {
+          "house": 12,
+          "longitude": 327.6178424
+        }
+      ],
+      "ascendant": 11.9274739,
+      "midheaven": 276.3725358
+    },
+    "madridKoch": {
+      "cusps": [
+        {
+          "house": 1,
+          "longitude": 11.9274739
+        },
+        {
+          "house": 2,
+          "longitude": 47.3364085
+        },
+        {
+          "house": 3,
+          "longitude": 74.6270504
+        },
+        {
+          "house": 4,
+          "longitude": 96.3725358
+        },
+        {
+          "house": 5,
+          "longitude": 121.0761509
+        },
+        {
+          "house": 6,
+          "longitude": 153.2662262
+        },
+        {
+          "house": 7,
+          "longitude": 191.9274739
+        },
+        {
+          "house": 8,
+          "longitude": 227.3364085
+        },
+        {
+          "house": 9,
+          "longitude": 254.6270504
+        },
+        {
+          "house": 10,
+          "longitude": 276.3725358
+        },
+        {
+          "house": 11,
+          "longitude": 301.0761509
+        },
+        {
+          "house": 12,
+          "longitude": 333.2662262
+        }
+      ],
+      "ascendant": 11.9274739,
+      "midheaven": 276.3725358
+    },
+    "sydneyPlacidus": {
+      "cusps": [
+        {
+          "house": 1,
+          "longitude": 152.7564029
+        },
+        {
+          "house": 2,
+          "longitude": 195.925917
+        },
+        {
+          "house": 3,
+          "longitude": 228.3315472
+        },
+        {
+          "house": 4,
+          "longitude": 253.2635439
+        },
+        {
+          "house": 5,
+          "longitude": 275.73696
+        },
+        {
+          "house": 6,
+          "longitude": 300.1800991
+        },
+        {
+          "house": 7,
+          "longitude": 332.7564029
+        },
+        {
+          "house": 8,
+          "longitude": 15.925917
+        },
+        {
+          "house": 9,
+          "longitude": 48.3315472
+        },
+        {
+          "house": 10,
+          "longitude": 73.2635439
+        },
+        {
+          "house": 11,
+          "longitude": 95.73696
+        },
+        {
+          "house": 12,
+          "longitude": 120.1800991
+        }
+      ],
+      "ascendant": 152.7564029,
+      "midheaven": 73.2635439
+    },
+    "sydneyKoch": {
+      "cusps": [
+        {
+          "house": 1,
+          "longitude": 152.7564029
+        },
+        {
+          "house": 2,
+          "longitude": 189.9644614
+        },
+        {
+          "house": 3,
+          "longitude": 224.950169
+        },
+        {
+          "house": 4,
+          "longitude": 253.2635439
+        },
+        {
+          "house": 5,
+          "longitude": 275.2552518
+        },
+        {
+          "house": 6,
+          "longitude": 300.8785242
+        },
+        {
+          "house": 7,
+          "longitude": 332.7564029
+        },
+        {
+          "house": 8,
+          "longitude": 9.9644614
+        },
+        {
+          "house": 9,
+          "longitude": 44.950169
+        },
+        {
+          "house": 10,
+          "longitude": 73.2635439
+        },
+        {
+          "house": 11,
+          "longitude": 95.2552518
+        },
+        {
+          "house": 12,
+          "longitude": 120.8785242
+        }
+      ],
+      "ascendant": 152.7564029,
+      "midheaven": 73.2635439
+    }
+  }
+}

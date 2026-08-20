@@ -1,0 +1,6 @@
+# Preserve upstream licences and raw external golden captures.
+licenses/SwissEphemeris/LICENSE -whitespace
+licenses/SwissEphemeris/LICENSE.TXT -whitespace
+licenses/SwissEphemeris/agpl-3.0.txt -whitespace
+tests/golden/phase3/external/*.html -whitespace
+tests/golden/phase3/external/*.txt -whitespace

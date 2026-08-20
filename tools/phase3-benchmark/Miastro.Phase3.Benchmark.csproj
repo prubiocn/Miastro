@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/Miastro.Domain/Miastro.Domain.csproj" />
+    <ProjectReference Include="../../src/Miastro.Astronomy.Abstractions/Miastro.Astronomy.Abstractions.csproj" />
+    <ProjectReference Include="../../src/Miastro.Infrastructure.SwissEphemeris/Miastro.Infrastructure.SwissEphemeris.csproj" />
+  </ItemGroup>
+
+</Project>

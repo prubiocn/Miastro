@@ -1,0 +1,13 @@
+name=Swiss Ephemeris
+upstream=https://github.com/aloistr/swisseph.git
+tag=v2.10.3final
+commit=af9823fe7b06ffefe3d3968fdc5680be8b5eec5f
+version=2.10.03
+source_commit_date=2026-04-14T16:31:43+02:00
+target=linux-x64
+build_target=libswe.so
+compiler=cc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+libswe_sha256=47e6fed985ccb5f067b7a0f6f746ec3567a7b54ce5f86140b2138616a8e6a653
+libswe_size=1113520
+link_libraries=libm
+strict_undefined_symbols=true

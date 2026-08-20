@@ -1,0 +1,25 @@
+<Project>
+
+  <!-- MIASTRO_PHASE3_NATIVE_ASSETS_START -->
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'Miastro.UI.Avalonia'">
+    <Content Include="$(MSBuildThisFileDirectory)src/Miastro.Infrastructure.SwissEphemeris/native/linux-x64/libswe.so">
+      <Link>native/linux-x64/libswe.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+
+    <Content Include="$(MSBuildThisFileDirectory)src/Miastro.Infrastructure.SwissEphemeris/native/linux-x64/native-manifest.json">
+      <Link>native/linux-x64/native-manifest.json</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+
+    <Content Include="$(MSBuildThisFileDirectory)data/ephemeris/*">
+      <Link>ephemeris/%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+  <!-- MIASTRO_PHASE3_NATIVE_ASSETS_END -->
+
+</Project>

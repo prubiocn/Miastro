@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 2,
+  "source": "Astrodienst Swiss Ephemeris Test Page",
+  "sourceUrl": "https://www.astro.com/cgi/swetest.cgi",
+  "referenceEngineVersion": "2.10.03",
+  "captured": "2026-08-20",
+  "rawResponses": [
+    {
+      "file": "historical_positions.html",
+      "sha256": "f66cf1f80e18036b6b70b223b6f2178daefdebbd7ec57237554ec8e1095d0497",
+      "size": 5652
+    },
+    {
+      "file": "madrid_koch.html",
+      "sha256": "34cc2571319198501f822ad6f054a09ad3cdbd6a0e769473ab928860e977eec8",
+      "size": 5627
+    },
+    {
+      "file": "madrid_placidus.html",
+      "sha256": "f29335b7d2fe47671748c57faa26cd0bf32b55ee0d399cd09557f8c7d21b4f98",
+      "size": 5627
+    },
+    {
+      "file": "mercury_retrograde.html",
+      "sha256": "d99990b85a574cec8df5d1ddc0e26a669fe556e4901dbb91a63abd1ec8df3ab2",
+      "size": 4743
+    },
+    {
+      "file": "modern_positions.html",
+      "sha256": "2c2f90da7e42720c5ffe4aca5b69317224a02ae1c5e4da990328d34ee595b81b",
+      "size": 5650
+    },
+    {
+      "file": "sydney_koch.html",
+      "sha256": "3e81d9b75f18c1e6298b1022d553b847a712b3d62ab8644dabd89d84b6bbc213",
+      "size": 5637
+    },
+    {
+      "file": "sydney_placidus.html",
+      "sha256": "ea0cf0e11b1ab3006ff00c57be6a4c0267ce6b596f1bba6a0f5c6ea1e9893284",
+      "size": 5637
+    }
+  ],
+  "parsedGoldenFile": "golden-values.json"
+}

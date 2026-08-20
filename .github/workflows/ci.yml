@@ -42,6 +42,16 @@ jobs:
           -c Release
           --no-build
 
+      # MIASTRO_PHASE3_NATIVE_CI
+      - name: Install Phase 3 native verification dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential binutils xvfb
+
+      - name: Restore linux-x64 runtime
+        run: |
+          dotnet restore src/Miastro.UI.Avalonia/Miastro.UI.Avalonia.csproj --runtime linux-x64
+
       - name: Publish linux-x64 self-contained
         run: >
           dotnet publish
@@ -52,3 +62,42 @@ jobs:
           -o artifacts/publish/linux-x64
           -p:DebugType=None
           -p:DebugSymbols=false
+
+      - name: Verify published Swiss Ephemeris resources
+        run: |
+          test -f artifacts/publish/linux-x64/native/linux-x64/libswe.so || test -f artifacts/publish/fase3-linux-x64/native/linux-x64/libswe.so
+          find artifacts -path '*/native/linux-x64/libswe.so' -print -quit | grep -q libswe.so
+          find artifacts -path '*/ephemeris/sepl_18.se1' -print -quit | grep -q sepl_18.se1
+
+      - name: Build Phase 3 Debian package
+        run: |
+          PUBLISH_DIR="$(find artifacts -type f -name Miastro.UI.Avalonia -printf '%h\n' | head -n1)"
+          test -n "$PUBLISH_DIR"
+          rm -rf artifacts/publish/fase3-linux-x64
+          mkdir -p artifacts/publish
+          cp -a "$PUBLISH_DIR" artifacts/publish/fase3-linux-x64
+          chmod +x tools/dev/build-fase3-deb.sh
+          tools/dev/build-fase3-deb.sh
+
+      - name: Install Phase 3 Debian package
+        run: |
+          DEB="$(find artifacts/deb -maxdepth 1 -name 'miastro_*_amd64.deb' -print -quit)"
+          test -f "$DEB"
+          sudo dpkg -i "$DEB"
+
+      - name: Verify installed Swiss Ephemeris
+        run: |
+          chmod +x tools/dev/verify-fase3-installed.sh
+          tools/dev/verify-fase3-installed.sh
+
+      - name: Smoke installed application
+        run: |
+          set +e
+          timeout 8s xvfb-run -a /usr/bin/miastro >/tmp/miastro-smoke.log 2>&1
+          rc=$?
+          set -e
+          if [ "$rc" -ne 0 ] && [ "$rc" -ne 124 ]; then
+            cat /tmp/miastro-smoke.log
+            exit "$rc"
+          fi
+          echo "InstalledApplicationSmoke=PASS"

@@ -17,6 +17,7 @@
     <ProjectReference Include="../../src/Miastro.Infrastructure.Platform.Linux/Miastro.Infrastructure.Platform.Linux.csproj" />
     <ProjectReference Include="../../src/Miastro.Infrastructure.Persistence/Miastro.Infrastructure.Persistence.csproj" />
     <ProjectReference Include="../../src/Miastro.Bootstrap/Miastro.Bootstrap.csproj" />
+    <ProjectReference Include="..\..\src\Miastro.Infrastructure.SwissEphemeris\Miastro.Infrastructure.SwissEphemeris.csproj" />
   </ItemGroup>
 
 </Project>
