@@ -4,17 +4,15 @@
 
 Fase: **Fase 2 — Núcleo de dominio astrológico**
 
-Estado previo a validación CI remota:
+Estado final:
 
-- PASS: 43
+- PASS: 44
 - FAIL: 0
-- PENDING: 1
+- PENDING: 0
 
-Pendiente único:
+Validación remota completada correctamente.
 
-- ejecución remota real de GitHub Actions para el commit de Fase 2.
-
-La fase no se declara todavía oficialmente cerrada.
+La Fase 2 queda oficialmente aprobada y cerrada.
 
 ## 2. Implementaciones
 
@@ -205,14 +203,48 @@ Queda fuera de Fase 2:
 - informes astrológicos finales;
 - impresión astrológica.
 
-## 11. Resultado de aceptación previo a CI
+## 11. Resultado final de aceptación
 
 | Estado | Total |
 |---|---:|
-| PASS | 43 |
+| PASS | 44 |
 | FAIL | 0 |
-| PENDING | 1 |
+| PENDING | 0 |
 
-El único PENDING es la ejecución remota de GitHub Actions.
+GitHub Actions remoto ha finalizado en `SUCCESS`.
 
-La Fase 2 no se declarará cerrada hasta que dicho workflow termine en SUCCESS.
+### Verificación remota
+
+- Workflow: `Miastro CI`
+- Rama: `main`
+- Commit técnico verificado: `f2838f46baa65e9fc0ceac6c1af2b9da33a20e3d`
+- Run ID: `32360029059`
+- Inicio: `2026-08-20T10:39:57Z`
+- Finalización: `2026-08-20T10:46:00Z`
+- Job `build-test-publish`: PASS
+- Checkout: PASS
+- Setup .NET 10: PASS
+- Restore: PASS
+- Build: PASS
+- Tests: PASS
+- Publish linux-x64 self-contained: PASS
+- Estado global: SUCCESS
+- Ejecución: https://github.com/prubiocn/Miastro/actions/runs/32360029059
+
+## 12. Cierre oficial
+
+**PASS: 44**
+
+**FAIL: 0**
+
+**PENDING: 0**
+
+**FASE 2 — APROBADA Y CERRADA**
+
+No se inicia automáticamente la Fase 3.
+
+La siguiente fase prevista es:
+
+`Fase 3 — Integración de Swiss Ephemeris en Linux`
+
+y deberá comenzar únicamente mediante una orden independiente.
