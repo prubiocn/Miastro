@@ -7,10 +7,7 @@ namespace Miastro.Tests;
 public sealed class Phase4GeoNamesReleaseTests
 {
     private static string CatalogPath =>
-        Path.GetFullPath(
-            Path.Combine(
-                AppContext.BaseDirectory,
-                "../../../../../data/geography/release/geonames.sqlite"));
+        Phase4GeoCatalogTestPaths.Resolve();
 
     private static SqliteLocationSearchService CreateService() =>
         new(new GeoNamesCatalogOptions(CatalogPath));

@@ -9,10 +9,7 @@ public sealed class Phase4GeoNamesTzdbTests
     [TestMethod]
     public void EveryOfficialCatalogZoneExistsInBundledTzdb()
     {
-        var path = Path.GetFullPath(
-            Path.Combine(
-                AppContext.BaseDirectory,
-                "../../../../../data/geography/release/geonames.sqlite"));
+        var path = Phase4GeoCatalogTestPaths.Resolve();
 
         var builder = new SqliteConnectionStringBuilder
         {

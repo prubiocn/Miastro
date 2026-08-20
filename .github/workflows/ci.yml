@@ -43,6 +43,8 @@ jobs:
         run: dotnet build Miastro.sln -c Release --no-restore
 
       - name: Test
+        env:
+          MIASTRO_GEODATA_DIR: ${{ github.workspace }}/data/geography/generated
         run: >
           dotnet test
           tests/Miastro.Tests/Miastro.Tests.csproj

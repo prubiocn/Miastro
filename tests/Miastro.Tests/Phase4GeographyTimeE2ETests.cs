@@ -12,10 +12,7 @@ public sealed class Phase4GeographyTimeE2ETests
 {
     private static ResolveLocationTimeUseCase CreateUseCase()
     {
-        var catalog = Path.GetFullPath(
-            Path.Combine(
-                AppContext.BaseDirectory,
-                "../../../../../data/geography/release/geonames.sqlite"));
+        var catalog = Phase4GeoCatalogTestPaths.Resolve();
 
         return new ResolveLocationTimeUseCase(
             new SqliteLocationSearchService(
@@ -26,10 +23,7 @@ public sealed class Phase4GeographyTimeE2ETests
     [TestMethod]
     public async Task Malaga_LocalDateTime_ToCoordinatesZoneAndInstant()
     {
-        var catalog = Path.GetFullPath(
-            Path.Combine(
-                AppContext.BaseDirectory,
-                "../../../../../data/geography/release/geonames.sqlite"));
+        var catalog = Phase4GeoCatalogTestPaths.Resolve();
 
         var locations =
             new SqliteLocationSearchService(
@@ -64,10 +58,7 @@ public sealed class Phase4GeographyTimeE2ETests
     [TestMethod]
     public async Task Pamplona_HomonymSelection_ChangesCountryAndZone()
     {
-        var catalog = Path.GetFullPath(
-            Path.Combine(
-                AppContext.BaseDirectory,
-                "../../../../../data/geography/release/geonames.sqlite"));
+        var catalog = Phase4GeoCatalogTestPaths.Resolve();
 
         var locations =
             new SqliteLocationSearchService(

@@ -99,3 +99,22 @@ Pendiente de:
 5. CI final SUCCESS.
 
 No iniciar Fase 5.
+
+## Candidato CI — corrección 1
+
+El primer commit candidato (`8420a83052c695be9eca56bdca302e591ef3b13d`)
+compiló correctamente en CI pero falló en el paso de tests.
+
+Causa: varios tests de integración geográfica apuntaban directamente a
+`data/geography/release/geonames.sqlite`, un artefacto grande que
+deliberadamente no se versiona.
+
+Corrección aplicada:
+
+- ruta de catálogo de tests centralizada;
+- `MIASTRO_GEODATA_DIR` tiene prioridad;
+- CI usa el fixture controlado generado en el propio job;
+- local puede seguir usando el catálogo oficial de release;
+- no se versiona `geonames.sqlite`.
+
+La Fase 4 permanece abierta hasta obtener CI SUCCESS.
