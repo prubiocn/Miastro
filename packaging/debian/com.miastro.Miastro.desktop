@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Miastro
+Comment=Aplicación profesional de astrología
+Exec=/usr/bin/miastro
+Icon=com.miastro.Miastro
+Terminal=false
+Categories=Office;Utility;
+StartupNotify=true

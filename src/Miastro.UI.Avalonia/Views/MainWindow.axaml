@@ -1,0 +1,31 @@
+<Window
+    x:Class="Miastro.UI.Avalonia.Views.MainWindow"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vm="using:Miastro.UI.Avalonia.ViewModels"
+    x:DataType="vm:MainWindowViewModel"
+    Width="960"
+    Height="640"
+    MinWidth="720"
+    MinHeight="480"
+    Title="{Binding Title}">
+
+    <Grid Margin="32">
+        <StackPanel
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Spacing="10">
+
+            <TextBlock
+                Text="{Binding Title}"
+                FontSize="28"
+                FontWeight="SemiBold"
+                HorizontalAlignment="Center" />
+
+            <TextBlock
+                Text="{Binding Status}"
+                HorizontalAlignment="Center" />
+
+        </StackPanel>
+    </Grid>
+</Window>

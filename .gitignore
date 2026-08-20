@@ -1,0 +1,14 @@
+
+artifacts/
+bin/
+.cache/
+# Datos de usuario: nunca pertenecen al repositorio
+*.deb
+.idea/
+.local/
+obj/
+# Salidas locales
+*.suo
+TestResults/
+*.user
+.vs/
