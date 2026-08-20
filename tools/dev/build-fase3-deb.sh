@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="/home/pablo/Aplicaciones/Miastro"
-PUBLISH="$ROOT/artifacts/publish/fase3-linux-x64"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
+PUBLISH="${MIASTRO_PUBLISH_DIR:-$ROOT/artifacts/publish/fase3-linux-x64}"
 OUT="$ROOT/artifacts/deb"
 STAGE="$ROOT/artifacts/package/fase3-deb"
 VERSION="0.3.0~phase3-1"

@@ -71,14 +71,11 @@ jobs:
 
       - name: Build Phase 3 Debian package
         run: |
-          PUBLISH_DIR="$(find artifacts -type f -name Miastro.UI.Avalonia -printf '%h\n' | head -n1)"
+          PUBLISH_DIR="$(find artifacts -type f -name Miastro.UI.Avalonia -printf '%h\\n' | head -n1)"
           test -n "$PUBLISH_DIR"
-          rm -rf artifacts/publish/fase3-linux-x64
-          mkdir -p artifacts/publish
-          cp -a "$PUBLISH_DIR" artifacts/publish/fase3-linux-x64
+          test -x "$PUBLISH_DIR/Miastro.UI.Avalonia"
           chmod +x tools/dev/build-fase3-deb.sh
-          tools/dev/build-fase3-deb.sh
-
+          MIASTRO_PUBLISH_DIR="$PUBLISH_DIR" tools/dev/build-fase3-deb.sh
       - name: Install Phase 3 Debian package
         run: |
           DEB="$(find artifacts/deb -maxdepth 1 -name 'miastro_*_amd64.deb' -print -quit)"

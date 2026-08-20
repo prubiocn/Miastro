@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="/home/pablo/Aplicaciones/Miastro"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
 LIB="/usr/lib/miastro/native/libswe.so"
 EPHE="/usr/share/miastro/ephemeris"
 APP="/usr/bin/miastro"
+
+export MIASTRO_REPO_ROOT="$ROOT"
 
 test -x "$APP"
 test -f "$LIB"
@@ -14,9 +17,13 @@ EXPECTED_HASH="$(
 python3 - <<'PY'
 import json
 
+from pathlib import Path
+import os
+
+root = Path(os.environ["MIASTRO_REPO_ROOT"])
+
 with open(
-    "/home/pablo/Aplicaciones/Miastro/"
-    "third_party/swisseph/native-manifest.json",
+    root / "third_party/swisseph/native-manifest.json",
     encoding="utf-8"
 ) as f:
     print(json.load(f)["sha256"])

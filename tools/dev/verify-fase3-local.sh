@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT="/home/pablo/Aplicaciones/Miastro"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
 TESTS="$ROOT/tests/Miastro.Tests/Miastro.Tests.csproj"
 UI="$ROOT/src/Miastro.UI.Avalonia/Miastro.UI.Avalonia.csproj"
 PUBLISH="$ROOT/artifacts/publish/fase3-linux-x64"

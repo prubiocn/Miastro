@@ -3,7 +3,8 @@ set -euo pipefail
 
 export LC_ALL=C
 
-ROOT="/home/pablo/Aplicaciones/Miastro"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
 BUILD="$ROOT/artifacts/vendor/swisseph"
 SOURCE="$BUILD/source"
 NATIVE="$ROOT/src/Miastro.Infrastructure.SwissEphemeris/native/linux-x64"
