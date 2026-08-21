@@ -32,8 +32,8 @@ jobs:
       - name: Restore
         run: dotnet restore Miastro.sln
 
-      # MIASTRO_PHASE4_GEODATA_CI
-      - name: Build controlled Phase 4 geodata fixture
+      # MIASTRO_PHASE5_GEODATA_CI
+      - name: Build controlled Phase 5 geodata fixture
         run: |
           rm -rf data/geography/generated
           mkdir -p data/geography/generated
@@ -63,12 +63,12 @@ jobs:
 
       - name: Publish linux-x64 self-contained
         run: |
-          rm -rf artifacts/publish/fase4-linux-x64
-          mkdir -p artifacts/publish/fase4-linux-x64
-          MIASTRO_GEODATA_DIR="$PWD/data/geography/generated" dotnet publish src/Miastro.UI.Avalonia/Miastro.UI.Avalonia.csproj --configuration Release --runtime linux-x64 --self-contained true --no-restore --output artifacts/publish/fase4-linux-x64
+          rm -rf artifacts/publish/fase5-linux-x64
+          mkdir -p artifacts/publish/fase5-linux-x64
+          MIASTRO_GEODATA_DIR="$PWD/data/geography/generated" dotnet publish src/Miastro.UI.Avalonia/Miastro.UI.Avalonia.csproj --configuration Release --runtime linux-x64 --self-contained true --no-restore --output artifacts/publish/fase5-linux-x64
       - name: Verify published Swiss Ephemeris resources
         run: |
-          PUBLISH="artifacts/publish/fase4-linux-x64"
+          PUBLISH="artifacts/publish/fase5-linux-x64"
           test -x "$PUBLISH/Miastro.UI.Avalonia"
           test -f "$PUBLISH/native/linux-x64/libswe.so"
           test -f "$PUBLISH/native/linux-x64/native-manifest.json"
@@ -77,46 +77,195 @@ jobs:
           test -f "$PUBLISH/ephemeris/semo_18.se1"
           test -f "$PUBLISH/ephemeris/seas_18.se1"
           echo "PublishedSwissResources=PASS"
-      - name: Verify published Phase 4 geodata
+      - name: Verify published Phase 5 geodata
         run: |
-          PUBLISH="artifacts/publish/fase4-linux-x64"
+          PUBLISH="artifacts/publish/fase5-linux-x64"
           test -f "$PUBLISH/geodata/geonames.sqlite"
           test -f "$PUBLISH/geodata/manifest.json"
           python3 - <<'PY'
           import sqlite3
-          db = "artifacts/publish/fase4-linux-x64/geodata/geonames.sqlite"
+          db = "artifacts/publish/fase5-linux-x64/geodata/geonames.sqlite"
           con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
           assert con.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
           assert con.execute("SELECT COUNT(*) FROM locations").fetchone()[0] == 8
           con.close()
-          print("PublishedPhase4Geodata=PASS")
+          print("PublishedPhase5Geodata=PASS")
           PY
 
-      - name: Build Phase 4 Debian package
+      - name: Build Phase 5 Debian package
         run: |
-          PUBLISH_DIR="artifacts/publish/fase4-linux-x64"
+          PUBLISH_DIR="artifacts/publish/fase5-linux-x64"
           test -x "$PUBLISH_DIR/Miastro.UI.Avalonia"
           test -f "$PUBLISH_DIR/native/linux-x64/libswe.so"
           test -f "$PUBLISH_DIR/ephemeris/manifest.json"
           test -f "$PUBLISH_DIR/geodata/geonames.sqlite"
           test -f "$PUBLISH_DIR/geodata/manifest.json"
-          chmod +x tools/dev/build-fase4-deb.sh
-          MIASTRO_PUBLISH_DIR="$PUBLISH_DIR" tools/dev/build-fase4-deb.sh
-      - name: Install Phase 4 Debian package
+          chmod +x tools/dev/build-fase5-deb.sh
+          MIASTRO_PUBLISH_DIR="$PUBLISH_DIR" tools/dev/build-fase5-deb.sh
+      - name: Install Phase 5 Debian package
         run: |
           DEB="$(find artifacts/deb -maxdepth 1 -name 'miastro_*_amd64.deb' -print -quit)"
           test -f "$DEB"
           sudo dpkg -i "$DEB"
 
-      - name: Verify installed Phase 4 geodata
+      - name: Verify installed Phase 5 geodata
         run: |
-          chmod +x tools/dev/verify-fase4-installed.sh
-          tools/dev/verify-fase4-installed.sh
+          chmod +x tools/dev/verify-fase5-installed.sh
+          tools/dev/verify-fase5-installed.sh
 
       - name: Verify installed Swiss Ephemeris
         run: |
           chmod +x tools/dev/verify-fase3-installed.sh
           tools/dev/verify-fase3-installed.sh
+
+      - name: Verify Phase 5 XDG preservation across uninstall and reinstall
+        run: |
+          set -euo pipefail
+
+          TEST_ROOT="$RUNNER_TEMP/miastro-phase5-xdg-package"
+          export MIASTRO_PHASE5_PERSIST_XDG_ROOT="$TEST_ROOT"
+          export XDG_DATA_HOME="$TEST_ROOT/data"
+          export XDG_CONFIG_HOME="$TEST_ROOT/config"
+          export XDG_CACHE_HOME="$TEST_ROOT/cache"
+          export XDG_STATE_HOME="$TEST_ROOT/state"
+          export XDG_RUNTIME_DIR="$TEST_ROOT/runtime"
+          export MIASTRO_GEODATA_DIR="/usr/share/miastro/geodata"
+
+          rm -rf "$TEST_ROOT"
+          mkdir -p "$XDG_RUNTIME_DIR"
+
+          MIASTRO_GEODATA_DIR="/usr/share/miastro/geodata" \
+          dotnet test \
+            tests/Miastro.Tests/Miastro.Tests.csproj \
+            -c Release \
+            --no-build \
+            --filter "FullyQualifiedName~Phase5PersonGeoNamesXdgE2ETests.Person_with_real_geonames_birth_survives_application_reopen"
+
+          DB="$XDG_DATA_HOME/miastro/miastro.db"
+          test -f "$DB"
+
+          BEFORE="$(sha256sum "$DB" | awk '{print $1}')"
+
+          sudo dpkg -r miastro
+
+          test -f "$DB"
+
+          AFTER_REMOVE="$(sha256sum "$DB" | awk '{print $1}')"
+          test "$BEFORE" = "$AFTER_REMOVE"
+
+          DEB="$(find artifacts/deb -maxdepth 1 -name 'miastro_*_amd64.deb' -print -quit)"
+          test -f "$DEB"
+
+          sudo dpkg -i "$DEB"
+
+          test -f "$DB"
+
+          AFTER_REINSTALL="$(sha256sum "$DB" | awk '{print $1}')"
+          test "$BEFORE" = "$AFTER_REINSTALL"
+
+          python3 - "$DB" <<'PYDB'
+          import sqlite3
+          import sys
+
+          db = sys.argv[1]
+
+          con = sqlite3.connect(
+              f"file:{db}?mode=ro",
+              uri=True,
+          )
+
+          person = con.execute(
+              """
+              SELECT Id, FirstName, LastName, IsFavorite
+              FROM People
+              WHERE FirstName='Persona'
+                AND LastName='Persistente'
+              ORDER BY CreatedAtUtc
+              LIMIT 1
+              """
+          ).fetchone()
+
+          if person is None:
+              raise SystemExit(
+                  "ERROR: Persona no recuperada tras reinstalación."
+              )
+
+          person_id = person[0]
+
+          birth = con.execute(
+              """
+              SELECT Locality, IanaTimeZoneId,
+                     TemporalResolutionState,
+                     ResolvedInstantUtc
+              FROM BirthData
+              WHERE PersonId=?
+              """,
+              (person_id,),
+          ).fetchone()
+
+          residence = con.execute(
+              """
+              SELECT Locality, IanaTimeZoneId
+              FROM CurrentResidences
+              WHERE PersonId=?
+              """,
+              (person_id,),
+          ).fetchone()
+
+          history = con.execute(
+              """
+              SELECT COUNT(*)
+              FROM PersonHistory
+              WHERE PersonId=?
+              """,
+              (person_id,),
+          ).fetchone()[0]
+
+          con.close()
+
+          if person[3] != 1:
+              raise SystemExit(
+                  "ERROR: favorito no recuperado."
+              )
+
+          if birth is None:
+              raise SystemExit(
+                  "ERROR: nacimiento no recuperado."
+              )
+
+          if birth[0] != "Málaga":
+              raise SystemExit(
+                  "ERROR: localidad natal no recuperada."
+              )
+
+          if birth[1] != "Europe/Madrid":
+              raise SystemExit(
+                  "ERROR: zona natal no recuperada."
+              )
+
+          if birth[3] is None:
+              raise SystemExit(
+                  "ERROR: Instant natal no recuperado."
+              )
+
+          if residence is None:
+              raise SystemExit(
+                  "ERROR: residencia no recuperada."
+              )
+
+          if history < 1:
+              raise SystemExit(
+                  "ERROR: historial no recuperado."
+              )
+
+          print("PersonRecoveredAfterReinstall=PASS")
+          print("BirthRecoveredAfterReinstall=PASS")
+          print("ResidenceRecoveredAfterReinstall=PASS")
+          print("HistoryRecoveredAfterReinstall=PASS")
+          PYDB
+
+          echo "XdgPreservedAfterUninstall=PASS"
+          echo "XdgPreservedAfterReinstall=PASS"
 
       - name: Smoke installed application
         run: |

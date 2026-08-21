@@ -1,3 +1,7 @@
+using Miastro.Application.Backup;
+using Miastro.Infrastructure.Persistence.Backup;
+using Miastro.Application.People;
+using Miastro.Infrastructure.Persistence.People;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Miastro.Application.Platform;
@@ -18,6 +22,8 @@ public static class PersistenceServiceCollectionExtensions
         });
 
         services.AddSingleton<DatabaseInitializer>();
+        services.AddScoped<IPersonStore, EfPersonStore>();
+        services.AddScoped<IDatabaseBackupService, SqliteDatabaseBackupService>();
 
         return services;
     }

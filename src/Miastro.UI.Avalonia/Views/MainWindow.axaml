@@ -4,28 +4,755 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vm="using:Miastro.UI.Avalonia.ViewModels"
     x:DataType="vm:MainWindowViewModel"
-    Width="960"
-    Height="640"
-    MinWidth="720"
-    MinHeight="480"
+    Width="1180"
+    Height="760"
+    MinWidth="900"
+    MinHeight="620"
     Title="{Binding Title}">
 
-    <Grid Margin="32">
-        <StackPanel
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Spacing="10">
+    <Grid
+        RowDefinitions="Auto,*,Auto"
+        Background="{DynamicResource SystemControlBackgroundBaseLowBrush}">
 
-            <TextBlock
-                Text="{Binding Title}"
-                FontSize="28"
-                FontWeight="SemiBold"
-                HorizontalAlignment="Center" />
+        <Border
+            Grid.Row="0"
+            Padding="20,14"
+            BorderThickness="0,0,0,1"
+            BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
 
-            <TextBlock
-                Text="{Binding Status}"
-                HorizontalAlignment="Center" />
+            <Grid
+                ColumnDefinitions="Auto,*,Auto"
+                ColumnSpacing="20">
 
-        </StackPanel>
+                <StackPanel
+                    Grid.Column="0"
+                    Spacing="2">
+
+                    <TextBlock
+                        Text="Miastro"
+                        FontSize="24"
+                        FontWeight="SemiBold" />
+
+                    <TextBlock
+                        Text="Personas"
+                        Opacity="0.7" />
+
+                </StackPanel>
+
+                <TextBlock
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Text="{Binding Language}"
+                    Opacity="0.65" />
+
+            </Grid>
+        </Border>
+
+        <Grid
+            Grid.Row="1"
+            Margin="20"
+            ColumnDefinitions="340,*"
+            ColumnSpacing="20">
+
+            <Border
+                Grid.Column="0"
+                Padding="16"
+                CornerRadius="8"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+
+                <Grid
+                    RowDefinitions="Auto,Auto,Auto,*,Auto"
+                    RowSpacing="12">
+
+                    <TextBlock
+                        Grid.Row="0"
+                        Text="Personas"
+                        FontSize="20"
+                        FontWeight="SemiBold" />
+
+                    <Grid
+                        Grid.Row="1"
+                        ColumnDefinitions="*,Auto"
+                        ColumnSpacing="8">
+
+                        <TextBox
+                            Grid.Column="0"
+                            PlaceholderText="Buscar por nombre o apellidos"
+                            Text="{Binding SearchText}" />
+
+                        <Button
+                            Grid.Column="1"
+                            Content="Buscar"
+                            Command="{Binding SearchCommand}" />
+
+                    </Grid>
+
+                    <Grid
+                        Grid.Row="2"
+                        ColumnDefinitions="*,*"
+                        ColumnSpacing="8">
+
+                        <ComboBox
+                            Grid.Column="0"
+                            ItemsSource="{Binding Filters}"
+                            SelectedItem="{Binding SelectedFilter}" />
+
+                        <ComboBox
+                            Grid.Column="1"
+                            ItemsSource="{Binding SortChoices}"
+                            SelectedItem="{Binding SelectedSort}" />
+
+                    </Grid>
+
+                    <ListBox
+                        Grid.Row="3"
+                        ItemsSource="{Binding People}"
+                        SelectedItem="{Binding SelectedPerson}">
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate
+                                x:DataType="vm:PersonListRowViewModel">
+
+                                <Grid
+                                    Margin="4"
+                                    ColumnDefinitions="Auto,*"
+                                    ColumnSpacing="8">
+
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        Text="{Binding FavoriteMark}"
+                                        FontSize="16"
+                                        VerticalAlignment="Top" />
+
+                                    <StackPanel
+                                        Grid.Column="1"
+                                        Spacing="2">
+
+                                        <TextBlock
+                                            Text="{Binding DisplayName}"
+                                            FontWeight="SemiBold" />
+
+                                        <TextBlock
+                                            Text="{Binding LastConsultationText}"
+                                            FontSize="12"
+                                            Opacity="0.65" />
+
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <Grid
+                        Grid.Row="4"
+                        ColumnDefinitions="*,Auto"
+                        ColumnSpacing="8">
+
+                        <Button
+                            Grid.Column="0"
+                            Content="Nueva persona"
+                            Command="{Binding NewPersonCommand}" />
+
+                        <Button
+                            Grid.Column="1"
+                            Content="Abrir"
+                            Command="{Binding OpenSelectedCommand}" />
+
+                    </Grid>
+
+                </Grid>
+            </Border>
+
+            <Border
+                Grid.Column="1"
+                Padding="22"
+                CornerRadius="8"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+
+                <Grid>
+
+                    <StackPanel
+                        IsVisible="{Binding !IsEditorVisible}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="10">
+
+                        <TextBlock
+                            Text="Selecciona una persona"
+                            FontSize="22"
+                            FontWeight="SemiBold"
+                            HorizontalAlignment="Center" />
+
+                        <TextBlock
+                            Text="o crea una ficha nueva"
+                            Opacity="0.7"
+                            HorizontalAlignment="Center" />
+
+                    </StackPanel>
+
+                    <ScrollViewer
+                        IsVisible="{Binding IsEditorVisible}">
+
+                        <StackPanel
+                            Spacing="18">
+
+                            <Grid
+                                ColumnDefinitions="*,Auto"
+                                ColumnSpacing="12">
+
+                                <StackPanel
+                                    Grid.Column="0"
+                                    Spacing="4">
+
+                                    <TextBlock
+                                        Text="{Binding EditorTitle}"
+                                        FontSize="22"
+                                        FontWeight="SemiBold" />
+
+                                    <TextBlock
+                                        Text="{Binding LastConsultationText}"
+                                        Opacity="0.65" />
+
+                                </StackPanel>
+
+                                <CheckBox
+                                    Grid.Column="1"
+                                    Content="Favorita"
+                                    IsChecked="{Binding IsFavorite}"
+                                    VerticalAlignment="Center" />
+
+                            </Grid>
+
+                            <Border
+                                Padding="16"
+                                CornerRadius="6"
+                                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+
+                                <StackPanel
+                                    Spacing="12">
+
+                                    <TextBlock
+                                        Text="Identidad"
+                                        FontSize="17"
+                                        FontWeight="SemiBold" />
+
+                                    <Grid
+                                        ColumnDefinitions="*,*"
+                                        ColumnSpacing="12">
+
+                                        <StackPanel
+                                            Grid.Column="0"
+                                            Spacing="4">
+
+                                            <TextBlock
+                                                Text="Nombre" />
+
+                                            <TextBox
+                                                Text="{Binding FirstName}"
+                                                PlaceholderText="Nombre"
+                                                AutomationProperties.Name="Nombre" />
+
+                                            <TextBlock
+                                                IsVisible="{Binding HasFirstNameError}"
+                                                Text="{Binding FirstNameError}"
+                                                TextWrapping="Wrap"
+                                                Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Spacing="4">
+
+                                            <TextBlock
+                                                Text="Apellidos" />
+
+                                            <TextBox
+                                                Text="{Binding LastName}"
+                                                PlaceholderText="Apellidos"
+                                                AutomationProperties.Name="Apellidos" />
+
+                                            <TextBlock
+                                                IsVisible="{Binding HasLastNameError}"
+                                                Text="{Binding LastNameError}"
+                                                TextWrapping="Wrap"
+                                                Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+
+                                        </StackPanel>
+                                    </Grid>
+
+                                </StackPanel>
+                            </Border>
+
+                            <Border
+                                Padding="16"
+                                CornerRadius="6"
+                                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+
+                                <StackPanel
+                                    Spacing="12">
+
+                                    <TextBlock
+                                        Text="Contacto"
+                                        FontSize="17"
+                                        FontWeight="SemiBold" />
+
+                                    <Grid
+                                        ColumnDefinitions="*,*"
+                                        ColumnSpacing="12">
+
+                                        <StackPanel
+                                            Grid.Column="0"
+                                            Spacing="4">
+
+                                            <TextBlock
+                                                Text="Teléfono" />
+
+                                            <TextBox
+                                                Text="{Binding Phone}"
+                                                PlaceholderText="Opcional" />
+
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Spacing="4">
+
+                                            <TextBlock
+                                                Text="Email" />
+
+                                            <TextBox
+                                                Text="{Binding Email}"
+                                                PlaceholderText="Opcional"
+                                                AutomationProperties.Name="Email" />
+
+                                            <TextBlock
+                                                IsVisible="{Binding HasEmailError}"
+                                                Text="{Binding EmailError}"
+                                                TextWrapping="Wrap"
+                                                Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+
+                                        </StackPanel>
+
+                                    </Grid>
+
+                                    <TextBlock
+                                        Text="Nota privada" />
+
+                                    <TextBox
+                                        Text="{Binding PrivateNote}"
+                                        AcceptsReturn="True"
+                                        MinHeight="100"
+                                        TextWrapping="Wrap"
+                                        PlaceholderText="Notas privadas de la ficha" />
+
+                                </StackPanel>
+                            </Border>
+
+                            <Border
+                                Padding="16"
+                                CornerRadius="6"
+                                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+
+                                <StackPanel Spacing="12">
+
+                                    <CheckBox
+                                        Content="Añadir datos de nacimiento"
+                                        IsChecked="{Binding HasBirthData}" />
+
+                                    <StackPanel
+                                        IsVisible="{Binding HasBirthData}"
+                                        Spacing="12">
+
+                                        <TextBlock
+                                            Text="Nacimiento"
+                                            FontSize="17"
+                                            FontWeight="SemiBold" />
+
+                                        <Grid
+                                            ColumnDefinitions="*,*"
+                                            ColumnSpacing="12">
+
+                                            <StackPanel
+                                                Grid.Column="0"
+                                                Spacing="4">
+
+                                                <TextBlock
+                                                    Text="Fecha" />
+
+                                                <DatePicker
+                                                    SelectedDate="{Binding BirthDate}"
+                                                    AutomationProperties.Name="Fecha de nacimiento" />
+
+                                                <TextBlock
+                                                    IsVisible="{Binding HasBirthDateError}"
+                                                    Text="{Binding BirthDateError}"
+                                                    TextWrapping="Wrap"
+                                                    Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+
+                                            </StackPanel>
+
+                                            <StackPanel
+                                                Grid.Column="1"
+                                                Spacing="4">
+
+                                                <TextBlock
+                                                    Text="Precisión de la hora" />
+
+                                                <ComboBox
+                                                    ItemsSource="{Binding BirthPrecisionChoices}"
+                                                    SelectedItem="{Binding SelectedBirthPrecision}" />
+
+                                            </StackPanel>
+
+                                        </Grid>
+
+                                        <StackPanel
+                                            IsVisible="{Binding IsConcreteBirthTime}"
+                                            Spacing="4">
+
+                                            <TextBlock
+                                                Text="Hora local" />
+
+                                            <TextBox
+                                                Text="{Binding BirthTimeText}"
+                                                PlaceholderText="HH:mm"
+                                                AutomationProperties.Name="Hora de nacimiento" />
+
+                                            <TextBlock
+                                                IsVisible="{Binding HasBirthTimeError}"
+                                                Text="{Binding BirthTimeError}"
+                                                TextWrapping="Wrap"
+                                                Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+
+                                        </StackPanel>
+
+                                        <Grid
+                                            IsVisible="{Binding IsBirthRange}"
+                                            ColumnDefinitions="*,*"
+                                            ColumnSpacing="12">
+
+                                            <StackPanel
+                                                Grid.Column="0"
+                                                Spacing="4">
+
+                                                <TextBlock Text="Desde" />
+
+                                                <TextBox
+                                                    Text="{Binding BirthRangeStartText}"
+                                                    PlaceholderText="HH:mm" />
+
+                                            </StackPanel>
+
+                                            <StackPanel
+                                                Grid.Column="1"
+                                                Spacing="4">
+
+                                                <TextBlock Text="Hasta" />
+
+                                                <TextBox
+                                                    Text="{Binding BirthRangeEndText}"
+                                                    PlaceholderText="HH:mm" />
+
+                                            </StackPanel>
+
+                                        </Grid>
+
+                                        <StackPanel
+                                            IsVisible="{Binding IsBirthDayPeriod}"
+                                            Spacing="4">
+
+                                            <TextBlock
+                                                Text="Momento del día" />
+
+                                            <ComboBox
+                                                ItemsSource="{Binding DayPeriodChoices}"
+                                                SelectedItem="{Binding SelectedDayPeriod}" />
+
+                                        </StackPanel>
+
+                                        <TextBlock
+                                            Text="Lugar de nacimiento"
+                                            FontWeight="SemiBold" />
+
+                                        <TextBlock
+                                            Text="{Binding BirthLocationDisplay}"
+                                            TextWrapping="Wrap"
+                                            Opacity="0.75" />
+
+                                        <TextBlock
+                                            IsVisible="{Binding HasBirthLocationError}"
+                                            Text="{Binding BirthLocationError}"
+                                            TextWrapping="Wrap"
+                                            Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+
+                                        <Grid
+                                            ColumnDefinitions="*,Auto"
+                                            ColumnSpacing="8">
+
+                                            <TextBox
+                                                Grid.Column="0"
+                                                Text="{Binding BirthLocationSearchText}"
+                                                PlaceholderText="Buscar localidad" />
+
+                                            <Button
+                                                Grid.Column="1"
+                                                Content="Buscar localidad"
+                                                Command="{Binding SearchBirthLocationCommand}" />
+
+                                        </Grid>
+
+                                        <ListBox
+                                            MaxHeight="170"
+                                            ItemsSource="{Binding BirthLocationResults}"
+                                            SelectedItem="{Binding SelectedBirthSearchResult}">
+
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate
+                                                    x:DataType="vm:LocationResultViewModel">
+
+                                                    <TextBlock
+                                                        Margin="4"
+                                                        Text="{Binding DisplayName}"
+                                                        TextWrapping="Wrap" />
+
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+
+                                        </ListBox>
+
+                                        <Button
+                                            HorizontalAlignment="Left"
+                                            Content="Usar localidad seleccionada"
+                                            Command="{Binding SelectBirthLocationCommand}" />
+
+                                        <StackPanel
+                                            IsVisible="{Binding IsConcreteBirthTime}"
+                                            Spacing="8">
+
+                                            <Button
+                                                HorizontalAlignment="Left"
+                                                Content="Resolver hora histórica"
+                                                Command="{Binding ResolveBirthTimeCommand}" />
+
+                                            <TextBlock
+                                                Text="{Binding BirthResolutionMessage}"
+                                                TextWrapping="Wrap" />
+
+                                            <Grid
+                                                IsVisible="{Binding BirthAmbiguous}"
+                                                ColumnDefinitions="Auto,Auto"
+                                                ColumnSpacing="8">
+
+                                                <Button
+                                                    Grid.Column="0"
+                                                    Content="Elegir primera posibilidad"
+                                                    Command="{Binding ChooseEarlierAmbiguousTimeCommand}" />
+
+                                                <Button
+                                                    Grid.Column="1"
+                                                    Content="Elegir segunda posibilidad"
+                                                    Command="{Binding ChooseLaterAmbiguousTimeCommand}" />
+
+                                            </Grid>
+
+                                        </StackPanel>
+
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </Border>
+
+                            <Border
+                                Padding="16"
+                                CornerRadius="6"
+                                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+
+                                <StackPanel Spacing="12">
+
+                                    <CheckBox
+                                        Content="Añadir residencia actual"
+                                        IsChecked="{Binding HasResidence}" />
+
+                                    <StackPanel
+                                        IsVisible="{Binding HasResidence}"
+                                        Spacing="10">
+
+                                        <TextBlock
+                                            Text="Residencia actual"
+                                            FontSize="17"
+                                            FontWeight="SemiBold" />
+
+                                        <TextBlock
+                                            Text="{Binding ResidenceLocationDisplay}"
+                                            TextWrapping="Wrap"
+                                            Opacity="0.75" />
+
+                                        <TextBlock
+                                            IsVisible="{Binding HasResidenceLocationError}"
+                                            Text="{Binding ResidenceLocationError}"
+                                            TextWrapping="Wrap"
+                                            Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+
+                                        <Grid
+                                            ColumnDefinitions="*,Auto"
+                                            ColumnSpacing="8">
+
+                                            <TextBox
+                                                Grid.Column="0"
+                                                Text="{Binding ResidenceLocationSearchText}"
+                                                PlaceholderText="Buscar localidad" />
+
+                                            <Button
+                                                Grid.Column="1"
+                                                Content="Buscar localidad"
+                                                Command="{Binding SearchResidenceLocationCommand}" />
+
+                                        </Grid>
+
+                                        <ListBox
+                                            MaxHeight="170"
+                                            ItemsSource="{Binding ResidenceLocationResults}"
+                                            SelectedItem="{Binding SelectedResidenceSearchResult}">
+
+                                            <ListBox.ItemTemplate>
+                                                <DataTemplate
+                                                    x:DataType="vm:LocationResultViewModel">
+
+                                                    <TextBlock
+                                                        Margin="4"
+                                                        Text="{Binding DisplayName}"
+                                                        TextWrapping="Wrap" />
+
+                                                </DataTemplate>
+                                            </ListBox.ItemTemplate>
+
+                                        </ListBox>
+
+                                        <Button
+                                            HorizontalAlignment="Left"
+                                            Content="Usar residencia seleccionada"
+                                            Command="{Binding SelectResidenceLocationCommand}" />
+
+                                    </StackPanel>
+
+                                </StackPanel>
+                            </Border>
+
+                            <Border
+                                Padding="16"
+                                CornerRadius="6"
+                                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+
+                                <StackPanel Spacing="10">
+
+                                    <TextBlock
+                                        Text="Historial"
+                                        FontSize="17"
+                                        FontWeight="SemiBold" />
+
+                                    <TextBlock
+                                        IsVisible="{Binding !HasPersonHistory}"
+                                        Text="Todavía no hay eventos relevantes."
+                                        Opacity="0.65" />
+
+                                    <ItemsControl
+                                        IsVisible="{Binding HasPersonHistory}"
+                                        ItemsSource="{Binding PersonHistory}">
+
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate
+                                                x:DataType="vm:PersonHistoryRowViewModel">
+
+                                                <Grid
+                                                    Margin="0,4"
+                                                    ColumnDefinitions="Auto,*"
+                                                    ColumnSpacing="12">
+
+                                                    <TextBlock
+                                                        Grid.Column="0"
+                                                        Text="{Binding WhenText}"
+                                                        Opacity="0.65" />
+
+                                                    <TextBlock
+                                                        Grid.Column="1"
+                                                        Text="{Binding Summary}"
+                                                        TextWrapping="Wrap" />
+
+                                                </Grid>
+
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+
+                                    </ItemsControl>
+
+                                </StackPanel>
+                            </Border>
+
+                            <TextBlock
+                                IsVisible="{Binding HasError}"
+                                Text="{Binding ErrorMessage}"
+                                TextWrapping="Wrap"
+                                Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+
+                            <Grid
+                                ColumnDefinitions="Auto,Auto,*,Auto,Auto"
+                                ColumnSpacing="10">
+
+                                <Button
+                                    Grid.Column="0"
+                                    Content="Guardar"
+                                    Command="{Binding SaveCommand}" />
+
+                                <Button
+                                    Grid.Column="1"
+                                    Content="{Binding CancelButtonText}"
+                                    AutomationProperties.Name="Cancelar edición"
+                                    Command="{Binding CancelCommand}" />
+
+                                <Button
+                                    Grid.Column="3"
+                                    Content="Registrar consulta ahora"
+                                    Command="{Binding SetConsultationNowCommand}" />
+
+                                <Button
+                                    Grid.Column="4"
+                                    Content="{Binding DeleteButtonText}"
+                                    AutomationProperties.Name="Eliminar persona"
+                                    Command="{Binding DeleteCommand}" />
+
+                            </Grid>
+
+                        </StackPanel>
+                    </ScrollViewer>
+
+                </Grid>
+            </Border>
+
+        </Grid>
+
+        <Border
+            Grid.Row="2"
+            Padding="20,8"
+            BorderThickness="0,1,0,0"
+            BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+
+            <Grid
+                ColumnDefinitions="*,Auto">
+
+                <TextBlock
+                    Grid.Column="0"
+                    Text="{Binding StatusMessage}" />
+
+                <TextBlock
+                    Grid.Column="1"
+                    Text="Fase 5 · Personas"
+                    Opacity="0.6" />
+
+            </Grid>
+        </Border>
+
     </Grid>
 </Window>

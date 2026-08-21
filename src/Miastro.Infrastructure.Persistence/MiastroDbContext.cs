@@ -5,25 +5,25 @@ namespace Miastro.Infrastructure.Persistence;
 
 public sealed class MiastroDbContext : DbContext
 {
-    public MiastroDbContext(DbContextOptions<MiastroDbContext> options)
+    public MiastroDbContext(
+        DbContextOptions<MiastroDbContext> options)
         : base(options)
     {
     }
 
-    internal DbSet<TechnicalProbe> TechnicalProbes => Set<TechnicalProbe>();
+    public DbSet<PersonEntity> People => Set<PersonEntity>();
+    public DbSet<BirthDataEntity> BirthData => Set<BirthDataEntity>();
+    public DbSet<CurrentResidenceEntity> CurrentResidences
+        => Set<CurrentResidenceEntity>();
+    public DbSet<PersonHistoryEntity> PersonHistory
+        => Set<PersonHistoryEntity>();
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(
+        ModelBuilder modelBuilder)
     {
-        var probe = modelBuilder.Entity<TechnicalProbe>();
+        base.OnModelCreating(modelBuilder);
 
-        probe.ToTable("TechnicalProbes");
-        probe.HasKey(x => x.Id);
-
-        probe.Property(x => x.Value)
-            .HasMaxLength(128)
-            .IsRequired();
-
-        probe.Property(x => x.CreatedUtc)
-            .IsRequired();
+        modelBuilder.ApplyConfigurationsFromAssembly(
+            typeof(MiastroDbContext).Assembly);
     }
 }

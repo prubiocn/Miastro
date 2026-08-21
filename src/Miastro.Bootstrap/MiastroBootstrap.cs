@@ -1,3 +1,8 @@
+using Miastro.Infrastructure.Geography.Catalog;
+using Miastro.Application.Geography;
+using Miastro.Application.Time;
+using Miastro.Infrastructure.Time.Historical;
+using Miastro.Application.People;
 using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -31,7 +36,63 @@ public static class MiastroBootstrap
                 new XdgFileLoggerProvider(paths.LogFilePath));
         });
 
+
+        services.AddScoped<CreatePersonUseCase>();
+        services.AddScoped<UpdatePersonUseCase>();
+        services.AddScoped<GetPersonUseCase>();
+        services.AddScoped<SearchPeopleUseCase>();
+        services.AddScoped<DeletePersonUseCase>();
+        services.AddScoped<SetFavoriteUseCase>();
+        services.AddScoped<RecordPersonConsultationUseCase>();
+        services.AddScoped<UpdateResidenceUseCase>();
+
+
+                services.AddSingleton(
+            new GeoNamesCatalogOptions(
+                ResolveGeoNamesCatalogPath()));
+
+        services.AddScoped<
+            ILocationSearchService,
+            SqliteLocationSearchService>();
+
+        services.AddSingleton<
+            IHistoricalTimeResolver,
+            NodaTimeHistoricalTimeResolver>();
+        services.AddScoped<SelectLocationUseCase>();
+services.AddScoped<ResolveBirthLocationUseCase>();
+        services.AddScoped<ResolveCurrentResidenceLocationUseCase>();
+        services.AddScoped<ResolveBirthHistoricalTimeUseCase>();
+
         return services;
+    }
+
+    private static string ResolveGeoNamesCatalogPath()
+    {
+        var configured =
+            Environment.GetEnvironmentVariable(
+                "MIASTRO_GEODATA_DIR");
+
+        if (!string.IsNullOrWhiteSpace(configured))
+        {
+            return Path.GetFullPath(
+                Path.Combine(
+                    configured,
+                    "geonames.sqlite"));
+        }
+
+        var published =
+            Path.Combine(
+                AppContext.BaseDirectory,
+                "geodata",
+                "geonames.sqlite");
+
+        if (File.Exists(published))
+        {
+            return Path.GetFullPath(published);
+        }
+
+        return
+            "/usr/share/miastro/geodata/geonames.sqlite";
     }
 
     private static ApplicationSettings LoadOrCreateSettings(
