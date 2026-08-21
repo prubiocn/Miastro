@@ -2,7 +2,7 @@
 
 ## Estado
 
-**EN IMPLEMENTACIÓN — NO CERRADA**
+**CERRADA**
 
 La Fase 4 está oficialmente cerrada.
 
@@ -41,17 +41,16 @@ La Fase 6 no está iniciada.
 
 ## Criterios de aceptación
 
-Estado candidato tras Bloque 10B:
+Estado final:
 
-- PASS: 68
+- PASS: 69
 - FAIL: 0
-- PENDING: 1
+- PENDING: 0
 
-El único criterio pendiente es el CI remoto final SUCCESS del commit candidato.
+Los 69 criterios de aceptación quedan satisfechos.
 
-La matriz funcional local queda satisfecha por evidencia automatizada y
-documental de los bloques 1–10B. La Fase 5 NO se considera cerrada hasta
-confirmar el workflow remoto del candidato.
+El commit candidato superó el CI remoto completo antes de autorizar este
+cierre. El commit oficial de cierre se valida nuevamente mediante CI remoto.
 
 ## Baseline técnico
 
@@ -213,5 +212,27 @@ Completado:
 - reinstalación del mismo paquete sin pérdida de `miastro.db`;
 - informe preparado como candidato 68 PASS / 1 PENDING.
 
-La única evidencia pendiente para cierre oficial es el CI remoto SUCCESS del
-commit candidato.
+Evidencia del candidato:
+
+- Commit candidato: `df449db7ad8c95e76e398eccaf84a6b57f98335d`
+- Workflow candidato: `32474831494`
+- CI candidato: SUCCESS
+
+Con esta evidencia se autoriza el cierre documental de Fase 5. La Fase 6 no
+queda iniciada.
+
+
+## Cierre oficial de Fase 5
+
+Resultado de aceptación:
+
+- PASS: 69
+- FAIL: 0
+- PENDING: 0
+- Tests locales del candidato: 254/254
+- Commit candidato: `df449db7ad8c95e76e398eccaf84a6b57f98335d`
+- CI candidato: `32474831494` — SUCCESS
+- Fase 5: CERRADA
+- Fase 6: NO INICIADA
+
+No se implementan funcionalidades correspondientes a Fase 6.
