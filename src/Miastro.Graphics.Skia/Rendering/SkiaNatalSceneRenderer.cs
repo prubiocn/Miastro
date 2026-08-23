@@ -1,6 +1,7 @@
 using Miastro.Graphics.Glyphs;
 using Miastro.Graphics.Scene;
 using Miastro.Graphics.Styles;
+using Miastro.Graphics.Skia.Typography;
 using SkiaSharp;
 
 namespace Miastro.Graphics.Skia.Rendering;
@@ -125,7 +126,7 @@ public sealed class SkiaNatalSceneRenderer
                 break;
 
             case TextNode text:
-                DrawTextPlaceholder(
+                DrawText(
                     canvas,
                     text);
                 break;
@@ -355,23 +356,52 @@ public sealed class SkiaNatalSceneRenderer
             paint);
     }
 
-    private static void DrawTextPlaceholder(
+    private static void DrawText(
         SKCanvas canvas,
         TextNode node)
     {
+        using var typography =
+            new SkiaTypographyProvider();
+
         using var paint =
             CreateStrokePaint(
                 node);
 
-        var rect =
-            new SKRect(
-                (float)node.Bounds.Left,
-                (float)node.Bounds.Top,
-                (float)node.Bounds.Right,
-                (float)node.Bounds.Bottom);
+        using var font =
+            new SKFont(
+                typography.Typeface,
+                (float)Math.Max(
+                    1.0,
+                    node.Size));
 
-        canvas.DrawRect(
-            rect,
+        paint.Style =
+            SKPaintStyle.Fill;
+
+        var textWidth =
+            font.MeasureText(
+                node.Text);
+
+        var metrics =
+            font.Metrics;
+
+        var baseline =
+            (float)node.Position.Y
+            - (
+                metrics.Ascent
+                + metrics.Descent
+              )
+              / 2.0f;
+
+        var x =
+            (float)node.Position.X
+            - textWidth / 2.0f;
+
+        canvas.DrawText(
+            node.Text,
+            x,
+            baseline,
+            SKTextAlign.Left,
+            font,
             paint);
     }
 

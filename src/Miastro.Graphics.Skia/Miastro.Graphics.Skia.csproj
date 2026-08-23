@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
     <ProjectReference Include="..\Miastro.Graphics\Miastro.Graphics.csproj" />
@@ -14,5 +14,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources/Fonts/SourceSans3-Regular.ttf"
+                      LogicalName="Miastro.Graphics.Skia.Resources.Fonts.SourceSans3-Regular.ttf" />
+    <EmbeddedResource Include="Resources/Fonts/SourceSans3-LICENSE.md"
+                      LogicalName="Miastro.Graphics.Skia.Resources.Fonts.SourceSans3-LICENSE.md" />
+  </ItemGroup>
 
 </Project>

@@ -319,3 +319,27 @@ Implementado:
 No se incorporan todavía fuentes externas del sistema.
 
 La tipografía empaquetada se tratará separadamente.
+
+## Bloque 7C4 — Tipografía empaquetada
+
+Implementado:
+
+- Source Sans 3 Regular empaquetada
+- licencia SIL OFL 1.1 conservada
+- hash SHA-256 de fuente y licencia
+- fuente cargada desde EmbeddedResource
+- ausencia de lookup de fuentes del sistema
+- TextNode renderiza texto real
+- soporte de caracteres españoles
+- soporte del símbolo de grado
+- render tipográfico headless
+- determinismo tipográfico
+- ADR-050
+
+Fuente SHA-256:
+
+4644c81b86ec9caaa76b634889968ed3c4f4f52f054855933acc7c2b21e53b0f
+
+Licencia SHA-256:
+
+56af9b9c6715597e458284a474dc118a50a4150e9d547c70f7b4a33c3e6a9328
