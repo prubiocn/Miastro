@@ -402,3 +402,25 @@ Implementado:
 
 El adaptador al read model natal persistido se implementará contra los
 contratos reales existentes después del preflight de Fase 6.
+
+## Bloque 7E1B — Adaptador del snapshot natal persistido
+
+Implementado:
+
+- consumo directo de NatalChartSnapshotReadModel
+- Graphics -> Application limitado a read models
+- 12 cúspides persistidas
+- ASC persistido
+- MC persistido
+- longitudes persistidas
+- 10 planetas visibles por defecto
+- Quirón visible por defecto
+- ASC y MC visibles por defecto
+- puntos opcionales
+- aspectos persistidos
+- clasificación visual de AspectKind
+- ninguna detección de aspectos
+- ninguna lectura de EF/SQLite
+- ningún recálculo astronómico
+- salida determinista para Scene Graph
+- ADR-054

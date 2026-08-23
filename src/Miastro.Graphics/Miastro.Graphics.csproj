@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Miastro.Domain\Miastro.Domain.csproj" />
+    <ProjectReference Include="..\Miastro.Application\Miastro.Application.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
