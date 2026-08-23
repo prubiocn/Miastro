@@ -88,69 +88,33 @@ public sealed class Phase5ClosureCandidateTests
     }
 
     [TestMethod]
-    public void Phase6_is_not_started_in_people_scope()
+    public void Phase5_closure_records_phase6_as_not_started_at_that_time()
     {
-        var root =
-            FindRepositoryRoot();
+        var repositoryRoot =
+            Path.GetFullPath(
+                Path.Combine(
+                    AppContext.BaseDirectory,
+                    "../../../../../"));
 
-        var paths = new[]
-        {
+        var report =
             Path.Combine(
-                root,
-                "src",
-                "Miastro.Application",
-                "People"),
+                repositoryRoot,
+                "MIASTRO_Fase_5_Informe.md");
 
-            Path.Combine(
-                root,
-                "src",
-                "Miastro.Infrastructure.Persistence",
-                "People"),
+        Assert.IsTrue(
+            File.Exists(report),
+            "Debe existir el informe oficial de cierre de Fase 5.");
 
-            Path.Combine(
-                root,
-                "src",
-                "Miastro.UI.Avalonia")
-        };
+        var text =
+            File.ReadAllText(report);
 
-        var forbidden = new[]
-        {
-            "NatalChart",
-            "NatalWheel",
-            "SolarReturn",
-            "LunarReturn",
-            "TransitChart",
-            "Progression",
-            "Synastry"
-        };
+        StringAssert.Contains(
+            text,
+            "Fase 5: CERRADA");
 
-        foreach (var path in paths)
-        {
-            foreach (var file in Directory
-                .GetFiles(
-                    path,
-                    "*.cs",
-                    SearchOption.AllDirectories)
-                .Where(
-                    x =>
-                        !x.Contains(
-                            $"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}")
-                        && !x.Contains(
-                            $"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}")))
-            {
-                var text =
-                    File.ReadAllText(file);
-
-                foreach (var token in forbidden)
-                {
-                    Assert.IsFalse(
-                        text.Contains(
-                            token,
-                            StringComparison.Ordinal),
-                        $"{token} found in {file}");
-                }
-            }
-        }
+        StringAssert.Contains(
+            text,
+            "Fase 6: NO INICIADA");
     }
 
     private static string FindRepositoryRoot()

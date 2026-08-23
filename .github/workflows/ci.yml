@@ -42,6 +42,13 @@ jobs:
       - name: Build
         run: dotnet build Miastro.sln -c Release --no-restore
 
+      - name: Configure Phase 6 Swiss test resources
+        run: |
+          test -d "${GITHUB_WORKSPACE}/data/ephemeris"
+          echo "MIASTRO_EPHEMERIS_DIR=${GITHUB_WORKSPACE}/data/ephemeris" >> "$GITHUB_ENV"
+          test -f "${GITHUB_WORKSPACE}/src/Miastro.Infrastructure.SwissEphemeris/native/linux-x64/libswe.so"
+          echo "MIASTRO_SWISS_NATIVE_LIBRARY=${GITHUB_WORKSPACE}/src/Miastro.Infrastructure.SwissEphemeris/native/linux-x64/libswe.so" >> "$GITHUB_ENV"
+
       - name: Test
         env:
           MIASTRO_GEODATA_DIR: ${{ github.workspace }}/data/geography/generated
