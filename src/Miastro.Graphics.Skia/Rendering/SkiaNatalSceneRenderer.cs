@@ -1,3 +1,4 @@
+using Miastro.Graphics.Glyphs;
 using Miastro.Graphics.Scene;
 using SkiaSharp;
 
@@ -117,7 +118,7 @@ public sealed class SkiaNatalSceneRenderer
                 break;
 
             case GlyphNode glyph:
-                DrawGlyphPlaceholder(
+                DrawGlyph(
                     canvas,
                     glyph);
                 break;
@@ -210,18 +211,113 @@ public sealed class SkiaNatalSceneRenderer
             paint);
     }
 
-    private static void DrawGlyphPlaceholder(
+    private static void DrawGlyph(
         SKCanvas canvas,
         GlyphNode node)
     {
+        var catalog =
+            new NatalVectorGlyphCatalog();
+
         using var paint =
             CreateStrokePaint(
                 node.Layer);
 
+        if (!catalog.TryGet(
+            node.GlyphKey,
+            out var glyph))
+        {
+            DrawUnknownGlyph(
+                canvas,
+                node,
+                paint);
+
+            return;
+        }
+
+        var size =
+            (float)Math.Max(
+                4.0,
+                node.Size);
+
+        var centerX =
+            (float)node.Position.X;
+
+        var centerY =
+            (float)node.Position.Y;
+
+        foreach (
+            var circle
+            in glyph.Circles)
+        {
+            canvas.DrawCircle(
+                centerX
+                    + (float)circle.Center.X
+                    * size,
+                centerY
+                    + (float)circle.Center.Y
+                    * size,
+                (float)circle.Radius
+                    * size,
+                paint);
+        }
+
+        foreach (
+            var stroke
+            in glyph.Strokes)
+        {
+            if (stroke.Points.Count < 2)
+            {
+                continue;
+            }
+
+            using var builder =
+                new SKPathBuilder();
+
+            builder.MoveTo(
+                centerX
+                    + (float)stroke.Points[0].X
+                    * size,
+                centerY
+                    + (float)stroke.Points[0].Y
+                    * size);
+
+            for (
+                var i = 1;
+                i < stroke.Points.Count;
+                i++)
+            {
+                builder.LineTo(
+                    centerX
+                        + (float)stroke.Points[i].X
+                        * size,
+                    centerY
+                        + (float)stroke.Points[i].Y
+                        * size);
+            }
+
+            if (stroke.Closed)
+            {
+                builder.Close();
+            }
+
+            using var path =
+                builder.Detach();
+
+            canvas.DrawPath(
+                path,
+                paint);
+        }
+    }
+
+    private static void DrawUnknownGlyph(
+        SKCanvas canvas,
+        GlyphNode node,
+        SKPaint paint)
+    {
         var half =
             (float)Math.Max(
                 2.0,
-                node.Size * 0.32);
+                node.Size * 0.30);
 
         var x =
             (float)node.Position.X;
@@ -229,24 +325,32 @@ public sealed class SkiaNatalSceneRenderer
         var y =
             (float)node.Position.Y;
 
-        canvas.DrawCircle(
-            x,
-            y,
-            half,
-            paint);
-
         canvas.DrawLine(
-            x - half,
-            y,
+            x,
+            y - half,
             x + half,
             y,
             paint);
 
         canvas.DrawLine(
-            x,
-            y - half,
+            x + half,
+            y,
             x,
             y + half,
+            paint);
+
+        canvas.DrawLine(
+            x,
+            y + half,
+            x - half,
+            y,
+            paint);
+
+        canvas.DrawLine(
+            x - half,
+            y,
+            x,
+            y - half,
             paint);
     }
 

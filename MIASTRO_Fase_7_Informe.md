@@ -266,3 +266,32 @@ Implementado:
 
 El catálogo vectorial astrológico definitivo y las fuentes internas
 quedan para los siguientes bloques de Fase 7.
+
+## Bloque 7C2 — Catálogo vectorial astrológico
+
+Implementado:
+
+- catálogo vectorial interno en Miastro.Graphics
+- sistema normalizado independiente del renderer
+- 12 signos zodiacales
+- 10 planetas
+- Nodo Norte verdadero
+- Nodo Sur
+- Lilith media
+- Parte de Fortuna
+- Quirón
+- Ceres
+- Pallas
+- Juno
+- Vesta
+- ASC
+- MC
+- glifos de aspectos mayores
+- renderer Skia consume el catálogo
+- eliminado el placeholder técnico de GlyphNode
+- fallback vectorial para claves desconocidas
+- ningún requisito de fuente astrológica del sistema
+- ADR-048
+
+La tipografía ordinaria de etiquetas sigue siendo una responsabilidad
+separada del catálogo astrológico.
