@@ -46,9 +46,9 @@ No implementar todavía:
 
 ## Criterios de aceptación
 
-- PASS: 82
+- PASS: 83
 - FAIL: 0
-- PENDING: 1
+- PENDING: 0
 
 Pendiente exclusivamente:
 
@@ -580,7 +580,44 @@ Estado del candidato:
 - PASS: 82
 - FAIL: 0
 - PENDING: 1
-- pendiente único: criterio 82 — CI remoto.
+- criterio 82 — CI remoto: PASS.
 
-La Fase 6 continúa abierta hasta obtener `SUCCESS` remoto.
+La Fase 6 queda cerrada formalmente con 83 criterios PASS.
 La Fase 7 no está iniciada.
+
+## Cierre definitivo de Fase 6
+
+Candidato validado:
+
+- commit candidato: `ae9b667dc34f2b90fab51334a760bc67bb368903`;
+- build Release local: PASS;
+- tests locales: 345/345 PASS;
+- CI remoto del candidato: SUCCESS;
+- ADR 028–040: PASS;
+- recursos Swiss disponibles antes de tests CI: PASS;
+- pruebas heredadas de Fase 5 adaptadas como comprobación histórica: PASS;
+- cálculo natal instalado: PASS;
+- persistencia natal instalada: PASS;
+- cierre y reapertura del snapshot instalado: PASS;
+- identidad del snapshot preservada: PASS;
+- 21 posiciones: PASS;
+- 12 cúspides: PASS;
+- aspectos persistidos y recuperados: PASS;
+- upgrade real Fase 5 → Fase 6: PASS;
+- supervivencia de datos tras reinstalación: PASS;
+- integridad SQLite: PASS;
+- claves foráneas: PASS;
+- rueda natal implementada: NO;
+- Fase 7 iniciada: NO.
+
+Resultado final de aceptación:
+
+- PASS: 83
+- FAIL: 0
+- PENDING: 0
+
+Estado final:
+
+**FASE 6 CERRADA**
+
+No se inicia la Fase 7 como parte de este cierre.
