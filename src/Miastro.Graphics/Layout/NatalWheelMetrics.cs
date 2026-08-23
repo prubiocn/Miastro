@@ -37,9 +37,7 @@ public sealed record NatalWheelMetrics(
                 height);
 
         var effectiveSize =
-            Math.Max(
-                size,
-                MinimumUsableSize);
+            size;
 
         var scale =
             effectiveSize

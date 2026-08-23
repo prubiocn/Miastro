@@ -486,3 +486,19 @@ Validación 7E3:
 - tests específicos: 6/6
 - tests Fase 7: 112/112
 - regresión global: 457/457
+
+## Bloque 7F1 — Endurecimiento geométrico responsive
+
+Implementado:
+
+- canvas físico como frontera geométrica
+- eliminación del floor artificial de MinimumUsableSize
+- validación 300/360/480/720/800
+- validación de canvases rectangulares
+- círculo exterior contenido
+- radios concéntricos ordenados
+- escala monotónica
+- centro físico correcto
+- determinismo de métricas
+- separación geometría/degradación visual
+- ADR-057

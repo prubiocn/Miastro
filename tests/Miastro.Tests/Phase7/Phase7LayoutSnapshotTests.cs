@@ -291,7 +291,7 @@ public sealed class Phase7LayoutSnapshotTests
                     Cusps);
 
         Assert.AreEqual(
-            NatalWheelMetrics.MinimumUsableSize
+            300.0
                 / NatalWheelMetrics.ReferenceSize,
             snapshot.Metrics.Scale,
             Tolerance);
