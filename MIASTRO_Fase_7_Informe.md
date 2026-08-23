@@ -295,3 +295,27 @@ Implementado:
 
 La tipografía ordinaria de etiquetas sigue siendo una responsabilidad
 separada del catálogo astrológico.
+
+## Bloque 7C3 — Estilos semánticos
+
+Implementado:
+
+- SceneColor independiente del renderer
+- SceneStyle
+- StyleKey en SceneNode
+- catálogo semántico centralizado
+- paleta clara marfil/carbón/azul-gris/arena
+- jerarquía visual 1/5/10 grados
+- ASC y MC como ejes principales
+- DSC e IC como ejes secundarios
+- diferenciación de aspectos no basada solo en color
+- estilos de cuerpos y puntos
+- estilos de marca real
+- estilos de leader line
+- traducción de patrón sólido/discontinuo al backend Skia
+- ADR-049
+- auditoría de fuentes empaquetadas
+
+No se incorporan todavía fuentes externas del sistema.
+
+La tipografía empaquetada se tratará separadamente.

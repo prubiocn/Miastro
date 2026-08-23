@@ -1,6 +1,7 @@
 using Miastro.Graphics.Geometry;
 using Miastro.Graphics.Layout;
 using Miastro.Graphics.Layout.Placement;
+using Miastro.Graphics.Styles;
 
 namespace Miastro.Graphics.Scene.Natal;
 
@@ -68,7 +69,11 @@ public sealed class NatalWheelSceneBuilder
                 "background-disc",
                 SceneLayer.Background,
                 wheel.Metrics.Center,
-                wheel.Metrics.OuterRadius));
+                wheel.Metrics.OuterRadius)
+            {
+                StyleKey =
+                    NatalSceneStyleKeys.Background
+            });
     }
 
     private static void AddZodiacRing(
@@ -80,14 +85,22 @@ public sealed class NatalWheelSceneBuilder
                 "zodiac-outer-ring",
                 SceneLayer.ZodiacRing,
                 wheel.Metrics.Center,
-                wheel.Metrics.OuterRadius));
+                wheel.Metrics.OuterRadius)
+            {
+                StyleKey =
+                    NatalSceneStyleKeys.ZodiacBoundary
+            });
 
         nodes.Add(
             new CircleNode(
                 "zodiac-inner-ring",
                 SceneLayer.ZodiacRing,
                 wheel.Metrics.Center,
-                wheel.Metrics.ZodiacInnerRadius));
+                wheel.Metrics.ZodiacInnerRadius)
+            {
+                StyleKey =
+                    NatalSceneStyleKeys.ZodiacBoundary
+            });
 
         var glyphRadius =
             (
@@ -111,7 +124,11 @@ public sealed class NatalWheelSceneBuilder
                     wheel.Metrics.Center,
                     wheel.Metrics.OuterRadius,
                     sector.StartScreenAngleDegrees,
-                    sector.SweepAngleDegrees));
+                    sector.SweepAngleDegrees)
+                {
+                    StyleKey =
+                        NatalSceneStyleKeys.ZodiacBoundary
+                });
 
             var centerAngle =
                 Miastro.Graphics.Geometry
@@ -137,7 +154,11 @@ public sealed class NatalWheelSceneBuilder
                     glyphSize,
                     BoundsFromCenter(
                         center,
-                        glyphSize)));
+                        glyphSize))
+                {
+                    StyleKey =
+                        NatalSceneStyleKeys.ZodiacGlyph
+                });
         }
     }
 
@@ -154,7 +175,21 @@ public sealed class NatalWheelSceneBuilder
                     $"degree-{tick.ZodiacDegree:000}",
                     SceneLayer.DegreeRing,
                     tick.OuterPoint,
-                    tick.InnerPoint));
+                    tick.InnerPoint)
+                {
+                    StyleKey =
+                        tick.Kind switch
+                        {
+                            DegreeTickKind.TenDegree =>
+                                NatalSceneStyleKeys.DegreeTen,
+
+                            DegreeTickKind.FiveDegree =>
+                                NatalSceneStyleKeys.DegreeFive,
+
+                            _ =>
+                                NatalSceneStyleKeys.DegreeMinor
+                        }
+                });
         }
     }
 
@@ -175,7 +210,11 @@ public sealed class NatalWheelSceneBuilder
                     $"house-cusp-{cusp.HouseNumber:00}",
                     SceneLayer.HouseLayer,
                     cusp.OuterPoint,
-                    cusp.InnerPoint));
+                    cusp.InnerPoint)
+                {
+                    StyleKey =
+                        NatalSceneStyleKeys.HouseCusp
+                });
 
             nodes.Add(
                 new TextNode(
@@ -188,7 +227,11 @@ public sealed class NatalWheelSceneBuilder
                     labelSize,
                     BoundsFromCenter(
                         cusp.HouseNumberPosition,
-                        labelSize)));
+                        labelSize))
+                {
+                    StyleKey =
+                        NatalSceneStyleKeys.HouseNumber
+                });
         }
     }
 
@@ -223,7 +266,14 @@ public sealed class NatalWheelSceneBuilder
                     $"angle-axis-{key}",
                     SceneLayer.AngleLayer,
                     axis.OuterPoint,
-                    axis.InnerPoint));
+                    axis.InnerPoint)
+                {
+                    StyleKey =
+                        axis.Kind is NatalAngleKind.Ascendant
+                            or NatalAngleKind.Midheaven
+                                ? NatalSceneStyleKeys.AngleMajor
+                                : NatalSceneStyleKeys.AngleMinor
+                });
 
             var labelCenter =
                 Miastro.Graphics.Geometry
@@ -242,7 +292,14 @@ public sealed class NatalWheelSceneBuilder
                     labelSize,
                     BoundsFromCenter(
                         labelCenter,
-                        labelSize * 1.8)));
+                        labelSize * 1.8))
+                {
+                    StyleKey =
+                        axis.Kind is NatalAngleKind.Ascendant
+                            or NatalAngleKind.Midheaven
+                                ? NatalSceneStyleKeys.AngleLabelMajor
+                                : NatalSceneStyleKeys.AngleLabelMinor
+                });
         }
     }
 
@@ -271,7 +328,11 @@ public sealed class NatalWheelSceneBuilder
                     $"real-mark-{placement.Id}",
                     definition.Layer,
                     placement.RealAnchor,
-                    markRadius));
+                    markRadius)
+                {
+                    StyleKey =
+                        NatalSceneStyleKeys.RealPositionMark
+                });
 
             if (placement.HasLeaderLine
                 && placement.LeaderLineStart is not null
@@ -282,7 +343,11 @@ public sealed class NatalWheelSceneBuilder
                         $"leader-{placement.Id}",
                         definition.Layer,
                         placement.LeaderLineStart.Value,
-                        placement.LeaderLineEnd.Value));
+                        placement.LeaderLineEnd.Value)
+                    {
+                        StyleKey =
+                            NatalSceneStyleKeys.LeaderLine
+                    });
             }
 
             var visualSize =
@@ -297,7 +362,13 @@ public sealed class NatalWheelSceneBuilder
                     definition.GlyphKey,
                     placement.VisualCenter,
                     visualSize,
-                    placement.Bounds));
+                    placement.Bounds)
+            {
+                StyleKey =
+                    definition.Layer == SceneLayer.BodyLayer
+                        ? NatalSceneStyleKeys.BodyGlyph
+                        : NatalSceneStyleKeys.PointGlyph
+            });
         }
     }
 

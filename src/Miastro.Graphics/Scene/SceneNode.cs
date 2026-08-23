@@ -20,4 +20,7 @@ public abstract record SceneNode
     public string Id { get; }
 
     public SceneLayer Layer { get; }
+
+    public string StyleKey { get; init; } =
+        string.Empty;
 }

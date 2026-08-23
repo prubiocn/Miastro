@@ -1,5 +1,6 @@
 using Miastro.Graphics.Glyphs;
 using Miastro.Graphics.Scene;
+using Miastro.Graphics.Styles;
 using SkiaSharp;
 
 namespace Miastro.Graphics.Skia.Rendering;
@@ -160,7 +161,7 @@ public sealed class SkiaNatalSceneRenderer
     {
         using var paint =
             CreateStrokePaint(
-                node.Layer);
+                node);
 
         canvas.DrawCircle(
             (float)node.Center.X,
@@ -175,7 +176,7 @@ public sealed class SkiaNatalSceneRenderer
     {
         using var paint =
             CreateStrokePaint(
-                node.Layer);
+                node);
 
         var radius =
             (float)node.Radius;
@@ -201,7 +202,7 @@ public sealed class SkiaNatalSceneRenderer
     {
         using var paint =
             CreateStrokePaint(
-                node.Layer);
+                node);
 
         canvas.DrawLine(
             (float)node.Start.X,
@@ -220,7 +221,7 @@ public sealed class SkiaNatalSceneRenderer
 
         using var paint =
             CreateStrokePaint(
-                node.Layer);
+                node);
 
         if (!catalog.TryGet(
             node.GlyphKey,
@@ -360,7 +361,7 @@ public sealed class SkiaNatalSceneRenderer
     {
         using var paint =
             CreateStrokePaint(
-                node.Layer);
+                node);
 
         var rect =
             new SKRect(
@@ -385,7 +386,7 @@ public sealed class SkiaNatalSceneRenderer
 
         using var paint =
             CreateStrokePaint(
-                node.Layer);
+                node);
 
         using var builder =
             new SKPathBuilder();
@@ -418,98 +419,130 @@ public sealed class SkiaNatalSceneRenderer
     }
 
     private static SKPaint CreateStrokePaint(
-        SceneLayer layer)
+        SceneNode node)
     {
+        var catalog =
+            new NatalSceneStyleCatalog();
+
+        var style =
+            ResolveStyle(
+                catalog,
+                node);
+
+        var alpha =
+            (byte)Math.Round(
+                style.StrokeColor.Alpha
+                * style.Opacity);
+
         var paint =
             new SKPaint
             {
                 IsAntialias = true,
                 Style = SKPaintStyle.Stroke,
-                StrokeWidth = StrokeWidth(layer),
-                Color = LayerColor(layer),
+                StrokeWidth =
+                    (float)Math.Max(
+                        0.1,
+                        style.StrokeWidth),
+                Color =
+                    new SKColor(
+                        style.StrokeColor.Red,
+                        style.StrokeColor.Green,
+                        style.StrokeColor.Blue,
+                        alpha),
                 StrokeCap = SKStrokeCap.Round,
                 StrokeJoin = SKStrokeJoin.Round
             };
 
+        ApplyLinePattern(
+            paint,
+            style);
+
         return paint;
     }
 
-    private static float StrokeWidth(
-        SceneLayer layer)
-        =>
-            layer switch
-            {
-                SceneLayer.AngleLayer => 2.2f,
-                SceneLayer.BodyLayer => 2.0f,
-                SceneLayer.PointLayer => 1.8f,
-                SceneLayer.AspectLayer => 1.2f,
-                SceneLayer.InteractionOverlay => 2.5f,
-                _ => 1.0f
-            };
+    private static SceneStyle ResolveStyle(
+        NatalSceneStyleCatalog catalog,
+        SceneNode node)
+    {
+        if (!string.IsNullOrWhiteSpace(
+            node.StyleKey)
+            && catalog.TryGet(
+                node.StyleKey,
+                out var style))
+        {
+            return style;
+        }
 
-    private static SKColor LayerColor(
-        SceneLayer layer)
-        =>
-            layer switch
+        var fallbackKey =
+            node.Layer switch
             {
                 SceneLayer.Background =>
-                    new SKColor(
-                        218,
-                        214,
-                        205),
+                    NatalSceneStyleKeys.Background,
 
                 SceneLayer.ZodiacRing =>
-                    new SKColor(
-                        94,
-                        108,
-                        120),
+                    NatalSceneStyleKeys.ZodiacBoundary,
 
                 SceneLayer.DegreeRing =>
-                    new SKColor(
-                        145,
-                        143,
-                        136),
+                    NatalSceneStyleKeys.DegreeMinor,
 
                 SceneLayer.HouseLayer =>
-                    new SKColor(
-                        120,
-                        116,
-                        108),
+                    NatalSceneStyleKeys.HouseCusp,
 
                 SceneLayer.AngleLayer =>
-                    new SKColor(
-                        70,
-                        86,
-                        100),
+                    NatalSceneStyleKeys.AngleMajor,
 
                 SceneLayer.BodyLayer =>
-                    new SKColor(
-                        50,
-                        54,
-                        57),
+                    NatalSceneStyleKeys.BodyGlyph,
 
                 SceneLayer.PointLayer =>
-                    new SKColor(
-                        112,
-                        91,
-                        61),
+                    NatalSceneStyleKeys.PointGlyph,
 
                 SceneLayer.AspectLayer =>
-                    new SKColor(
-                        105,
-                        115,
-                        125),
+                    NatalSceneStyleKeys.AspectMajor,
 
                 SceneLayer.LabelLayer =>
-                    new SKColor(
-                        50,
-                        54,
-                        57),
+                    NatalSceneStyleKeys.LabelPrimary,
 
                 _ =>
-                    new SKColor(
-                        75,
-                        80,
-                        84)
+                    NatalSceneStyleKeys.InteractionSelected
             };
+
+        return catalog.GetRequired(
+            fallbackKey);
+    }
+
+    private static void ApplyLinePattern(
+        SKPaint paint,
+        SceneStyle style)
+    {
+        if (style.LinePattern
+            == SceneLinePattern.Solid)
+        {
+            return;
+        }
+
+        var width =
+            (float)Math.Max(
+                1.0,
+                style.StrokeWidth);
+
+        var intervals =
+            style.LinePattern
+                == SceneLinePattern.Dashed
+                    ? new[]
+                    {
+                        width * 5.0f,
+                        width * 3.0f
+                    }
+                    : new[]
+                    {
+                        width,
+                        width * 2.5f
+                    };
+
+        paint.PathEffect =
+            SKPathEffect.CreateDash(
+                intervals,
+                0);
+    }
 }
