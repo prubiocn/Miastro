@@ -91,20 +91,58 @@ public sealed class Phase6ClosureCandidateTests
     }
 
     [TestMethod]
-    public void Phase6_report_still_blocks_premature_phase7()
+    public void Phase6_closed_report_does_not_start_phase7()
     {
-        var report =
-            Read(
-                "MIASTRO_Fase_6_Informe.md");
+        var current =
+            new DirectoryInfo(
+                AppContext.BaseDirectory);
 
-        StringAssert.Contains(
+        FileInfo? report = null;
+
+        while (current is not null)
+        {
+            var candidate =
+                new FileInfo(
+                    Path.Combine(
+                        current.FullName,
+                        "MIASTRO_Fase_6_Informe.md"));
+
+            if (candidate.Exists)
+            {
+                report = candidate;
+                break;
+            }
+
+            current = current.Parent;
+        }
+
+        Assert.IsNotNull(
             report,
-            "La Fase 7 no está iniciada.");
+            "Debe encontrarse MIASTRO_Fase_6_Informe.md desde el árbol de ejecución de tests.");
+
+        var contents =
+            File.ReadAllText(report!.FullName);
+
+        Assert.IsTrue(
+            contents.Contains(
+                "FASE 6 CERRADA",
+                StringComparison.Ordinal),
+            "El informe debe registrar el cierre formal de Fase 6.");
+
+        Assert.IsTrue(
+            contents.Contains(
+                "Fase 7 no está iniciada",
+                StringComparison.OrdinalIgnoreCase),
+            "El cierre de Fase 6 no debe iniciar automáticamente Fase 7.");
+
+        var phase7Started =
+            System.Text.RegularExpressions.Regex.IsMatch(
+                contents,
+                @"(?im)^\s*(?:[-*]\s*)?(?:Fase\s+7\s+iniciada|Phase7Started)\s*[:=]\s*(?:SI|SÍ|YES|TRUE)\s*[;.]?\s*$");
 
         Assert.IsFalse(
-            report.Contains(
-                "FASE 6 CERRADA",
-                StringComparison.OrdinalIgnoreCase));
+            phase7Started,
+            "Fase 7 no debe figurar con estado positivo de inicio.");
     }
 
     private static string Read(
