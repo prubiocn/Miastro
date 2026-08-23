@@ -18,6 +18,8 @@
   <ItemGroup>
     <ProjectReference Include="../Miastro.Application/Miastro.Application.csproj" />
     <ProjectReference Include="../Miastro.Bootstrap/Miastro.Bootstrap.csproj" />
+    <ProjectReference Include="..\Miastro.Graphics\Miastro.Graphics.csproj" />
+    <ProjectReference Include="..\Miastro.Graphics.Skia\Miastro.Graphics.Skia.csproj" />
   </ItemGroup>
 
 </Project>

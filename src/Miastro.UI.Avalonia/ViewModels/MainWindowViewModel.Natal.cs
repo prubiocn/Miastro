@@ -1,3 +1,6 @@
+using Avalonia.Media.Imaging;
+using Miastro.Graphics.Interaction;
+using Miastro.UI.Avalonia.Services;
 using System.Collections.ObjectModel;
 using Microsoft.Extensions.DependencyInjection;
 using Miastro.Application.Natal;
@@ -9,6 +12,21 @@ namespace Miastro.UI.Avalonia.ViewModels;
 
 public sealed partial class MainWindowViewModel
 {
+    private const double DefaultNatalWheelSize =
+        640.0;
+
+    private readonly NatalWheelPresentationService
+        _natalWheelPresentationService = new();
+
+    private NatalWheelPresentation?
+        _natalWheelPresentation;
+
+    private Bitmap?
+        _natalWheelBitmap;
+
+    private string _selectedNatalObjectText =
+        "Ningún objeto seleccionado.";
+
     private NatalHouseSystemChoice
         _selectedNatalHouseSystem = null!;
 
@@ -61,6 +79,16 @@ public sealed partial class MainWindowViewModel
 
     public bool HasNatalPlacements
         => NatalPlacements.Count > 0;
+
+    public Bitmap? NatalWheelBitmap
+        => _natalWheelBitmap;
+
+    public bool HasNatalWheel
+        => _natalWheelPresentation is not null
+           && _natalWheelBitmap is not null;
+
+    public string SelectedNatalObjectText
+        => _selectedNatalObjectText;
 
     public bool NatalCalculationFailed
         => _natalCalculationFailed;
@@ -308,7 +336,9 @@ public sealed partial class MainWindowViewModel
 
         _natalCalculationFailed =
             false;
-    }
+
+        RebuildNatalWheel();
+}
 
     private void ResetNatalDisplay()
     {
@@ -322,7 +352,9 @@ public sealed partial class MainWindowViewModel
 
         NatalStatusMessage =
             "Carta natal no calculada.";
-    }
+
+        ClearNatalWheel();
+}
 
     private void NotifyNatalChanged()
     {
@@ -364,6 +396,103 @@ public sealed partial class MainWindowViewModel
 
         CalculateNatalCommand?
             .RaiseCanExecuteChanged();
+    }
+
+    private void RebuildNatalWheel()
+    {
+        if (_currentNatalSnapshot is null)
+        {
+            ClearNatalWheel();
+            return;
+        }
+
+        var presentation =
+            _natalWheelPresentationService
+                .Build(
+                    _currentNatalSnapshot,
+                    DefaultNatalWheelSize,
+                    DefaultNatalWheelSize);
+
+        using var stream =
+            new MemoryStream(
+                presentation.PngBytes,
+                writable: false);
+
+        var bitmap =
+            new Bitmap(stream);
+
+        _natalWheelBitmap?.Dispose();
+
+        _natalWheelPresentation =
+            presentation;
+
+        _natalWheelBitmap =
+            bitmap;
+
+        _selectedNatalObjectText =
+            "Ningún objeto seleccionado.";
+
+        OnPropertyChanged(
+            nameof(NatalWheelBitmap));
+
+        OnPropertyChanged(
+            nameof(HasNatalWheel));
+
+        OnPropertyChanged(
+            nameof(SelectedNatalObjectText));
+    }
+
+    private void ClearNatalWheel()
+    {
+        _natalWheelBitmap?.Dispose();
+
+        _natalWheelBitmap =
+            null;
+
+        _natalWheelPresentation =
+            null;
+
+        _selectedNatalObjectText =
+            "Ningún objeto seleccionado.";
+
+        OnPropertyChanged(
+            nameof(NatalWheelBitmap));
+
+        OnPropertyChanged(
+            nameof(HasNatalWheel));
+
+        OnPropertyChanged(
+            nameof(SelectedNatalObjectText));
+    }
+
+    public void SelectNatalWheelAt(
+        double x,
+        double y,
+        double viewportWidth,
+        double viewportHeight)
+    {
+        if (_natalWheelPresentation is null)
+        {
+            return;
+        }
+
+        var hit =
+            new NatalSceneHitTester()
+                .HitTestViewport(
+                    _natalWheelPresentation.Scene,
+                    x,
+                    y,
+                    viewportWidth,
+                    viewportHeight,
+                    tolerance: 5.0);
+
+        _selectedNatalObjectText =
+            hit is null
+                ? "Ningún objeto seleccionado."
+                : $"Seleccionado: {hit.ObjectId}";
+
+        OnPropertyChanged(
+            nameof(SelectedNatalObjectText));
     }
 
     private static string HumanNatalFailure(

@@ -213,6 +213,50 @@ public sealed class Phase7HitTestingTests
         }
     }
 
+    [TestMethod]
+    public void Viewport_coordinates_map_to_scene_geometry()
+    {
+        var scene =
+            BuildScene(
+                out var placements);
+
+        var sun =
+            placements.Placements
+                .Single(
+                    x => x.Id == "Sun");
+
+        var viewportWidth =
+            320.0;
+
+        var viewportHeight =
+            320.0;
+
+        var x =
+            sun.VisualCenter.X
+            * viewportWidth
+            / scene.Width;
+
+        var y =
+            sun.VisualCenter.Y
+            * viewportHeight
+            / scene.Height;
+
+        var result =
+            new NatalSceneHitTester()
+                .HitTestViewport(
+                    scene,
+                    x,
+                    y,
+                    viewportWidth,
+                    viewportHeight);
+
+        Assert.IsNotNull(result);
+
+        Assert.AreEqual(
+            "Sun",
+            result.ObjectId);
+    }
+
     private static NatalScene BuildScene(
         out NatalObjectPlacementSnapshot placements)
     {

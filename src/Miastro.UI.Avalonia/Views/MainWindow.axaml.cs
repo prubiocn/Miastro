@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Miastro.UI.Avalonia.ViewModels;
 
@@ -26,4 +27,35 @@ public sealed partial class MainWindow
             await viewModel.InitializeAsync();
         }
     }
+    private void OnNatalWheelPointerPressed(
+        object? sender,
+        PointerPressedEventArgs e)
+    {
+        if (sender is not Image image
+            || DataContext
+                is not MainWindowViewModel viewModel)
+        {
+            return;
+        }
+
+        if (image.Bounds.Width <= 0.0
+            || image.Bounds.Height <= 0.0)
+        {
+            return;
+        }
+
+        var point =
+            e.GetPosition(
+                image);
+
+        viewModel.SelectNatalWheelAt(
+            point.X,
+            point.Y,
+            image.Bounds.Width,
+            image.Bounds.Height);
+
+        e.Handled =
+            true;
+    }
+
 }

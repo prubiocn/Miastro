@@ -617,6 +617,40 @@
                                             ItemsSource="{Binding ResidenceLocationResults}"
                                             SelectedItem="{Binding SelectedResidenceSearchResult}">
 
+                                            <Border
+                                                IsVisible="{Binding HasNatalWheel}"
+                                                Padding="12"
+                                                CornerRadius="8"
+                                                BorderThickness="1"
+                                                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+
+                                                <StackPanel
+                                                    Spacing="8">
+
+                                                    <TextBlock
+                                                        Text="Rueda natal"
+                                                        FontSize="16"
+                                                        FontWeight="SemiBold" />
+
+                                                    <Image
+                                                        Name="NatalWheelImage"
+                                                        Width="560"
+                                                        Height="560"
+                                                        HorizontalAlignment="Center"
+                                                        Stretch="Fill"
+                                                        Source="{Binding NatalWheelBitmap}"
+                                                        PointerPressed="OnNatalWheelPointerPressed"
+                                                        AutomationProperties.Name="Rueda natal interactiva" />
+
+                                                    <TextBlock
+                                                        Text="{Binding SelectedNatalObjectText}"
+                                                        HorizontalAlignment="Center"
+                                                        Opacity="0.75" />
+
+                                                </StackPanel>
+
+                                            </Border>
+
                                             <ListBox.ItemTemplate>
                                                 <DataTemplate
                                                     x:DataType="vm:LocationResultViewModel">

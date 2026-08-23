@@ -424,3 +424,37 @@ Implementado:
 - ningún recálculo astronómico
 - salida determinista para Scene Graph
 - ADR-054
+
+## Bloque 7E2B — Primera integración Avalonia
+
+Implementado:
+
+- UI referencia Graphics y Graphics.Skia
+- snapshot vigente reutilizado
+- Scene Graph generado desde read model persistido
+- render Skia en memoria
+- visualización mediante Avalonia Bitmap/Image
+- rueda visible al cargar carta vigente
+- rueda actualizada después del cálculo natal
+- limpieza al cambiar/resetear persona
+- pointer hit testing sobre geometría visual
+- transformación viewport -> Scene Graph fuera de Avalonia
+- selección inicial de cuerpos y puntos
+- accesibilidad nominal de la rueda
+- ningún archivo gráfico temporal
+- ADR-055
+
+La UI no contiene cálculo central de geometría.
+
+### 7E2B FIX1 — actualización de guard heredado de Fase 6
+
+El test histórico de Fase 6 que prohibía cualquier rueda natal en la
+UI fue actualizado al activarse legítimamente la funcionalidad en
+Fase 7.
+
+Se conserva la restricción arquitectónica relevante:
+
+- la UI no puede depender directamente de Swiss Ephemeris
+
+Se elimina únicamente la prohibición temporal de rueda natal que
+pertenecía al alcance de Fase 6.

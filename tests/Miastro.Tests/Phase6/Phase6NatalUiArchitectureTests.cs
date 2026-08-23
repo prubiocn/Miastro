@@ -104,7 +104,7 @@ public sealed class Phase6NatalUiArchitectureTests
     }
 
     [TestMethod]
-    public void Phase6_ui_has_no_natal_wheel_and_no_direct_swiss_dependency()
+    public void Phase6_ui_has_no_direct_swiss_dependency()
     {
         var uiRoot =
             Path.Combine(
@@ -148,12 +148,7 @@ public sealed class Phase6NatalUiArchitectureTests
                     StringComparison.Ordinal),
                 $"UI llama directamente a Swiss: {file}");
 
-            Assert.IsFalse(
-                text.Contains(
-                    "NatalWheel",
-                    StringComparison.OrdinalIgnoreCase),
-                $"Rueda natal implementada prematuramente: {file}");
-        }
+                    }
     }
 
     private static string Read(

@@ -14,6 +14,44 @@ public sealed class NatalSceneHitTester
     private const string ObjectGlyphPrefix =
         "object-glyph-";
 
+    public NatalHitTestResult? HitTestViewport(
+        NatalScene scene,
+        double x,
+        double y,
+        double viewportWidth,
+        double viewportHeight,
+        double tolerance = 0.0)
+    {
+        ArgumentNullException.ThrowIfNull(scene);
+
+        if (!double.IsFinite(x)
+            || !double.IsFinite(y)
+            || !double.IsFinite(viewportWidth)
+            || !double.IsFinite(viewportHeight)
+            || viewportWidth <= 0.0
+            || viewportHeight <= 0.0)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(viewportWidth));
+        }
+
+        var scenePoint =
+            new ChartPoint(
+                x * scene.Width / viewportWidth,
+                y * scene.Height / viewportHeight);
+
+        var sceneTolerance =
+            tolerance
+            * Math.Max(
+                scene.Width / viewportWidth,
+                scene.Height / viewportHeight);
+
+        return HitTest(
+            scene,
+            scenePoint,
+            sceneTolerance);
+    }
+
     public NatalHitTestResult? HitTest(
         NatalScene scene,
         ChartPoint point,
