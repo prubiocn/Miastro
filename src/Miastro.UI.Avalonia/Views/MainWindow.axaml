@@ -642,6 +642,139 @@
                             </Border>
 
                             <Border
+                                IsVisible="{Binding IsNatalSectionVisible}"
+                                Padding="16"
+                                CornerRadius="6"
+                                Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+
+                                <StackPanel Spacing="12">
+
+                                    <TextBlock
+                                        Text="Carta natal"
+                                        FontSize="17"
+                                        FontWeight="SemiBold" />
+
+                                    <TextBlock
+                                        Text="{Binding NatalAvailabilityText}"
+                                        FontWeight="SemiBold"
+                                        TextWrapping="Wrap" />
+
+                                    <TextBlock
+                                        Text="{Binding NatalStatusMessage}"
+                                        TextWrapping="Wrap"
+                                        Opacity="0.75" />
+
+                                    <TextBlock
+                                        IsVisible="{Binding HasCurrentNatalChart}"
+                                        Text="{Binding NatalCalculatedAtText}"
+                                        Opacity="0.75" />
+
+                                    <TextBlock
+                                        IsVisible="{Binding HasCurrentNatalChart}"
+                                        Text="{Binding CurrentNatalHouseSystemText}"
+                                        Opacity="0.75" />
+
+                                    <Grid
+                                        ColumnDefinitions="*,Auto"
+                                        ColumnSpacing="12">
+
+                                        <StackPanel
+                                            Grid.Column="0"
+                                            Spacing="4">
+
+                                            <TextBlock
+                                                Text="Sistema de casas" />
+
+                                            <ComboBox
+                                                ItemsSource="{Binding NatalHouseSystems}"
+                                                SelectedItem="{Binding SelectedNatalHouseSystem}"
+                                                AutomationProperties.Name="Sistema de casas natal" />
+
+                                        </StackPanel>
+
+                                        <Button
+                                            Grid.Column="1"
+                                            VerticalAlignment="Bottom"
+                                            Content="Calcular carta natal"
+                                            Command="{Binding CalculateNatalCommand}"
+                                            AutomationProperties.Name="Calcular carta natal" />
+
+                                    </Grid>
+
+                                    <TextBlock
+                                        IsVisible="{Binding NatalCalculationFailed}"
+                                        Text="{Binding NatalStatusMessage}"
+                                        TextWrapping="Wrap"
+                                        Foreground="{DynamicResource SystemControlErrorTextForegroundBrush}" />
+
+                                    <Grid
+                                        IsVisible="{Binding HasNatalPlacements}"
+                                        ColumnDefinitions="2*,2*,*,*"
+                                        ColumnSpacing="10">
+
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            Text="Objeto"
+                                            FontWeight="SemiBold" />
+
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Text="Posición"
+                                            FontWeight="SemiBold" />
+
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            Text="Casa"
+                                            FontWeight="SemiBold" />
+
+                                        <TextBlock
+                                            Grid.Column="3"
+                                            Text="Movimiento"
+                                            FontWeight="SemiBold" />
+
+                                    </Grid>
+
+                                    <ItemsControl
+                                        IsVisible="{Binding HasNatalPlacements}"
+                                        ItemsSource="{Binding NatalPlacements}">
+
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate
+                                                x:DataType="vm:NatalPlacementRowViewModel">
+
+                                                <Grid
+                                                    Margin="0,3"
+                                                    ColumnDefinitions="2*,2*,*,*"
+                                                    ColumnSpacing="10">
+
+                                                    <TextBlock
+                                                        Grid.Column="0"
+                                                        Text="{Binding ObjectName}"
+                                                        TextWrapping="Wrap" />
+
+                                                    <TextBlock
+                                                        Grid.Column="1"
+                                                        Text="{Binding PositionText}" />
+
+                                                    <TextBlock
+                                                        Grid.Column="2"
+                                                        Text="{Binding HouseText}" />
+
+                                                    <TextBlock
+                                                        Grid.Column="3"
+                                                        Text="{Binding MotionText}" />
+
+                                                </Grid>
+
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+
+                                    </ItemsControl>
+
+                                </StackPanel>
+                            </Border>
+
+                            <Border
                                 Padding="16"
                                 CornerRadius="6"
                                 Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
@@ -748,7 +881,7 @@
 
                 <TextBlock
                     Grid.Column="1"
-                    Text="Fase 5 · Personas"
+                    Text="Fase 6 · Personas y carta natal"
                     Opacity="0.6" />
 
             </Grid>

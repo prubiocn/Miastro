@@ -125,6 +125,7 @@ public sealed partial class MainWindowViewModel
                       && !IsBusy);
 
         InitializePeopleDetailsEditor();
+        InitializeNatalEditor();
     }
 
     public event PropertyChangedEventHandler?
@@ -234,6 +235,9 @@ public sealed partial class MainWindowViewModel
 
                 OnPropertyChanged(
                     nameof(DeleteButtonText));
+
+                OnPropertyChanged(
+                    nameof(IsNatalSectionVisible));
 
                 RaiseCommands();
             }
@@ -382,9 +386,18 @@ public sealed partial class MainWindowViewModel
         get => _isDirty;
 
         private set
-            => SetField(
+        {
+            if (SetField(
                 ref _isDirty,
-                value);
+                value))
+            {
+                CalculateNatalCommand?
+                    .RaiseCanExecuteChanged();
+
+                OnPropertyChanged(
+                    nameof(CanCalculateNatal));
+            }
+        }
     }
 
     public bool IsBusy
@@ -514,6 +527,7 @@ public sealed partial class MainWindowViewModel
 
         ResetPeopleDetailsForNewPerson();
         ResetPersonHistory();
+        ResetNatalEditor();
 
         _deleteArmed = false;
         _cancelArmed = false;
@@ -585,6 +599,9 @@ public sealed partial class MainWindowViewModel
 
         LoadPersonHistory(
             person.History);
+
+        await LoadNatalAsync(
+            person.Id);
 
         _deleteArmed = false;
         _cancelArmed = false;
@@ -687,6 +704,9 @@ public sealed partial class MainWindowViewModel
 
             if (EditingId is not null)
             {
+                await LoadNatalAsync(
+                    EditingId.Value);
+
                 SelectedPerson =
                     People.FirstOrDefault(
                         x => x.Id
@@ -853,6 +873,8 @@ public sealed partial class MainWindowViewModel
         OnPropertyChanged(
             nameof(DeleteButtonText));
 
+        ResetNatalEditor();
+
         IsDirty = false;
         IsEditorVisible = false;
     }
@@ -933,7 +955,8 @@ public sealed partial class MainWindowViewModel
             SaveCommand,
             CancelCommand,
             SetConsultationNowCommand,
-            DeleteCommand
+            DeleteCommand,
+            CalculateNatalCommand
         })
         {
             switch (command)

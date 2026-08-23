@@ -3,6 +3,7 @@ using System;
 using Miastro.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Miastro.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(MiastroDbContext))]
-    partial class MiastroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260821113324_Phase6NatalSnapshotSchema")]
+    partial class Phase6NatalSnapshotSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.11");
@@ -213,26 +216,11 @@ namespace Miastro.Infrastructure.Persistence.Migrations
                         .HasMaxLength(80)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("AmbiguousSelection")
-                        .HasMaxLength(40)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("BirthDataHash")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("BirthDataVersion")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateOnly>("BirthLocalDate")
                         .HasColumnType("TEXT");
 
                     b.Property<TimeOnly>("BirthLocalTime")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("BirthTimePrecision")
-                        .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset>("CalculatedAtUtc")
                         .HasColumnType("TEXT");
@@ -256,12 +244,6 @@ namespace Miastro.Infrastructure.Persistence.Migrations
                         .IsRequired()
                         .HasMaxLength(160)
                         .HasColumnType("TEXT");
-
-                    b.Property<long>("GeoNameId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int?>("HistoricalOffsetSeconds")
-                        .HasColumnType("INTEGER");
 
                     b.Property<int>("HouseSystem")
                         .HasColumnType("INTEGER");

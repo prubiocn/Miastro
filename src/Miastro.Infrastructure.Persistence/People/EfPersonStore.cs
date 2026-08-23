@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Miastro.Application.People;
 using Miastro.Domain.People;
+using Miastro.Domain.Natal;
 using Miastro.Infrastructure.Persistence.Entities;
 
 namespace Miastro.Infrastructure.Persistence.People;
@@ -65,11 +66,18 @@ public sealed class EfPersonStore(
         var entity = await dbContext.People
             .Include(x => x.BirthData)
             .Include(x => x.CurrentResidence)
+            .Include(x => x.History)
             .SingleOrDefaultAsync(
                 x => x.Id == command.Id,
                 cancellationToken)
             ?? throw new KeyNotFoundException(
                 "Person not found.");
+
+        var natalRelevantBirthChange =
+            BirthDataNatalChangeDetector
+                .HasNatalRelevantChange(
+                    entity.BirthData,
+                    command.BirthData);
 
         entity.FirstName = command.FirstName.Trim();
         entity.LastName = command.LastName.Trim();
@@ -111,6 +119,46 @@ public sealed class EfPersonStore(
                 OccurredAtUtc = nowUtc,
                 Summary = "Ficha actualizada"
             });
+
+        if (natalRelevantBirthChange)
+        {
+            var currentCharts =
+                await dbContext.NatalCharts
+                    .Where(x =>
+                        x.PersonId == entity.Id
+                        && x.Status ==
+                            (int)NatalChartStatus.Current)
+                    .ToListAsync(
+                        cancellationToken);
+
+            foreach (var chart in currentCharts)
+            {
+                chart.Status =
+                    (int)NatalChartStatus.Invalidated;
+
+                chart.InvalidatedAtUtc =
+                    nowUtc.ToUniversalTime();
+
+                chart.SupersededByChartId =
+                    null;
+            }
+
+            if (currentCharts.Count > 0)
+            {
+                entity.History.Add(
+                    new PersonHistoryEntity
+                    {
+                        PersonId = entity.Id,
+                        EventType =
+                            (int)PersonHistoryEventType
+                                .NatalChartInvalidated,
+                        OccurredAtUtc =
+                            nowUtc.ToUniversalTime(),
+                        Summary =
+                            "Carta natal invalidada por cambio en datos de nacimiento"
+                    });
+            }
+        }
 
         await dbContext.SaveChangesAsync(
             cancellationToken);

@@ -1,0 +1,3093 @@
+{
+  "schemaVersion": 1,
+  "provenance": {
+    "primaryGoldenFile": "golden-values.json",
+    "primaryGoldenSha256": "3bf577f6c0444a156d9b699bf3c1f6d4e2813fd40133b310d62b9825a6b44cb6",
+    "referenceImplementation": "Independent Python reference model",
+    "miastroCodeUsedToGenerateExpected": false
+  },
+  "rules": {
+    "cuspToleranceDegrees": 1e-09,
+    "dayHouses": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "nightHouses": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "fortuneDay": "ASC + Moon - Sun",
+    "fortuneNight": "ASC + Sun - Moon",
+    "luminaryOrbBonusDegrees": 1.0,
+    "aspectDefinitions": [
+      {
+        "kind": "Conjunction",
+        "angle": 0.0,
+        "orb": 8.0,
+        "priority": 0
+      },
+      {
+        "kind": "Semisextile",
+        "angle": 30.0,
+        "orb": 2.0,
+        "priority": 1
+      },
+      {
+        "kind": "Sextile",
+        "angle": 60.0,
+        "orb": 4.0,
+        "priority": 2
+      },
+      {
+        "kind": "Square",
+        "angle": 90.0,
+        "orb": 6.0,
+        "priority": 3
+      },
+      {
+        "kind": "Trine",
+        "angle": 120.0,
+        "orb": 6.0,
+        "priority": 4
+      },
+      {
+        "kind": "Quincunx",
+        "angle": 150.0,
+        "orb": 3.0,
+        "priority": 5
+      },
+      {
+        "kind": "Opposition",
+        "angle": 180.0,
+        "orb": 8.0,
+        "priority": 6
+      },
+      {
+        "kind": "Quintile",
+        "angle": 72.0,
+        "orb": 2.0,
+        "priority": 7
+      },
+      {
+        "kind": "Biquintile",
+        "angle": 144.0,
+        "orb": 2.0,
+        "priority": 8
+      }
+    ],
+    "aspectParticipants": [
+      "Sun",
+      "Moon",
+      "Mercury",
+      "Venus",
+      "Mars",
+      "Jupiter",
+      "Saturn",
+      "Uranus",
+      "Neptune",
+      "Pluto",
+      "Chiron",
+      "Ceres",
+      "Pallas",
+      "Juno",
+      "Vesta",
+      "Ascendant",
+      "Midheaven"
+    ]
+  },
+  "cases": [
+    {
+      "id": "modern_madrid_2024",
+      "sect": "Day",
+      "partOfFortuneLongitude": 253.2860138,
+      "houseAssignments": [
+        {
+          "object": "Sun",
+          "house": 10
+        },
+        {
+          "object": "Moon",
+          "house": 6
+        },
+        {
+          "object": "Mercury",
+          "house": 9
+        },
+        {
+          "object": "Venus",
+          "house": 8
+        },
+        {
+          "object": "Mars",
+          "house": 9
+        },
+        {
+          "object": "Jupiter",
+          "house": 1
+        },
+        {
+          "object": "Saturn",
+          "house": 12
+        },
+        {
+          "object": "Uranus",
+          "house": 1
+        },
+        {
+          "object": "Neptune",
+          "house": 12
+        },
+        {
+          "object": "Pluto",
+          "house": 11
+        },
+        {
+          "object": "NorthTrueNode",
+          "house": 1
+        },
+        {
+          "object": "SouthNode",
+          "house": 7
+        },
+        {
+          "object": "MeanLilith",
+          "house": 6
+        },
+        {
+          "object": "PartOfFortune",
+          "house": 8
+        },
+        {
+          "object": "Chiron",
+          "house": 1
+        },
+        {
+          "object": "Ceres",
+          "house": 9
+        },
+        {
+          "object": "Pallas",
+          "house": 7
+        },
+        {
+          "object": "Juno",
+          "house": 6
+        },
+        {
+          "object": "Vesta",
+          "house": 3
+        },
+        {
+          "object": "Ascendant",
+          "house": 1
+        },
+        {
+          "object": "Midheaven",
+          "house": 10
+        }
+      ],
+      "aspects": [
+        {
+          "firstObject": "Sun",
+          "secondObject": "Moon",
+          "kind": "Trine",
+          "separationDegrees": 118.64146009999999,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 1.358539900000011,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 1.358539900000011
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Jupiter",
+          "kind": "Trine",
+          "separationDegrees": 115.03586720000001,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 4.964132799999987,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 4.964132799999987
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Neptune",
+          "kind": "Quintile",
+          "separationDegrees": 74.5350161,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 2.535016100000007,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.535016100000007
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Chiron",
+          "kind": "Square",
+          "separationDegrees": 94.91643049999999,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 4.91643049999999,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 4.91643049999999
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Ascendant",
+          "kind": "Square",
+          "separationDegrees": 91.3789797,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 1.3789797000000021,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 1.3789797000000021
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Midheaven",
+          "kind": "Conjunction",
+          "separationDegrees": 4.175958400000013,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 4.175958400000013,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 4.175958400000013
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Jupiter",
+          "kind": "Trine",
+          "separationDegrees": 126.3226727,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 6.322672699999998,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 6.322672699999998
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Saturn",
+          "kind": "Opposition",
+          "separationDegrees": 171.38089599999998,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 8.619104000000021,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 8.619104000000021
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Chiron",
+          "kind": "Biquintile",
+          "separationDegrees": 146.4421094,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 2.4421093999999925,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.4421093999999925
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Ceres",
+          "kind": "Square",
+          "separationDegrees": 93.7398983,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 3.739898299999993,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 3.739898299999993
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Ascendant",
+          "kind": "Quincunx",
+          "separationDegrees": 149.9795602,
+          "exactAngleDegrees": 150.0,
+          "deviationDegrees": 0.020439799999991237,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 0.020439799999991237
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Midheaven",
+          "kind": "Trine",
+          "separationDegrees": 114.46550169999998,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 5.534498300000024,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 5.534498300000024
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Mars",
+          "kind": "Conjunction",
+          "separationDegrees": 5.467131399999971,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 5.467131399999971,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 5.467131399999971
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Saturn",
+          "kind": "Quintile",
+          "separationDegrees": 71.07590369999997,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.9240963000000306,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.9240963000000306
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Uranus",
+          "kind": "Quincunx",
+          "separationDegrees": 147.16103449999997,
+          "exactAngleDegrees": 150.0,
+          "deviationDegrees": 2.838965500000029,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.838965500000029
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Neptune",
+          "kind": "Square",
+          "separationDegrees": 92.87148389999999,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 2.871483899999987,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.871483899999987
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Ceres",
+          "kind": "Conjunction",
+          "separationDegrees": 6.565094000000016,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 6.565094000000016,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 6.565094000000016
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Juno",
+          "kind": "Square",
+          "separationDegrees": 90.85031210000002,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 0.8503121000000249,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 0.8503121000000249
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Vesta",
+          "kind": "Opposition",
+          "separationDegrees": 175.33906530000002,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 4.660934699999984,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 4.660934699999984
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Jupiter",
+          "kind": "Quincunx",
+          "separationDegrees": 152.363929,
+          "exactAngleDegrees": 150.0,
+          "deviationDegrees": 2.363929000000013,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.363929000000013
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Saturn",
+          "kind": "Square",
+          "separationDegrees": 90.06749769999999,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 0.06749769999998989,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 0.06749769999998989
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Pluto",
+          "kind": "Sextile",
+          "separationDegrees": 56.15275919999999,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 3.8472408000000087,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 3.8472408000000087
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Juno",
+          "kind": "Quintile",
+          "separationDegrees": 71.8587181,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.14128189999999563,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.14128189999999563
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Neptune",
+          "kind": "Square",
+          "separationDegrees": 87.40435250000002,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 2.595647499999984,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.595647499999984
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Pluto",
+          "kind": "Semisextile",
+          "separationDegrees": 31.6940338,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.6940337999999997,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.6940337999999997
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Vesta",
+          "kind": "Opposition",
+          "separationDegrees": 179.1938033,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 0.8061966999999868,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 0.8061966999999868
+        },
+        {
+          "firstObject": "Jupiter",
+          "secondObject": "Saturn",
+          "kind": "Sextile",
+          "separationDegrees": 62.296431299999995,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 2.2964312999999947,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 2.2964312999999947
+        },
+        {
+          "firstObject": "Jupiter",
+          "secondObject": "Midheaven",
+          "kind": "Trine",
+          "separationDegrees": 119.21182560000003,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 0.7881743999999742,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 0.7881743999999742
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Midheaven",
+          "kind": "Sextile",
+          "separationDegrees": 56.9153943,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 3.0846056999999973,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 3.0846056999999973
+        },
+        {
+          "firstObject": "Uranus",
+          "secondObject": "Pallas",
+          "kind": "Opposition",
+          "separationDegrees": 178.3873688,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 1.6126312000000098,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 1.6126312000000098
+        },
+        {
+          "firstObject": "Uranus",
+          "secondObject": "Juno",
+          "kind": "Trine",
+          "separationDegrees": 121.98865339999999,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 1.9886533999999898,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 1.9886533999999898
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Juno",
+          "kind": "Opposition",
+          "separationDegrees": 176.278204,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 3.721796000000012,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 3.721796000000012
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Vesta",
+          "kind": "Square",
+          "separationDegrees": 91.7894508,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 1.7894507999999973,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 1.7894507999999973
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Pallas",
+          "kind": "Quintile",
+          "separationDegrees": 71.61276189999998,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.3872381000000189,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.3872381000000189
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Vesta",
+          "kind": "Quincunx",
+          "separationDegrees": 147.4997695,
+          "exactAngleDegrees": 150.0,
+          "deviationDegrees": 2.5002304999999865,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.5002304999999865
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Ascendant",
+          "kind": "Quintile",
+          "separationDegrees": 72.55428230000001,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.5542823000000112,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.5542823000000112
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Ceres",
+          "kind": "Trine",
+          "separationDegrees": 119.81799230000001,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 0.18200769999998556,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 0.18200769999998556
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Pallas",
+          "kind": "Quincunx",
+          "separationDegrees": 147.704495,
+          "exactAngleDegrees": 150.0,
+          "deviationDegrees": 2.2955049999999915,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.2955049999999915
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Vesta",
+          "kind": "Quintile",
+          "separationDegrees": 71.4080364,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.5919635999999997,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.5919635999999997
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Ascendant",
+          "kind": "Conjunction",
+          "separationDegrees": 3.5374507999999985,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 3.5374507999999985,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 3.5374507999999985
+        },
+        {
+          "firstObject": "Ceres",
+          "secondObject": "Juno",
+          "kind": "Square",
+          "separationDegrees": 84.28521810000001,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 5.714781899999991,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 5.714781899999991
+        },
+        {
+          "firstObject": "Ceres",
+          "secondObject": "Ascendant",
+          "kind": "Trine",
+          "separationDegrees": 116.2805415,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 3.7194585000000018,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 3.7194585000000018
+        },
+        {
+          "firstObject": "Pallas",
+          "secondObject": "Juno",
+          "kind": "Sextile",
+          "separationDegrees": 56.398715400000015,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 3.6012845999999854,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 3.6012845999999854
+        },
+        {
+          "firstObject": "Pallas",
+          "secondObject": "Ascendant",
+          "kind": "Biquintile",
+          "separationDegrees": 144.1670442,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 0.16704419999999232,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.16704419999999232
+        },
+        {
+          "firstObject": "Juno",
+          "secondObject": "Vesta",
+          "kind": "Square",
+          "separationDegrees": 84.48875319999999,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 5.511246800000009,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 5.511246800000009
+        },
+        {
+          "firstObject": "Ascendant",
+          "secondObject": "Midheaven",
+          "kind": "Square",
+          "separationDegrees": 95.55493810000002,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 5.554938100000015,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 5.554938100000015
+        }
+      ]
+    },
+    {
+      "id": "modern_sydney_2024_equinox",
+      "sect": "Day",
+      "partOfFortuneLongitude": 211.42980980000004,
+      "houseAssignments": [
+        {
+          "object": "Sun",
+          "house": 9
+        },
+        {
+          "object": "Moon",
+          "house": 2
+        },
+        {
+          "object": "Mercury",
+          "house": 10
+        },
+        {
+          "object": "Venus",
+          "house": 8
+        },
+        {
+          "object": "Mars",
+          "house": 8
+        },
+        {
+          "object": "Jupiter",
+          "house": 11
+        },
+        {
+          "object": "Saturn",
+          "house": 9
+        },
+        {
+          "object": "Uranus",
+          "house": 11
+        },
+        {
+          "object": "Neptune",
+          "house": 9
+        },
+        {
+          "object": "Pluto",
+          "house": 7
+        },
+        {
+          "object": "NorthTrueNode",
+          "house": 10
+        },
+        {
+          "object": "SouthNode",
+          "house": 4
+        },
+        {
+          "object": "MeanLilith",
+          "house": 3
+        },
+        {
+          "object": "PartOfFortune",
+          "house": 4
+        },
+        {
+          "object": "Chiron",
+          "house": 10
+        },
+        {
+          "object": "Ceres",
+          "house": 7
+        },
+        {
+          "object": "Pallas",
+          "house": 6
+        },
+        {
+          "object": "Juno",
+          "house": 2
+        },
+        {
+          "object": "Vesta",
+          "house": 12
+        },
+        {
+          "object": "Ascendant",
+          "house": 1
+        },
+        {
+          "object": "Midheaven",
+          "house": 10
+        }
+      ],
+      "aspects": [
+        {
+          "firstObject": "Sun",
+          "secondObject": "Moon",
+          "kind": "Trine",
+          "separationDegrees": 123.76921010000001,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 3.7692101000000093,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 3.7692101000000093
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Mars",
+          "kind": "Semisextile",
+          "separationDegrees": 32.22541319999999,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 2.2254131999999913,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.2254131999999913
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Neptune",
+          "kind": "Conjunction",
+          "separationDegrees": 2.535443600000008,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 2.535443600000008,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 2.535443600000008
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Pluto",
+          "kind": "Sextile",
+          "separationDegrees": 58.334973899999966,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 1.6650261000000341,
+          "allowedOrbDegrees": 5.0,
+          "usedOrbDegrees": 1.6650261000000341
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Vesta",
+          "kind": "Square",
+          "separationDegrees": 87.05492709999999,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 2.9450729000000138,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 2.9450729000000138
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Ascendant",
+          "kind": "Square",
+          "separationDegrees": 87.6650181,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 2.3349819000000025,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 2.3349819000000025
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Venus",
+          "kind": "Biquintile",
+          "separationDegrees": 143.5986507,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 0.4013492999999926,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 0.4013492999999926
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Saturn",
+          "kind": "Biquintile",
+          "separationDegrees": 141.53983920000002,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 2.460160799999983,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.460160799999983
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Uranus",
+          "kind": "Quintile",
+          "separationDegrees": 73.5111909,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 1.5111909000000026,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 1.5111909000000026
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Neptune",
+          "kind": "Trine",
+          "separationDegrees": 126.30465370000002,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 6.304653700000017,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 6.304653700000017
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Pluto",
+          "kind": "Opposition",
+          "separationDegrees": 177.89581600000002,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 2.104183999999975,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 2.104183999999975
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Pallas",
+          "kind": "Trine",
+          "separationDegrees": 124.4979236,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 4.497923599999993,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 4.497923599999993
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Chiron",
+          "kind": "Conjunction",
+          "separationDegrees": 0.8251782999999975,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 0.8251782999999975,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 0.8251782999999975
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Ceres",
+          "kind": "Square",
+          "separationDegrees": 94.12990330000002,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 4.129903300000024,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 4.129903300000024
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Juno",
+          "kind": "Biquintile",
+          "separationDegrees": 142.36588139999998,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 1.634118600000022,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.634118600000022
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Ascendant",
+          "kind": "Quintile",
+          "separationDegrees": 70.22573870000001,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 1.774261299999992,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.774261299999992
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Midheaven",
+          "kind": "Conjunction",
+          "separationDegrees": 1.8544207000000021,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 1.8544207000000021,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 1.8544207000000021
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Saturn",
+          "kind": "Conjunction",
+          "separationDegrees": 2.0588114999999902,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 2.0588114999999902,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 2.0588114999999902
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Uranus",
+          "kind": "Quintile",
+          "separationDegrees": 70.08745980000003,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 1.9125401999999667,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.9125401999999667
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Ceres",
+          "kind": "Sextile",
+          "separationDegrees": 56.86118329999999,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 3.1388167000000067,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 3.1388167000000067
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Pallas",
+          "kind": "Square",
+          "separationDegrees": 91.90342569999999,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 1.9034256999999855,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 1.9034256999999855
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Juno",
+          "kind": "Opposition",
+          "separationDegrees": 179.6346014,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 0.3653985999999918,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 0.3653985999999918
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Neptune",
+          "kind": "Semisextile",
+          "separationDegrees": 29.689969599999984,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 0.31003040000001647,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.31003040000001647
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Vesta",
+          "kind": "Trine",
+          "separationDegrees": 119.2803403,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 0.719659699999994,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 0.719659699999994
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Ascendant",
+          "kind": "Trine",
+          "separationDegrees": 119.89043130000002,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 0.10956869999998275,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 0.10956869999998275
+        },
+        {
+          "firstObject": "Jupiter",
+          "secondObject": "Saturn",
+          "kind": "Sextile",
+          "separationDegrees": 62.6598467,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 2.659846700000003,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 2.659846700000003
+        },
+        {
+          "firstObject": "Jupiter",
+          "secondObject": "Uranus",
+          "kind": "Conjunction",
+          "separationDegrees": 5.368801599999998,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 5.368801599999998,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 5.368801599999998
+        },
+        {
+          "firstObject": "Jupiter",
+          "secondObject": "Ceres",
+          "kind": "Trine",
+          "separationDegrees": 121.57984150000001,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 1.5798415000000148,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 1.5798415000000148
+        },
+        {
+          "firstObject": "Jupiter",
+          "secondObject": "Juno",
+          "kind": "Trine",
+          "separationDegrees": 114.91594319999999,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 5.084056800000013,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 5.084056800000013
+        },
+        {
+          "firstObject": "Jupiter",
+          "secondObject": "Midheaven",
+          "kind": "Semisextile",
+          "separationDegrees": 29.304358900000004,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 0.695641099999996,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.695641099999996
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Ceres",
+          "kind": "Sextile",
+          "separationDegrees": 58.919994799999984,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 1.0800052000000164,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 1.0800052000000164
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Pallas",
+          "kind": "Square",
+          "separationDegrees": 93.96223719999998,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 3.9622371999999757,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 3.9622371999999757
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Juno",
+          "kind": "Opposition",
+          "separationDegrees": 177.57578990000002,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 2.424210099999982,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 2.424210099999982
+        },
+        {
+          "firstObject": "Uranus",
+          "secondObject": "Chiron",
+          "kind": "Semisextile",
+          "separationDegrees": 31.993561500000002,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.993561500000002,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.993561500000002
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Vesta",
+          "kind": "Square",
+          "separationDegrees": 89.5903707,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 0.40962930000000597,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 0.40962930000000597
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Ascendant",
+          "kind": "Square",
+          "separationDegrees": 90.2004617,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 0.2004617000000053,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 0.2004617000000053
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Vesta",
+          "kind": "Biquintile",
+          "separationDegrees": 145.38990099999998,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 1.3899009999999805,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.3899009999999805
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Ascendant",
+          "kind": "Biquintile",
+          "separationDegrees": 145.999992,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 1.9999919999999918,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.9999919999999918
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Midheaven",
+          "kind": "Quintile",
+          "separationDegrees": 73.9198326,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 1.9198326000000066,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.9198326000000066
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Ceres",
+          "kind": "Square",
+          "separationDegrees": 94.95508160000003,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 4.955081600000028,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 4.955081600000028
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Midheaven",
+          "kind": "Conjunction",
+          "separationDegrees": 2.6795989999999996,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 2.6795989999999996,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 2.6795989999999996
+        },
+        {
+          "firstObject": "Ceres",
+          "secondObject": "Juno",
+          "kind": "Trine",
+          "separationDegrees": 123.5042153,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 3.5042152999999985,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 3.5042152999999985
+        },
+        {
+          "firstObject": "Ceres",
+          "secondObject": "Midheaven",
+          "kind": "Square",
+          "separationDegrees": 92.27548260000003,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 2.275482600000032,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.275482600000032
+        },
+        {
+          "firstObject": "Pallas",
+          "secondObject": "Juno",
+          "kind": "Square",
+          "separationDegrees": 88.4619729,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 1.5380270999999937,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 1.5380270999999937
+        },
+        {
+          "firstObject": "Juno",
+          "secondObject": "Vesta",
+          "kind": "Quintile",
+          "separationDegrees": 72.7502337,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.7502336999999955,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.7502336999999955
+        },
+        {
+          "firstObject": "Juno",
+          "secondObject": "Ascendant",
+          "kind": "Quintile",
+          "separationDegrees": 72.14014269999998,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.1401426999999842,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.1401426999999842
+        },
+        {
+          "firstObject": "Juno",
+          "secondObject": "Midheaven",
+          "kind": "Biquintile",
+          "separationDegrees": 144.2203021,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 0.22030209999999784,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.22030209999999784
+        },
+        {
+          "firstObject": "Vesta",
+          "secondObject": "Ascendant",
+          "kind": "Conjunction",
+          "separationDegrees": 0.6100910000000113,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 0.6100910000000113,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 0.6100910000000113
+        },
+        {
+          "firstObject": "Vesta",
+          "secondObject": "Midheaven",
+          "kind": "Quintile",
+          "separationDegrees": 71.4700684,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.5299315999999976,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.5299315999999976
+        },
+        {
+          "firstObject": "Ascendant",
+          "secondObject": "Midheaven",
+          "kind": "Quintile",
+          "separationDegrees": 72.08015940000001,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.08015940000001365,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.08015940000001365
+        }
+      ]
+    },
+    {
+      "id": "modern_newyork_2000",
+      "sect": "Night",
+      "partOfFortuneLongitude": 331.28715090000003,
+      "houseAssignments": [
+        {
+          "object": "Sun",
+          "house": 1
+        },
+        {
+          "object": "Moon",
+          "house": 10
+        },
+        {
+          "object": "Mercury",
+          "house": 12
+        },
+        {
+          "object": "Venus",
+          "house": 11
+        },
+        {
+          "object": "Mars",
+          "house": 2
+        },
+        {
+          "object": "Jupiter",
+          "house": 3
+        },
+        {
+          "object": "Saturn",
+          "house": 4
+        },
+        {
+          "object": "Uranus",
+          "house": 2
+        },
+        {
+          "object": "Neptune",
+          "house": 1
+        },
+        {
+          "object": "Pluto",
+          "house": 12
+        },
+        {
+          "object": "NorthTrueNode",
+          "house": 8
+        },
+        {
+          "object": "SouthNode",
+          "house": 2
+        },
+        {
+          "object": "MeanLilith",
+          "house": 12
+        },
+        {
+          "object": "PartOfFortune",
+          "house": 2
+        },
+        {
+          "object": "Chiron",
+          "house": 12
+        },
+        {
+          "object": "Ceres",
+          "house": 9
+        },
+        {
+          "object": "Pallas",
+          "house": 8
+        },
+        {
+          "object": "Juno",
+          "house": 1
+        },
+        {
+          "object": "Vesta",
+          "house": 11
+        },
+        {
+          "object": "Ascendant",
+          "house": 1
+        },
+        {
+          "object": "Midheaven",
+          "house": 10
+        }
+      ],
+      "aspects": [
+        {
+          "firstObject": "Sun",
+          "secondObject": "Moon",
+          "kind": "Sextile",
+          "separationDegrees": 57.0451673,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 2.954832699999997,
+          "allowedOrbDegrees": 5.0,
+          "usedOrbDegrees": 2.954832699999997
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Mercury",
+          "kind": "Conjunction",
+          "separationDegrees": 8.479641700000002,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 8.479641700000002,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 8.479641700000002
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Saturn",
+          "kind": "Trine",
+          "separationDegrees": 120.02674480000002,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 0.02674480000001722,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 0.02674480000001722
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Pluto",
+          "kind": "Semisextile",
+          "separationDegrees": 28.914139399999982,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.085860600000018,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 1.085860600000018
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Chiron",
+          "kind": "Semisextile",
+          "separationDegrees": 28.75129229999999,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.2487077000000113,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 1.2487077000000113
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Ceres",
+          "kind": "Square",
+          "separationDegrees": 95.915885,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 5.915885000000003,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 5.915885000000003
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Pallas",
+          "kind": "Biquintile",
+          "separationDegrees": 146.3259095,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 2.3259094999999945,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.3259094999999945
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Juno",
+          "kind": "Conjunction",
+          "separationDegrees": 2.3728573999999867,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 2.3728573999999867,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 2.3728573999999867
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Ascendant",
+          "kind": "Conjunction",
+          "separationDegrees": 6.126935099999969,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 6.126935099999969,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 6.126935099999969
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Midheaven",
+          "kind": "Quintile",
+          "separationDegrees": 71.89990889999999,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.10009110000001442,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 0.10009110000001442
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Saturn",
+          "kind": "Opposition",
+          "separationDegrees": 177.07191210000002,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 2.92808789999998,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 2.92808789999998
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Uranus",
+          "kind": "Square",
+          "separationDegrees": 91.4854363,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 1.4854363000000035,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 1.4854363000000035
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Pluto",
+          "kind": "Semisextile",
+          "separationDegrees": 28.13102790000002,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.8689720999999793,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 1.8689720999999793
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Chiron",
+          "kind": "Semisextile",
+          "separationDegrees": 28.293875000000014,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.706124999999986,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 1.706124999999986
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Pallas",
+          "kind": "Square",
+          "separationDegrees": 89.28074219999999,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 0.7192578000000083,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 0.7192578000000083
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Venus",
+          "kind": "Semisextile",
+          "separationDegrees": 30.32348859999999,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 0.32348859999999036,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.32348859999999036
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Mars",
+          "kind": "Sextile",
+          "separationDegrees": 56.074025500000005,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 3.9259744999999953,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 3.9259744999999953
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Neptune",
+          "kind": "Semisextile",
+          "separationDegrees": 31.303736200000003,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.303736200000003,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.303736200000003
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Ceres",
+          "kind": "Square",
+          "separationDegrees": 87.4362433,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 2.563756699999999,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.563756699999999
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Juno",
+          "kind": "Conjunction",
+          "separationDegrees": 6.106784300000015,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 6.106784300000015,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 6.106784300000015
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Ascendant",
+          "kind": "Conjunction",
+          "separationDegrees": 2.352706600000033,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 2.352706600000033,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 2.352706600000033
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Midheaven",
+          "kind": "Sextile",
+          "separationDegrees": 63.420267199999984,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 3.4202671999999836,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 3.4202671999999836
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Mars",
+          "kind": "Square",
+          "separationDegrees": 86.3975141,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 3.602485900000005,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 3.602485900000005
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Jupiter",
+          "kind": "Biquintile",
+          "separationDegrees": 143.6872988,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 0.31270119999999224,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.31270119999999224
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Uranus",
+          "kind": "Quintile",
+          "separationDegrees": 73.2433993,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 1.243399299999993,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.243399299999993
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Neptune",
+          "kind": "Sextile",
+          "separationDegrees": 61.62722479999999,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 1.6272247999999934,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 1.6272247999999934
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Ceres",
+          "kind": "Sextile",
+          "separationDegrees": 57.11275470000001,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 2.8872452999999894,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 2.8872452999999894
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Vesta",
+          "kind": "Conjunction",
+          "separationDegrees": 4.406178299999993,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 4.406178299999993,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 4.406178299999993
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Jupiter",
+          "kind": "Sextile",
+          "separationDegrees": 57.289784699999984,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 2.7102153000000158,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 2.7102153000000158
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Saturn",
+          "kind": "Quintile",
+          "separationDegrees": 72.43236100000001,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.43236100000001443,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.43236100000001443
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Ceres",
+          "kind": "Biquintile",
+          "separationDegrees": 143.5102688,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 0.48973119999999426,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.48973119999999426
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Midheaven",
+          "kind": "Trine",
+          "separationDegrees": 119.49429269999999,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 0.5057073000000116,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 0.5057073000000116
+        },
+        {
+          "firstObject": "Jupiter",
+          "secondObject": "Uranus",
+          "kind": "Quintile",
+          "separationDegrees": 70.44389949999999,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 1.5561005000000137,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.5561005000000137
+        },
+        {
+          "firstObject": "Jupiter",
+          "secondObject": "Midheaven",
+          "kind": "Opposition",
+          "separationDegrees": 176.7840774,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 3.215922599999999,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 3.215922599999999
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Uranus",
+          "kind": "Square",
+          "separationDegrees": 85.58647580000002,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 4.4135241999999835,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 4.4135241999999835
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Pluto",
+          "kind": "Quincunx",
+          "separationDegrees": 148.94088419999997,
+          "exactAngleDegrees": 150.0,
+          "deviationDegrees": 1.0591158000000291,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 1.0591158000000291
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Chiron",
+          "kind": "Quincunx",
+          "separationDegrees": 148.7780371,
+          "exactAngleDegrees": 150.0,
+          "deviationDegrees": 1.221962899999994,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 1.221962899999994
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Ceres",
+          "kind": "Biquintile",
+          "separationDegrees": 144.05737019999998,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 0.05737019999997983,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.05737019999997983
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Pallas",
+          "kind": "Square",
+          "separationDegrees": 93.6473457,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 3.6473457000000025,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 3.6473457000000025
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Juno",
+          "kind": "Trine",
+          "separationDegrees": 122.3996022,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 2.399602200000004,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.399602200000004
+        },
+        {
+          "firstObject": "Uranus",
+          "secondObject": "Pluto",
+          "kind": "Sextile",
+          "separationDegrees": 63.35440839999998,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 3.3544083999999827,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 3.3544083999999827
+        },
+        {
+          "firstObject": "Uranus",
+          "secondObject": "Chiron",
+          "kind": "Sextile",
+          "separationDegrees": 63.19156129999999,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 3.1915612999999894,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 3.1915612999999894
+        },
+        {
+          "firstObject": "Uranus",
+          "secondObject": "Pallas",
+          "kind": "Opposition",
+          "separationDegrees": 179.2338215,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 0.7661784999999952,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 0.7661784999999952
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Ceres",
+          "kind": "Trine",
+          "separationDegrees": 118.7399795,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 1.260020499999996,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 1.260020499999996
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Vesta",
+          "kind": "Sextile",
+          "separationDegrees": 57.2210465,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 2.7789535,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 2.7789535
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Ascendant",
+          "kind": "Semisextile",
+          "separationDegrees": 28.95102959999997,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.0489704000000302,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.0489704000000302
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Midheaven",
+          "kind": "Square",
+          "separationDegrees": 94.72400339999999,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 4.724003399999987,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 4.724003399999987
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Chiron",
+          "kind": "Conjunction",
+          "separationDegrees": 0.16284709999999336,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 0.16284709999999336,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 0.16284709999999336
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Pallas",
+          "kind": "Trine",
+          "separationDegrees": 117.41177010000001,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 2.5882298999999875,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.5882298999999875
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Vesta",
+          "kind": "Conjunction",
+          "separationDegrees": 5.482812600000017,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 5.482812600000017,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 5.482812600000017
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Pallas",
+          "kind": "Trine",
+          "separationDegrees": 117.5746172,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 2.425382799999994,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.425382799999994
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Vesta",
+          "kind": "Conjunction",
+          "separationDegrees": 5.64565970000001,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 5.64565970000001,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 5.64565970000001
+        },
+        {
+          "firstObject": "Ceres",
+          "secondObject": "Juno",
+          "kind": "Square",
+          "separationDegrees": 93.54302760000002,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 3.5430276000000163,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 3.5430276000000163
+        },
+        {
+          "firstObject": "Ceres",
+          "secondObject": "Vesta",
+          "kind": "Sextile",
+          "separationDegrees": 61.518933000000004,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 1.518933000000004,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 1.518933000000004
+        },
+        {
+          "firstObject": "Ceres",
+          "secondObject": "Ascendant",
+          "kind": "Square",
+          "separationDegrees": 89.78894990000003,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 0.21105009999996582,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 0.21105009999996582
+        },
+        {
+          "firstObject": "Pallas",
+          "secondObject": "Juno",
+          "kind": "Biquintile",
+          "separationDegrees": 143.9530521,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 0.04694789999999216,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.04694789999999216
+        },
+        {
+          "firstObject": "Juno",
+          "secondObject": "Ascendant",
+          "kind": "Conjunction",
+          "separationDegrees": 3.754077699999982,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 3.754077699999982,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 3.754077699999982
+        },
+        {
+          "firstObject": "Vesta",
+          "secondObject": "Ascendant",
+          "kind": "Semisextile",
+          "separationDegrees": 28.27001690000003,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.72998309999997,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.72998309999997
+        }
+      ]
+    },
+    {
+      "id": "historical_madrid_1900",
+      "sect": "Day",
+      "partOfFortuneLongitude": 10.949143400000025,
+      "houseAssignments": [
+        {
+          "object": "Sun",
+          "house": 10
+        },
+        {
+          "object": "Moon",
+          "house": 10
+        },
+        {
+          "object": "Mercury",
+          "house": 9
+        },
+        {
+          "object": "Venus",
+          "house": 11
+        },
+        {
+          "object": "Mars",
+          "house": 10
+        },
+        {
+          "object": "Jupiter",
+          "house": 8
+        },
+        {
+          "object": "Saturn",
+          "house": 9
+        },
+        {
+          "object": "Uranus",
+          "house": 8
+        },
+        {
+          "object": "Neptune",
+          "house": 3
+        },
+        {
+          "object": "Pluto",
+          "house": 3
+        },
+        {
+          "object": "NorthTrueNode",
+          "house": 9
+        },
+        {
+          "object": "SouthNode",
+          "house": 3
+        },
+        {
+          "object": "MeanLilith",
+          "house": 6
+        },
+        {
+          "object": "PartOfFortune",
+          "house": 12
+        },
+        {
+          "object": "Chiron",
+          "house": 9
+        },
+        {
+          "object": "Ceres",
+          "house": 9
+        },
+        {
+          "object": "Pallas",
+          "house": 9
+        },
+        {
+          "object": "Juno",
+          "house": 10
+        },
+        {
+          "object": "Vesta",
+          "house": 1
+        },
+        {
+          "object": "Ascendant",
+          "house": 1
+        },
+        {
+          "object": "Midheaven",
+          "house": 10
+        }
+      ],
+      "aspects": [
+        {
+          "firstObject": "Sun",
+          "secondObject": "Moon",
+          "kind": "Conjunction",
+          "separationDegrees": 1.0469032999999968,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 1.0469032999999968,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 1.0469032999999968
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Mars",
+          "kind": "Conjunction",
+          "separationDegrees": 3.5897473999999647,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 3.5897473999999647,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 3.5897473999999647
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Uranus",
+          "kind": "Semisextile",
+          "separationDegrees": 30.496344100000016,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 0.49634410000001594,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 0.49634410000001594
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Vesta",
+          "kind": "Square",
+          "separationDegrees": 96.77196090000001,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 6.7719609000000105,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 6.7719609000000105
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Ascendant",
+          "kind": "Square",
+          "separationDegrees": 91.33275850000001,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 1.3327585000000113,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 1.3327585000000113
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Midheaven",
+          "kind": "Conjunction",
+          "separationDegrees": 4.257296600000018,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 4.257296600000018,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 4.257296600000018
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Venus",
+          "kind": "Semisextile",
+          "separationDegrees": 27.37976759999998,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 2.6202324000000203,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.6202324000000203
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Mars",
+          "kind": "Conjunction",
+          "separationDegrees": 4.6366506999999615,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 4.6366506999999615,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 4.6366506999999615
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Uranus",
+          "kind": "Semisextile",
+          "separationDegrees": 29.44944080000002,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 0.5505591999999808,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 0.5505591999999808
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Ceres",
+          "kind": "Conjunction",
+          "separationDegrees": 8.393043700000021,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 8.393043700000021,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 8.393043700000021
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Ascendant",
+          "kind": "Square",
+          "separationDegrees": 92.37966180000001,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 2.379661800000008,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 2.379661800000008
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Midheaven",
+          "kind": "Conjunction",
+          "separationDegrees": 3.210393300000021,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 3.210393300000021,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 3.210393300000021
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Neptune",
+          "kind": "Opposition",
+          "separationDegrees": 174.4342163,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 5.565783699999997,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 5.565783699999997
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Pluto",
+          "kind": "Opposition",
+          "separationDegrees": 175.6034904,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 4.396509600000002,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 4.396509600000002
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Chiron",
+          "kind": "Conjunction",
+          "separationDegrees": 0.6873224000000278,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 0.6873224000000278,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 0.6873224000000278
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Pallas",
+          "kind": "Conjunction",
+          "separationDegrees": 1.181203900000014,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 1.181203900000014,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 1.181203900000014
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Vesta",
+          "kind": "Trine",
+          "separationDegrees": 117.79589849999999,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 2.2041015000000073,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.2041015000000073
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Uranus",
+          "kind": "Sextile",
+          "separationDegrees": 56.8292084,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 3.170791600000001,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 3.170791600000001
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Vesta",
+          "kind": "Quintile",
+          "separationDegrees": 70.43909660000003,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 1.5609033999999724,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.5609033999999724
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Midheaven",
+          "kind": "Semisextile",
+          "separationDegrees": 30.5901609,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 0.5901609000000008,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.5901609000000008
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Pluto",
+          "kind": "Quincunx",
+          "separationDegrees": 150.98980540000002,
+          "exactAngleDegrees": 150.0,
+          "deviationDegrees": 0.9898054000000229,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 0.9898054000000229
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Vesta",
+          "kind": "Square",
+          "separationDegrees": 93.18221350000005,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 3.1822135000000458,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 3.1822135000000458
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Ascendant",
+          "kind": "Square",
+          "separationDegrees": 87.74301110000005,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 2.2569888999999534,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.2569888999999534
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Midheaven",
+          "kind": "Conjunction",
+          "separationDegrees": 7.847043999999983,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 7.847043999999983,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 7.847043999999983
+        },
+        {
+          "firstObject": "Jupiter",
+          "secondObject": "Ceres",
+          "kind": "Semisextile",
+          "separationDegrees": 29.98972759999998,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 0.010272400000019388,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.010272400000019388
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Neptune",
+          "kind": "Opposition",
+          "separationDegrees": 177.43017959999997,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 2.569820400000026,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 2.569820400000026
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Ceres",
+          "kind": "Conjunction",
+          "separationDegrees": 3.4483864999999696,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 3.4483864999999696,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 3.4483864999999696
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Pallas",
+          "kind": "Conjunction",
+          "separationDegrees": 6.954400200000009,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 6.954400200000009,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 6.954400200000009
+        },
+        {
+          "firstObject": "Uranus",
+          "secondObject": "Pluto",
+          "kind": "Opposition",
+          "separationDegrees": 174.9241031,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 5.075896900000004,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 5.075896900000004
+        },
+        {
+          "firstObject": "Uranus",
+          "secondObject": "Ascendant",
+          "kind": "Trine",
+          "separationDegrees": 121.8291026,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 1.8291025999999988,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 1.8291025999999988
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Chiron",
+          "kind": "Opposition",
+          "separationDegrees": 173.74689389999998,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 6.253106100000025,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 6.253106100000025
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Ceres",
+          "kind": "Opposition",
+          "separationDegrees": 173.9817931,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 6.018206899999996,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 6.018206899999996
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Pallas",
+          "kind": "Opposition",
+          "separationDegrees": 175.61542020000002,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 4.384579799999983,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 4.384579799999983
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Juno",
+          "kind": "Quincunx",
+          "separationDegrees": 152.6560551,
+          "exactAngleDegrees": 150.0,
+          "deviationDegrees": 2.656055100000003,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.656055100000003
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Ascendant",
+          "kind": "Quintile",
+          "separationDegrees": 73.2090876,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 1.2090876000000037,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.2090876000000037
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Chiron",
+          "kind": "Opposition",
+          "separationDegrees": 176.29081280000003,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 3.709187199999974,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 3.709187199999974
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Pallas",
+          "kind": "Opposition",
+          "separationDegrees": 174.42228649999998,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 5.577713500000016,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 5.577713500000016
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Juno",
+          "kind": "Biquintile",
+          "separationDegrees": 142.6937618,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 1.3062381999999957,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.3062381999999957
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Vesta",
+          "kind": "Sextile",
+          "separationDegrees": 57.8075919,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 2.1924081000000015,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 2.1924081000000015
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Ascendant",
+          "kind": "Sextile",
+          "separationDegrees": 63.2467943,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 3.2467942999999977,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 3.2467942999999977
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Pallas",
+          "kind": "Conjunction",
+          "separationDegrees": 1.8685263000000418,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 1.8685263000000418,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 1.8685263000000418
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Vesta",
+          "kind": "Trine",
+          "separationDegrees": 118.48322090000002,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 1.5167790999999795,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 1.5167790999999795
+        },
+        {
+          "firstObject": "Ceres",
+          "secondObject": "Midheaven",
+          "kind": "Conjunction",
+          "separationDegrees": 5.1826504,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 5.1826504,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 5.1826504
+        },
+        {
+          "firstObject": "Pallas",
+          "secondObject": "Juno",
+          "kind": "Semisextile",
+          "separationDegrees": 31.72852469999998,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.72852469999998,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.72852469999998
+        },
+        {
+          "firstObject": "Pallas",
+          "secondObject": "Vesta",
+          "kind": "Trine",
+          "separationDegrees": 116.61469459999998,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 3.3853054000000213,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 3.3853054000000213
+        },
+        {
+          "firstObject": "Juno",
+          "secondObject": "Vesta",
+          "kind": "Square",
+          "separationDegrees": 84.88616990000003,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 5.113830099999973,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 5.113830099999973
+        },
+        {
+          "firstObject": "Vesta",
+          "secondObject": "Ascendant",
+          "kind": "Conjunction",
+          "separationDegrees": 5.439202399999999,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 5.439202399999999,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 5.439202399999999
+        },
+        {
+          "firstObject": "Ascendant",
+          "secondObject": "Midheaven",
+          "kind": "Square",
+          "separationDegrees": 95.59005510000003,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 5.590055100000029,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 5.590055100000029
+        }
+      ]
+    },
+    {
+      "id": "historical_sydney_1850",
+      "sect": "Day",
+      "partOfFortuneLongitude": 160.12944259999995,
+      "houseAssignments": [
+        {
+          "object": "Sun",
+          "house": 7
+        },
+        {
+          "object": "Moon",
+          "house": 4
+        },
+        {
+          "object": "Mercury",
+          "house": 6
+        },
+        {
+          "object": "Venus",
+          "house": 8
+        },
+        {
+          "object": "Mars",
+          "house": 9
+        },
+        {
+          "object": "Jupiter",
+          "house": 10
+        },
+        {
+          "object": "Saturn",
+          "house": 4
+        },
+        {
+          "object": "Uranus",
+          "house": 5
+        },
+        {
+          "object": "Neptune",
+          "house": 3
+        },
+        {
+          "object": "Pluto",
+          "house": 5
+        },
+        {
+          "object": "NorthTrueNode",
+          "house": 8
+        },
+        {
+          "object": "SouthNode",
+          "house": 2
+        },
+        {
+          "object": "MeanLilith",
+          "house": 2
+        },
+        {
+          "object": "PartOfFortune",
+          "house": 10
+        },
+        {
+          "object": "Chiron",
+          "house": 12
+        },
+        {
+          "object": "Ceres",
+          "house": 4
+        },
+        {
+          "object": "Pallas",
+          "house": 4
+        },
+        {
+          "object": "Juno",
+          "house": 10
+        },
+        {
+          "object": "Vesta",
+          "house": 9
+        },
+        {
+          "object": "Ascendant",
+          "house": 1
+        },
+        {
+          "object": "Midheaven",
+          "house": 10
+        }
+      ],
+      "aspects": [
+        {
+          "firstObject": "Sun",
+          "secondObject": "Venus",
+          "kind": "Semisextile",
+          "separationDegrees": 30.6267026,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 0.6267026000000016,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 0.6267026000000016
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Uranus",
+          "kind": "Quintile",
+          "separationDegrees": 69.1636857,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 2.836314299999998,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.836314299999998
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Neptune",
+          "kind": "Trine",
+          "separationDegrees": 122.05283079999998,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 2.052830799999981,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 2.052830799999981
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Pluto",
+          "kind": "Quintile",
+          "separationDegrees": 69.2623346,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 2.7376653999999974,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.7376653999999974
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Chiron",
+          "kind": "Biquintile",
+          "separationDegrees": 146.6101021,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 2.610102100000006,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.610102100000006
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Ceres",
+          "kind": "Square",
+          "separationDegrees": 93.1384163,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 3.138416300000003,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 3.138416300000003
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Pallas",
+          "kind": "Trine",
+          "separationDegrees": 120.0022047,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 0.002204699999992954,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 0.002204699999992954
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Juno",
+          "kind": "Square",
+          "separationDegrees": 93.5229815,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 3.5229815,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 3.5229815
+        },
+        {
+          "firstObject": "Sun",
+          "secondObject": "Midheaven",
+          "kind": "Sextile",
+          "separationDegrees": 59.5387626,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 0.4612374000000017,
+          "allowedOrbDegrees": 5.0,
+          "usedOrbDegrees": 0.4612374000000017
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Mercury",
+          "kind": "Square",
+          "separationDegrees": 86.26286089999996,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 3.737139100000036,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 3.737139100000036
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Jupiter",
+          "kind": "Opposition",
+          "separationDegrees": 175.05511239999998,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 4.9448876000000155,
+          "allowedOrbDegrees": 9.0,
+          "usedOrbDegrees": 4.9448876000000155
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Saturn",
+          "kind": "Semisextile",
+          "separationDegrees": 28.299384400000008,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.700615599999992,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 1.700615599999992
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Vesta",
+          "kind": "Biquintile",
+          "separationDegrees": 145.61996689999998,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 1.6199668999999801,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 1.6199668999999801
+        },
+        {
+          "firstObject": "Moon",
+          "secondObject": "Ascendant",
+          "kind": "Square",
+          "separationDegrees": 84.50860320000004,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 5.491396799999961,
+          "allowedOrbDegrees": 7.0,
+          "usedOrbDegrees": 5.491396799999961
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Jupiter",
+          "kind": "Square",
+          "separationDegrees": 88.7922515,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 1.207748499999994,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 1.207748499999994
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Saturn",
+          "kind": "Sextile",
+          "separationDegrees": 57.9634765,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 2.0365235000000013,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 2.0365235000000013
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Ceres",
+          "kind": "Quintile",
+          "separationDegrees": 72.2317686,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.23176859999999522,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.23176859999999522
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Juno",
+          "kind": "Trine",
+          "separationDegrees": 114.42962920000001,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 5.570370799999992,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 5.570370799999992
+        },
+        {
+          "firstObject": "Mercury",
+          "secondObject": "Vesta",
+          "kind": "Sextile",
+          "separationDegrees": 59.357106,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 0.6428939999999983,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 0.6428939999999983
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Neptune",
+          "kind": "Quincunx",
+          "separationDegrees": 152.6795334,
+          "exactAngleDegrees": 150.0,
+          "deviationDegrees": 2.679533399999997,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.679533399999997
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Chiron",
+          "kind": "Trine",
+          "separationDegrees": 115.98339949999999,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 4.01660050000001,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 4.01660050000001
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Ceres",
+          "kind": "Trine",
+          "separationDegrees": 123.7651189,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 3.7651189000000045,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 3.7651189000000045
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Pallas",
+          "kind": "Quincunx",
+          "separationDegrees": 150.6289073,
+          "exactAngleDegrees": 150.0,
+          "deviationDegrees": 0.6289073000000087,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 0.6289073000000087
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Juno",
+          "kind": "Sextile",
+          "separationDegrees": 62.8962789,
+          "exactAngleDegrees": 60.0,
+          "deviationDegrees": 2.8962788999999987,
+          "allowedOrbDegrees": 4.0,
+          "usedOrbDegrees": 2.8962788999999987
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Vesta",
+          "kind": "Conjunction",
+          "separationDegrees": 7.823755699999992,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 7.823755699999992,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 7.823755699999992
+        },
+        {
+          "firstObject": "Venus",
+          "secondObject": "Midheaven",
+          "kind": "Semisextile",
+          "separationDegrees": 28.912059999999997,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.0879400000000032,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.0879400000000032
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Uranus",
+          "kind": "Trine",
+          "separationDegrees": 117.27027890000001,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 2.729721099999992,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.729721099999992
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Pluto",
+          "kind": "Trine",
+          "separationDegrees": 117.36892780000001,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 2.6310721999999913,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.6310721999999913
+        },
+        {
+          "firstObject": "Mars",
+          "secondObject": "Ascendant",
+          "kind": "Trine",
+          "separationDegrees": 120.21529499999997,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 0.21529499999996915,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 0.21529499999996915
+        },
+        {
+          "firstObject": "Jupiter",
+          "secondObject": "Pallas",
+          "kind": "Opposition",
+          "separationDegrees": 172.1121915,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 7.8878085000000056,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 7.8878085000000056
+        },
+        {
+          "firstObject": "Jupiter",
+          "secondObject": "Vesta",
+          "kind": "Semisextile",
+          "separationDegrees": 29.435145500000004,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 0.5648544999999956,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.5648544999999956
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Juno",
+          "kind": "Opposition",
+          "separationDegrees": 172.3931057,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 7.606894299999993,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 7.606894299999993
+        },
+        {
+          "firstObject": "Saturn",
+          "secondObject": "Vesta",
+          "kind": "Trine",
+          "separationDegrees": 117.3205825,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 2.6794174999999996,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.6794174999999996
+        },
+        {
+          "firstObject": "Uranus",
+          "secondObject": "Pluto",
+          "kind": "Conjunction",
+          "separationDegrees": 0.0986489000000006,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 0.0986489000000006,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 0.0986489000000006
+        },
+        {
+          "firstObject": "Uranus",
+          "secondObject": "Chiron",
+          "kind": "Biquintile",
+          "separationDegrees": 144.22621220000002,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 0.2262122000000204,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.2262122000000204
+        },
+        {
+          "firstObject": "Uranus",
+          "secondObject": "Ascendant",
+          "kind": "Trine",
+          "separationDegrees": 122.51442610000004,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 2.514426100000037,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.514426100000037
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Chiron",
+          "kind": "Square",
+          "separationDegrees": 91.33706710000001,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 1.337067100000013,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 1.337067100000013
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Ceres",
+          "kind": "Semisextile",
+          "separationDegrees": 28.91441450000002,
+          "exactAngleDegrees": 30.0,
+          "deviationDegrees": 1.0855854999999792,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 1.0855854999999792
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Pallas",
+          "kind": "Conjunction",
+          "separationDegrees": 2.050626099999988,
+          "exactAngleDegrees": 0.0,
+          "deviationDegrees": 2.050626099999988,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 2.050626099999988
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Juno",
+          "kind": "Biquintile",
+          "separationDegrees": 144.4241877,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 0.4241877000000045,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.4241877000000045
+        },
+        {
+          "firstObject": "Neptune",
+          "secondObject": "Midheaven",
+          "kind": "Opposition",
+          "separationDegrees": 178.4084066,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 1.5915933999999936,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 1.5915933999999936
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Chiron",
+          "kind": "Biquintile",
+          "separationDegrees": 144.12756330000002,
+          "exactAngleDegrees": 144.0,
+          "deviationDegrees": 0.1275633000000198,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.1275633000000198
+        },
+        {
+          "firstObject": "Pluto",
+          "secondObject": "Ascendant",
+          "kind": "Trine",
+          "separationDegrees": 122.41577720000004,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 2.4157772000000364,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.4157772000000364
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Ceres",
+          "kind": "Trine",
+          "separationDegrees": 120.2514816,
+          "exactAngleDegrees": 120.0,
+          "deviationDegrees": 0.2514816000000053,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 0.2514816000000053
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Pallas",
+          "kind": "Square",
+          "separationDegrees": 93.3876932,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 3.387693200000001,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 3.387693200000001
+        },
+        {
+          "firstObject": "Chiron",
+          "secondObject": "Midheaven",
+          "kind": "Square",
+          "separationDegrees": 87.0713395,
+          "exactAngleDegrees": 90.0,
+          "deviationDegrees": 2.9286605000000066,
+          "allowedOrbDegrees": 6.0,
+          "usedOrbDegrees": 2.9286605000000066
+        },
+        {
+          "firstObject": "Ceres",
+          "secondObject": "Juno",
+          "kind": "Opposition",
+          "separationDegrees": 173.3386022,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 6.661397800000003,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 6.661397800000003
+        },
+        {
+          "firstObject": "Ceres",
+          "secondObject": "Midheaven",
+          "kind": "Quincunx",
+          "separationDegrees": 152.6771789,
+          "exactAngleDegrees": 150.0,
+          "deviationDegrees": 2.6771789000000012,
+          "allowedOrbDegrees": 3.0,
+          "usedOrbDegrees": 2.6771789000000012
+        },
+        {
+          "firstObject": "Pallas",
+          "secondObject": "Ascendant",
+          "kind": "Quintile",
+          "separationDegrees": 71.67590710000002,
+          "exactAngleDegrees": 72.0,
+          "deviationDegrees": 0.32409289999998236,
+          "allowedOrbDegrees": 2.0,
+          "usedOrbDegrees": 0.32409289999998236
+        },
+        {
+          "firstObject": "Pallas",
+          "secondObject": "Midheaven",
+          "kind": "Opposition",
+          "separationDegrees": 179.5409673,
+          "exactAngleDegrees": 180.0,
+          "deviationDegrees": 0.4590326999999945,
+          "allowedOrbDegrees": 8.0,
+          "usedOrbDegrees": 0.4590326999999945
+        }
+      ]
+    }
+  ]
+}

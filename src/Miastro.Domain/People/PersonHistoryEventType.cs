@@ -5,5 +5,9 @@ public enum PersonHistoryEventType
     Created = 1,
     RelevantEdit = 2,
     FutureChartReference = 3,
-    FutureReportReference = 4
+    FutureReportReference = 4,
+
+    NatalChartCalculated = 100,
+    NatalChartRecalculated = 101,
+    NatalChartInvalidated = 102
 }

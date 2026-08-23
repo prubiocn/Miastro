@@ -3,6 +3,7 @@ using System;
 using Miastro.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Miastro.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(MiastroDbContext))]
-    partial class MiastroDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260821122501_Phase6BirthDataSnapshotIdentity")]
+    partial class Phase6BirthDataSnapshotIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.11");

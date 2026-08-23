@@ -18,6 +18,18 @@ public sealed class MiastroDbContext : DbContext
     public DbSet<PersonHistoryEntity> PersonHistory
         => Set<PersonHistoryEntity>();
 
+    public DbSet<NatalChartEntity> NatalCharts
+        => Set<NatalChartEntity>();
+
+    public DbSet<NatalPlacementEntity> NatalPlacements
+        => Set<NatalPlacementEntity>();
+
+    public DbSet<NatalHouseCuspEntity> NatalHouseCusps
+        => Set<NatalHouseCuspEntity>();
+
+    public DbSet<NatalAspectEntity> NatalAspects
+        => Set<NatalAspectEntity>();
+
     protected override void OnModelCreating(
         ModelBuilder modelBuilder)
     {

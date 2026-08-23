@@ -11,6 +11,7 @@ using Miastro.Application.Platform;
 using Miastro.Infrastructure.Platform.Linux.Logging;
 using Miastro.Infrastructure.Platform.Linux.Xdg;
 using Miastro.Infrastructure.Persistence;
+using Miastro.Application.Natal;
 
 namespace Miastro.Bootstrap;
 
@@ -27,6 +28,7 @@ public static class MiastroBootstrap
         services.AddSingleton(settings);
 
         services.AddMiastroPersistence();
+        services.AddPhase6Astronomy();
 
         services.AddLogging(builder =>
         {
@@ -44,6 +46,9 @@ public static class MiastroBootstrap
         services.AddScoped<DeletePersonUseCase>();
         services.AddScoped<SetFavoriteUseCase>();
         services.AddScoped<RecordPersonConsultationUseCase>();
+        services.AddScoped<PersistNatalChartSnapshotUseCase>();
+        services.AddScoped<CalculateNatalChartUseCase>();
+        services.AddScoped<RecalculateNatalChartUseCase>();
         services.AddScoped<UpdateResidenceUseCase>();
 
 

@@ -33,7 +33,7 @@ jobs:
         run: dotnet restore Miastro.sln
 
       # MIASTRO_PHASE5_GEODATA_CI
-      - name: Build controlled Phase 5 geodata fixture
+      - name: Build controlled Phase 6 geodata fixture
         run: |
           rm -rf data/geography/generated
           mkdir -p data/geography/generated
@@ -63,12 +63,12 @@ jobs:
 
       - name: Publish linux-x64 self-contained
         run: |
-          rm -rf artifacts/publish/fase5-linux-x64
-          mkdir -p artifacts/publish/fase5-linux-x64
-          MIASTRO_GEODATA_DIR="$PWD/data/geography/generated" dotnet publish src/Miastro.UI.Avalonia/Miastro.UI.Avalonia.csproj --configuration Release --runtime linux-x64 --self-contained true --no-restore --output artifacts/publish/fase5-linux-x64
+          rm -rf artifacts/publish/fase6-linux-x64
+          mkdir -p artifacts/publish/fase6-linux-x64
+          MIASTRO_GEODATA_DIR="$PWD/data/geography/generated" dotnet publish src/Miastro.UI.Avalonia/Miastro.UI.Avalonia.csproj --configuration Release --runtime linux-x64 --self-contained true --no-restore --output artifacts/publish/fase6-linux-x64
       - name: Verify published Swiss Ephemeris resources
         run: |
-          PUBLISH="artifacts/publish/fase5-linux-x64"
+          PUBLISH="artifacts/publish/fase6-linux-x64"
           test -x "$PUBLISH/Miastro.UI.Avalonia"
           test -f "$PUBLISH/native/linux-x64/libswe.so"
           test -f "$PUBLISH/native/linux-x64/native-manifest.json"
@@ -77,32 +77,32 @@ jobs:
           test -f "$PUBLISH/ephemeris/semo_18.se1"
           test -f "$PUBLISH/ephemeris/seas_18.se1"
           echo "PublishedSwissResources=PASS"
-      - name: Verify published Phase 5 geodata
+      - name: Verify published Phase 6 geodata
         run: |
-          PUBLISH="artifacts/publish/fase5-linux-x64"
+          PUBLISH="artifacts/publish/fase6-linux-x64"
           test -f "$PUBLISH/geodata/geonames.sqlite"
           test -f "$PUBLISH/geodata/manifest.json"
           python3 - <<'PY'
           import sqlite3
-          db = "artifacts/publish/fase5-linux-x64/geodata/geonames.sqlite"
+          db = "artifacts/publish/fase6-linux-x64/geodata/geonames.sqlite"
           con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
           assert con.execute("PRAGMA integrity_check").fetchone()[0] == "ok"
           assert con.execute("SELECT COUNT(*) FROM locations").fetchone()[0] == 8
           con.close()
-          print("PublishedPhase5Geodata=PASS")
+          print("PublishedPhase6Geodata=PASS")
           PY
 
-      - name: Build Phase 5 Debian package
+      - name: Build Phase 6 Debian package
         run: |
-          PUBLISH_DIR="artifacts/publish/fase5-linux-x64"
+          PUBLISH_DIR="artifacts/publish/fase6-linux-x64"
           test -x "$PUBLISH_DIR/Miastro.UI.Avalonia"
           test -f "$PUBLISH_DIR/native/linux-x64/libswe.so"
           test -f "$PUBLISH_DIR/ephemeris/manifest.json"
           test -f "$PUBLISH_DIR/geodata/geonames.sqlite"
           test -f "$PUBLISH_DIR/geodata/manifest.json"
-          chmod +x tools/dev/build-fase5-deb.sh
-          MIASTRO_PUBLISH_DIR="$PUBLISH_DIR" tools/dev/build-fase5-deb.sh
-      - name: Install Phase 5 Debian package
+          chmod +x tools/dev/build-fase6-deb.sh
+          MIASTRO_PUBLISH_DIR="$PUBLISH_DIR" tools/dev/build-fase6-deb.sh
+      - name: Install Phase 6 Debian package
         run: |
           DEB="$(find artifacts/deb -maxdepth 1 -name 'miastro_*_amd64.deb' -print -quit)"
           test -f "$DEB"

@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "source": "Swiss Ephemeris swetest",
+  "referenceEngineVersion": "2.10.03",
+  "independentFromMiastroAdapter": true,
+  "expectedValuesGeneratedByMiastro": false,
+  "captureDate": "2026-08-22",
+  "configuration": {
+    "zodiac": "tropical",
+    "referenceFrame": "geocentric",
+    "coordinates": "ecliptic",
+    "position": "apparent",
+    "speed": true,
+    "timeScale": "UT"
+  },
+  "tolerances": {
+    "longitudeDegrees": 0.0001,
+    "latitudeDegrees": 0.0001,
+    "longitudeSpeedDegreesPerDay": 0.0001,
+    "houseCuspDegrees": 0.0001,
+    "ascendantDegrees": 0.0001,
+    "midheavenDegrees": 0.0001
+  },
+  "cases": [
+    {
+      "id": "modern_madrid_2024",
+      "category": "modern",
+      "instantUtc": "2024-01-01T12:00:00Z",
+      "latitude": 40.4168,
+      "longitude": -3.7038,
+      "houseSystem": "Placidus",
+      "coverage": [
+        "retrograde",
+        "north-hemisphere",
+        "unequal-houses"
+      ]
+    },
+    {
+      "id": "modern_sydney_2024_equinox",
+      "category": "modern",
+      "instantUtc": "2024-03-20T03:00:00Z",
+      "latitude": -33.8688,
+      "longitude": 151.2093,
+      "houseSystem": "Placidus",
+      "coverage": [
+        "near-zero",
+        "south-hemisphere",
+        "unequal-houses"
+      ]
+    },
+    {
+      "id": "modern_newyork_2000",
+      "category": "modern",
+      "instantUtc": "2000-01-01T12:00:00Z",
+      "latitude": 40.7128,
+      "longitude": -74.006,
+      "houseSystem": "Koch",
+      "coverage": [
+        "koch",
+        "north-hemisphere",
+        "unequal-houses"
+      ]
+    },
+    {
+      "id": "historical_madrid_1900",
+      "category": "historical",
+      "instantUtc": "1900-01-01T12:00:00Z",
+      "latitude": 40.4168,
+      "longitude": -3.7038,
+      "houseSystem": "Placidus",
+      "coverage": [
+        "historical",
+        "north-hemisphere",
+        "unequal-houses"
+      ]
+    },
+    {
+      "id": "historical_sydney_1850",
+      "category": "historical",
+      "instantUtc": "1850-07-01T06:00:00Z",
+      "latitude": -33.8688,
+      "longitude": 151.2093,
+      "houseSystem": "Koch",
+      "coverage": [
+        "historical",
+        "south-hemisphere",
+        "koch",
+        "unequal-houses"
+      ]
+    }
+  ],
+  "rawResponses": [
+    {
+      "file": "external/historical_madrid_1900_houses.txt",
+      "size": 885,
+      "sha256": "b35f136966388ee4bc43fe7e190c2274bd6882d85410a9960a49ab89ba508049"
+    },
+    {
+      "file": "external/historical_madrid_1900_positions.txt",
+      "size": 898,
+      "sha256": "196f62b77fb3cc15896604c4c160bd043620139c7a465bdabdc68a449c113060"
+    },
+    {
+      "file": "external/historical_sydney_1850_houses.txt",
+      "size": 887,
+      "sha256": "040aa381481ae44af6cf2c7e56331801b3642e77174161a196b2296ab7e382e2"
+    },
+    {
+      "file": "external/historical_sydney_1850_positions.txt",
+      "size": 895,
+      "sha256": "9e7481054f4090f2735f0d2439b241105166927343258028cb196f03b84c8655"
+    },
+    {
+      "file": "external/modern_madrid_2024_houses.txt",
+      "size": 885,
+      "sha256": "e7f3025ef878e7893b31e490fc4c3cc753b12c3d2431f582e6b4a170a848e66c"
+    },
+    {
+      "file": "external/modern_madrid_2024_positions.txt",
+      "size": 896,
+      "sha256": "b3412562a50f3517cf5deaafc63743ff5a5d74cd95ec58dd388da958c5da709e"
+    },
+    {
+      "file": "external/modern_newyork_2000_houses.txt",
+      "size": 889,
+      "sha256": "053019e889e4546cd78e41dd1e4b8c6b9b9ab939f83c4d2eb31c7abf25e5e876"
+    },
+    {
+      "file": "external/modern_newyork_2000_positions.txt",
+      "size": 899,
+      "sha256": "ff648f6988bde6053697e41a641fc5f4e2ed0d101b510de9a63002c54b6e8895"
+    },
+    {
+      "file": "external/modern_sydney_2024_equinox_houses.txt",
+      "size": 885,
+      "sha256": "36845cc2dfd6996ec08767b670945e7611e97e23af9d265f04b5c0b59db5ebad"
+    },
+    {
+      "file": "external/modern_sydney_2024_equinox_positions.txt",
+      "size": 895,
+      "sha256": "a056440f8c728d71ec2b55d4a70dcdee45bb69392ed07edb0955a0c8fb88a20a"
+    }
+  ]
+}
