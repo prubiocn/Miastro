@@ -4,6 +4,9 @@ namespace Miastro.Graphics.Layout.Placement;
 
 public sealed class NatalObjectPlacementEngine
 {
+    private const double GeometryTolerance =
+        1e-9;
+
     public NatalObjectPlacementSnapshot Layout(
         NatalWheelLayoutSnapshot wheel,
         IReadOnlyList<NatalObjectLayoutInput> objects,
@@ -32,6 +35,40 @@ public sealed class NatalObjectPlacementEngine
             )
             / 2.0;
 
+        var protectedSize =
+            policy.GlyphSize
+            + policy.MinimumGap;
+
+        var protectedHalfDiagonal =
+            protectedSize
+            / Math.Sqrt(2.0);
+
+        var minimumSafeRadius =
+            wheel.Metrics.HouseInnerRadius
+            + protectedHalfDiagonal;
+
+        var maximumSafeRadius =
+            wheel.Metrics.ZodiacInnerRadius
+            - protectedHalfDiagonal;
+
+        if (minimumSafeRadius
+            >= maximumSafeRadius)
+        {
+            throw new InvalidOperationException(
+                "Glyph footprint does not fit the safe natal placement annulus.");
+        }
+
+        var effectiveBaseRadius =
+            Math.Clamp(
+                baseRadius,
+                minimumSafeRadius,
+                maximumSafeRadius);
+
+        var angularStepDegrees =
+            CalculateAngularStepDegrees(
+                protectedSize,
+                minimumSafeRadius);
+
         var ordered =
             objects
                 .Select(
@@ -55,6 +92,9 @@ public sealed class NatalObjectPlacementEngine
             new List<NatalVisualPlacement>(
                 ordered.Length);
 
+        double? previousVisualUnwrapped =
+            null;
+
         foreach (var item in ordered)
         {
             var realAngle =
@@ -63,95 +103,187 @@ public sealed class NatalObjectPlacementEngine
                         item.RealLongitudeDegrees,
                         ascendant);
 
+            var realAngleUnwrapped =
+                180.0
+                - (
+                    item.RealLongitudeDegrees
+                    - ascendant
+                );
+
             var realAnchor =
                 NatalWheelCoordinates
                     .PointOnCircle(
                         wheel.Metrics.Center,
-                        baseRadius,
+                        effectiveBaseRadius,
                         realAngle);
 
             NatalVisualPlacement?
                 accepted = null;
 
-            foreach (
-                var radialLevel
-                in EnumerateRadialLevels(
-                    policy.MaximumRadialLevel))
+            double acceptedVisualUnwrapped =
+                double.NaN;
+
+            var maximumAngularSteps =
+                Math.Max(
+                    24,
+                    ordered.Length * 4);
+
+            for (
+                var angularStep = 0;
+                angularStep <= maximumAngularSteps;
+                angularStep++)
             {
-                var visualRadius =
-                    baseRadius
-                    + radialLevel
-                    * policy.RadialStep;
+                var visualUnwrapped =
+                    realAngleUnwrapped
+                    - angularStep
+                    * angularStepDegrees;
 
-                if (visualRadius <= 0.0)
+                if (previousVisualUnwrapped is double previous
+                    && visualUnwrapped
+                        > previous + GeometryTolerance)
                 {
                     continue;
                 }
 
-                var visualCenter =
+                var visualAngle =
                     NatalWheelCoordinates
-                        .PointOnCircle(
-                            wheel.Metrics.Center,
-                            visualRadius,
-                            realAngle);
+                        .NormalizeDegrees(
+                            visualUnwrapped);
 
-                var bounds =
-                    CreateBounds(
-                        visualCenter,
-                        policy.GlyphSize,
-                        policy.MinimumGap);
-
-                if (placed.Any(
-                    existing =>
-                        existing.Bounds
-                            .Intersects(bounds)))
+                foreach (
+                    var radialLevel
+                    in EnumerateRadialLevels(
+                        policy.MaximumRadialLevel))
                 {
-                    continue;
+                    var visualRadius =
+                        effectiveBaseRadius
+                        + radialLevel
+                        * policy.RadialStep;
+
+                    if (!IsRadiusInsideSafeAnnulus(
+                        visualRadius,
+                        minimumSafeRadius,
+                        maximumSafeRadius))
+                    {
+                        continue;
+                    }
+
+                    var visualCenter =
+                        NatalWheelCoordinates
+                            .PointOnCircle(
+                                wheel.Metrics.Center,
+                                visualRadius,
+                                visualAngle);
+
+                    var bounds =
+                        CreateBounds(
+                            visualCenter,
+                            policy.GlyphSize,
+                            policy.MinimumGap);
+
+                    if (placed.Any(
+                        existing =>
+                            existing.Bounds
+                                .Intersects(bounds)))
+                    {
+                        continue;
+                    }
+
+                    var displacement =
+                        Distance(
+                            realAnchor,
+                            visualCenter);
+
+                    var hasLeaderLine =
+                        displacement
+                        >= policy.LeaderLineThreshold;
+
+                    accepted =
+                        new NatalVisualPlacement(
+                            item.Id,
+                            item.RealLongitudeDegrees,
+                            realAngle,
+                            visualAngle,
+                            radialLevel,
+                            visualRadius,
+                            realAnchor,
+                            visualCenter,
+                            bounds,
+                            hasLeaderLine,
+                            hasLeaderLine
+                                ? realAnchor
+                                : null,
+                            hasLeaderLine
+                                ? visualCenter
+                                : null);
+
+                    acceptedVisualUnwrapped =
+                        visualUnwrapped;
+
+                    break;
                 }
 
-                var displacement =
-                    Distance(
-                        realAnchor,
-                        visualCenter);
-
-                var hasLeaderLine =
-                    displacement
-                    >= policy.LeaderLineThreshold;
-
-                accepted =
-                    new NatalVisualPlacement(
-                        item.Id,
-                        item.RealLongitudeDegrees,
-                        realAngle,
-                        realAngle,
-                        radialLevel,
-                        visualRadius,
-                        realAnchor,
-                        visualCenter,
-                        bounds,
-                        hasLeaderLine,
-                        hasLeaderLine
-                            ? realAnchor
-                            : null,
-                        hasLeaderLine
-                            ? visualCenter
-                            : null);
-
-                break;
+                if (accepted is not null)
+                {
+                    break;
+                }
             }
 
             if (accepted is null)
             {
                 throw new InvalidOperationException(
-                    $"Unable to place '{item.Id}' without overlap.");
+                    $"Unable to place '{item.Id}' inside the safe annulus without overlap.");
             }
 
             placed.Add(
                 accepted);
+
+            previousVisualUnwrapped =
+                acceptedVisualUnwrapped;
         }
 
         return new NatalObjectPlacementSnapshot(
             placed);
+    }
+
+    private static bool IsRadiusInsideSafeAnnulus(
+        double radius,
+        double minimumRadius,
+        double maximumRadius)
+        =>
+            radius
+                >= minimumRadius
+                    - GeometryTolerance
+            && radius
+                <= maximumRadius
+                    + GeometryTolerance;
+
+    private static double CalculateAngularStepDegrees(
+        double protectedSize,
+        double minimumSafeRadius)
+    {
+        var ratio =
+            protectedSize
+            / (2.0 * minimumSafeRadius);
+
+        ratio =
+            Math.Clamp(
+                ratio,
+                0.0,
+                1.0);
+
+        var radians =
+            2.0
+            * Math.Asin(
+                ratio);
+
+        var degrees =
+            radians
+            * 180.0
+            / Math.PI;
+
+        return degrees
+            * 1.05;
     }
 
     private static IEnumerable<int>
@@ -225,7 +357,11 @@ public sealed class NatalObjectPlacementEngine
     private static void ValidatePolicy(
         NatalGlyphLayoutPolicy policy)
     {
-        if (policy.GlyphSize <= 0.0
+        if (!double.IsFinite(policy.GlyphSize)
+            || !double.IsFinite(policy.MinimumGap)
+            || !double.IsFinite(policy.RadialStep)
+            || !double.IsFinite(policy.LeaderLineThreshold)
+            || policy.GlyphSize <= 0.0
             || policy.MinimumGap < 0.0
             || policy.RadialStep <= 0.0
             || policy.LeaderLineThreshold < 0.0

@@ -502,3 +502,21 @@ Implementado:
 - determinismo de métricas
 - separación geometría/degradación visual
 - ADR-057
+
+## Bloque 7F2 — Límites seguros del anti-solapamiento
+
+Implementado:
+
+- anillo radial seguro para cuerpos y puntos
+- footprint protegido incluido en los límites
+- descarte de niveles radiales fuera del anillo
+- desplazamiento angular determinista cuando es necesario
+- AngularOffsetDegrees firmado
+- preservación del orden zodiacal
+- longitudes reales inmutables
+- leader lines conservadas
+- stelliums extremos
+- clusters ASC/MC
+- canvas pequeño
+- independencia del orden de entrada
+- ADR-058

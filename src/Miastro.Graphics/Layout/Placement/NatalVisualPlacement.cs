@@ -16,8 +16,18 @@ public sealed record NatalVisualPlacement(
     ChartPoint? LeaderLineStart,
     ChartPoint? LeaderLineEnd)
 {
-    public double AngularOffsetDegrees =>
-        NatalWheelCoordinates.NormalizeDegrees(
-            VisualScreenAngleDegrees
-            - RealScreenAngleDegrees);
+    public double AngularOffsetDegrees
+    {
+        get
+        {
+            var normalized =
+                NatalWheelCoordinates.NormalizeDegrees(
+                    VisualScreenAngleDegrees
+                    - RealScreenAngleDegrees);
+
+            return normalized > 180.0
+                ? normalized - 360.0
+                : normalized;
+        }
+    }
 }
