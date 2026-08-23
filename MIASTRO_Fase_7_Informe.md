@@ -362,3 +362,26 @@ Implementado:
 - ADR-051
 
 Miastro.Graphics no calcula aspectos ni orbes.
+
+## Bloque 7D2 — Visibilidad y modos visuales
+
+Implementado:
+
+- modo Consultation
+- modo Presentation
+- ShowPlanets
+- ShowPoints
+- ShowAspects
+- ShowCusps
+- ShowLabels
+- filtrado visual sin recalcular
+- filtrado de aspectos por extremos visibles
+- política responsive Full/Compact/Minimal
+- degradación de marcas de grado
+- reducción de etiquetas secundarias
+- ASC y MC preservados en tamaño mínimo
+- placements inmutables ante cambios visuales
+- configuración determinista
+- ADR-052
+
+No se persisten posiciones gráficas absolutas.
