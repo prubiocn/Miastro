@@ -239,3 +239,30 @@ Implementado:
 
 El Scene Builder no contiene astronomía, persistencia, Avalonia ni
 código específico de Skia.
+
+## Bloque 7C1 — Renderer Skia headless
+
+Implementado:
+
+- SkiaSharp en Miastro.Graphics.Skia
+- assets nativos Linux
+- renderer independiente de Avalonia
+- superficie headless
+- clipping explícito
+- escalado de escena
+- CircleNode
+- ArcNode
+- LineNode
+- PathNode
+- GroupNode
+- GlyphNode con placeholder vectorial técnico
+- TextNode con placeholder geométrico técnico
+- PNG técnico en memoria
+- escritura de PNG técnico a disco
+- test de dimensiones
+- test de determinismo binario
+- test de separación Graphics / Skia
+- ADR-047
+
+El catálogo vectorial astrológico definitivo y las fuentes internas
+quedan para los siguientes bloques de Fase 7.
