@@ -385,3 +385,20 @@ Implementado:
 - ADR-052
 
 No se persisten posiciones gráficas absolutas.
+
+## Bloque 7E1A — Hit testing geométrico
+
+Implementado:
+
+- hit testing independiente de Avalonia
+- BodyLayer seleccionable
+- PointLayer seleccionable
+- selección sobre Bounds visuales reales
+- soporte de glifos desplazados
+- tolerancia opcional de puntero
+- glifos zodiacales excluidos
+- prioridad determinista
+- ADR-053
+
+El adaptador al read model natal persistido se implementará contra los
+contratos reales existentes después del preflight de Fase 6.
