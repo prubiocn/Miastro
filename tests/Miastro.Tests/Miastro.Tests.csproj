@@ -7,7 +7,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="MSTest" />
-  </ItemGroup>
+      <ProjectReference Include="..\..\src\Miastro.Graphics\Miastro.Graphics.csproj" />
+</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Miastro.Domain/Miastro.Domain.csproj" />
     <ProjectReference Include="../../src/Miastro.Application/Miastro.Application.csproj" />
