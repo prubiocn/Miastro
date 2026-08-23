@@ -343,3 +343,22 @@ Fuente SHA-256:
 Licencia SHA-256:
 
 56af9b9c6715597e458284a474dc118a50a4150e9d547c70f7b4a33c3e6a9328
+
+## Bloque 7D1 — Aspectos persistidos en Scene Graph
+
+Implementado:
+
+- contratos gráficos de aspectos
+- entrada sin reglas de cálculo
+- clasificación visual Major/Secondary explícita
+- geometría sobre posición real
+- independencia de VisualCenter
+- AspectRadius interior
+- ocultación funcional de AspectLayer
+- ocultación sin relayout
+- aspectos de objetos no visibles omitidos
+- orden determinista
+- estilos major/secundarios
+- ADR-051
+
+Miastro.Graphics no calcula aspectos ni orbes.

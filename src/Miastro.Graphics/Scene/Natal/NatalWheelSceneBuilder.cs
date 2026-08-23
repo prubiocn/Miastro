@@ -2,6 +2,7 @@ using Miastro.Graphics.Geometry;
 using Miastro.Graphics.Layout;
 using Miastro.Graphics.Layout.Placement;
 using Miastro.Graphics.Styles;
+using Miastro.Graphics.Scene.Natal.Aspects;
 
 namespace Miastro.Graphics.Scene.Natal;
 
@@ -11,6 +12,20 @@ public sealed class NatalWheelSceneBuilder
         NatalWheelLayoutSnapshot wheel,
         NatalObjectPlacementSnapshot placements,
         IReadOnlyList<NatalSceneObjectInput> objects)
+        =>
+            Build(
+                wheel,
+                placements,
+                objects,
+                Array.Empty<NatalAspectSceneInput>(),
+                new NatalAspectSceneOptions());
+
+    public NatalScene Build(
+        NatalWheelLayoutSnapshot wheel,
+        NatalObjectPlacementSnapshot placements,
+        IReadOnlyList<NatalSceneObjectInput> objects,
+        IReadOnlyList<NatalAspectSceneInput> aspects,
+        NatalAspectSceneOptions? aspectOptions = null)
     {
         ArgumentNullException.ThrowIfNull(wheel);
         ArgumentNullException.ThrowIfNull(placements);
@@ -53,6 +68,19 @@ public sealed class NatalWheelSceneBuilder
             wheel,
             placements,
             objectMap);
+
+        foreach (
+            var aspectNode
+            in new NatalAspectSceneBuilder()
+                .Build(
+                    wheel,
+                    placements,
+                    aspects,
+                    aspectOptions))
+        {
+            nodes.Add(
+                aspectNode);
+        }
 
         return new NatalScene(
             wheel.Metrics.Width,
