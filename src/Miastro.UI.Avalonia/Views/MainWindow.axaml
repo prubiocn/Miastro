@@ -617,39 +617,6 @@
                                             ItemsSource="{Binding ResidenceLocationResults}"
                                             SelectedItem="{Binding SelectedResidenceSearchResult}">
 
-                                            <Border
-                                                IsVisible="{Binding HasNatalWheel}"
-                                                Padding="12"
-                                                CornerRadius="8"
-                                                BorderThickness="1"
-                                                BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
-
-                                                <StackPanel
-                                                    Spacing="8">
-
-                                                    <TextBlock
-                                                        Text="Rueda natal"
-                                                        FontSize="16"
-                                                        FontWeight="SemiBold" />
-
-                                                    <Image
-                                                        Name="NatalWheelImage"
-                                                        Width="560"
-                                                        Height="560"
-                                                        HorizontalAlignment="Center"
-                                                        Stretch="Fill"
-                                                        Source="{Binding NatalWheelBitmap}"
-                                                        PointerPressed="OnNatalWheelPointerPressed"
-                                                        AutomationProperties.Name="Rueda natal interactiva" />
-
-                                                    <TextBlock
-                                                        Text="{Binding SelectedNatalObjectText}"
-                                                        HorizontalAlignment="Center"
-                                                        Opacity="0.75" />
-
-                                                </StackPanel>
-
-                                            </Border>
 
                                             <ListBox.ItemTemplate>
                                                 <DataTemplate
@@ -767,6 +734,127 @@
                                             FontWeight="SemiBold" />
 
                                     </Grid>
+
+                                    <Border
+                                        IsVisible="{Binding HasNatalWheel}"
+                                        Padding="12"
+                                        CornerRadius="8"
+                                        BorderThickness="1"
+                                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}">
+
+                                        <StackPanel
+                                            Spacing="8">
+
+                                            <TextBlock
+                                                Text="Rueda natal"
+                                                FontSize="16"
+                                                FontWeight="SemiBold" />
+
+                                            <Grid
+                                                ColumnDefinitions="Auto,Auto,Auto,Auto,Auto,*"
+                                                ColumnSpacing="10">
+
+                                                <CheckBox
+                                                    Grid.Column="0"
+                                                    Content="Planetas"
+                                                    IsChecked="{Binding ShowNatalPlanets}" />
+
+                                                <CheckBox
+                                                    Grid.Column="1"
+                                                    Content="Puntos"
+                                                    IsChecked="{Binding ShowNatalPoints}" />
+
+                                                <CheckBox
+                                                    Grid.Column="2"
+                                                    Content="Aspectos"
+                                                    IsChecked="{Binding ShowNatalAspects}" />
+
+                                                <CheckBox
+                                                    Grid.Column="3"
+                                                    Content="Cúspides"
+                                                    IsChecked="{Binding ShowNatalCusps}" />
+
+                                                <CheckBox
+                                                    Grid.Column="4"
+                                                    Content="Etiquetas"
+                                                    IsChecked="{Binding ShowNatalLabels}" />
+
+                                                <ComboBox
+                                                    Grid.Column="5"
+                                                    HorizontalAlignment="Right"
+                                                    MinWidth="150"
+                                                    ItemsSource="{Binding NatalWheelModes}"
+                                                    SelectedItem="{Binding SelectedNatalWheelMode}" />
+
+                                            </Grid>
+
+                                            <Grid
+                                                ColumnDefinitions="*,220"
+                                                ColumnSpacing="14">
+
+                                                <Image
+                                                Name="NatalWheelImage"
+                                                Width="560"
+                                                Height="560"
+                                                HorizontalAlignment="Center"
+                                                Stretch="Fill"
+                                                Source="{Binding NatalWheelBitmap}"
+                                                PointerPressed="OnNatalWheelPointerPressed"
+                                                AutomationProperties.Name="Rueda natal interactiva" />
+
+                                                <Border
+                                                    Grid.Column="1"
+                                                    Padding="12"
+                                                    CornerRadius="6"
+                                                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+
+                                                    <StackPanel
+                                                        Spacing="8">
+
+                                                        <TextBlock
+                                                            Text="Objeto seleccionado"
+                                                            FontWeight="SemiBold" />
+
+                                                        <TextBlock
+                                                            IsVisible="{Binding !HasSelectedNatalObject}"
+                                                            Text="Pulsa sobre un planeta o punto de la rueda."
+                                                            TextWrapping="Wrap"
+                                                            Opacity="0.65" />
+
+                                                        <StackPanel
+                                                            IsVisible="{Binding HasSelectedNatalObject}"
+                                                            Spacing="5">
+
+                                                            <TextBlock
+                                                                Text="{Binding SelectedNatalPlacement.ObjectName}"
+                                                                FontSize="17"
+                                                                FontWeight="SemiBold" />
+
+                                                            <TextBlock
+                                                                Text="{Binding SelectedNatalPlacement.PositionText}" />
+
+                                                            <TextBlock
+                                                                Text="{Binding SelectedNatalPlacement.HouseText}" />
+
+                                                            <TextBlock
+                                                                Text="{Binding SelectedNatalPlacement.MotionText}" />
+
+                                                        </StackPanel>
+
+                                                    </StackPanel>
+
+                                                </Border>
+
+                                            </Grid>
+
+                                            <TextBlock
+                                                Text="{Binding SelectedNatalObjectText}"
+                                                HorizontalAlignment="Center"
+                                                Opacity="0.75" />
+
+                                        </StackPanel>
+
+                                    </Border>
 
                                     <ItemsControl
                                         IsVisible="{Binding HasNatalPlacements}"

@@ -15,7 +15,8 @@ public sealed class NatalWheelPresentationService
     public NatalWheelPresentation Build(
         NatalChartSnapshotReadModel snapshot,
         double width,
-        double height)
+        double height,
+        NatalWheelSceneConfiguration? configuration = null)
     {
         ArgumentNullException.ThrowIfNull(snapshot);
 
@@ -42,7 +43,8 @@ public sealed class NatalWheelPresentationService
                     graphics.Placements,
                     graphics.Objects,
                     graphics.Aspects,
-                    NatalWheelSceneConfiguration
+                    configuration
+                    ?? NatalWheelSceneConfiguration
                         .ConsultationDefault);
 
         var pixelWidth =

@@ -458,3 +458,31 @@ Se conserva la restricción arquitectónica relevante:
 
 Se elimina únicamente la prohibición temporal de rueda natal que
 pertenecía al alcance de Fase 6.
+
+## Bloque 7E3 — Selección y controles visuales
+
+Implementado y validado:
+
+- selector Consulta/Presentación
+- control Planetas
+- control Puntos
+- control Aspectos
+- control Cúspides
+- control Etiquetas
+- reconstrucción visual desde el mismo snapshot
+- panel de objeto seleccionado
+- posición zodiacal
+- casa
+- movimiento
+- selección mediante hit testing de Graphics
+- rueda situada en la sección natal correcta
+- rueda fuera de listas de localización
+- geometría central ausente de Avalonia
+- ningún recálculo astronómico por preferencias
+- ADR-056
+
+Validación 7E3:
+
+- tests específicos: 6/6
+- tests Fase 7: 112/112
+- regresión global: 457/457
