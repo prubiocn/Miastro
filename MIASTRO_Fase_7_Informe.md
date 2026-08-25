@@ -651,3 +651,60 @@ Impacto provisional en aceptación:
 - criterio 65: cubierto técnicamente
 
 La fase permanece abierta hasta completar toda la matriz 1–88.
+
+<!-- PHASE7-FINAL-CLOSURE-START -->
+
+# Cierre formal de la Fase 7
+
+**Estado: CERRADA**
+
+Resultado de aceptación:
+
+- PASS: **88**
+- FAIL: **0**
+- PENDING: **0**
+
+## Resultado técnico final
+
+La Fase 7 entrega la primera rueda natal geométrica funcional de Miastro a partir de snapshots persistidos, sin recálculo astronómico dentro del renderer.
+
+La solución final incluye Scene Graph propio, separación layout/render, render SkiaSharp, glifos vectoriales internos, casas y ángulos, aspectos, anti-solapamiento determinista, leader lines, hit testing, tooltip, paneles de datos/posiciones/aspectos, selección bidireccional, accesibilidad equivalente, adaptación responsiva, HiDPI y goldens controlados.
+
+La posición astronómica real permanece separada de la posición gráfica. Conforme a las decisiones visuales finales aprobadas, no se muestran marcas visibles de posición real ni grados planetarios impresos sobre la rueda; esos datos permanecen disponibles en el modelo de lectura, tooltip y paneles.
+
+## Evidencia de validación
+
+- Build Release: PASS, 0 warnings, 0 errors.
+- Tests Fase 7 locales: **215/215 PASS**.
+- Regresión global local: **559/559 PASS**.
+- Goldens oficiales: PASS.
+- Publish linux-x64 self-contained: PASS.
+- Debian: `0.7.0~phase7-1`, PASS.
+- Instalación real: PASS.
+- Verificación Swiss Ephemeris instalada: PASS.
+- Verificación GeoNames instalada: PASS.
+- Smoke gráfico instalado bajo Xvfb: PASS.
+- SkiaSharp managed/native: `4.151.1 / 4.151.1`.
+- SourceSans3: recurso embebido validado.
+- Commit de implementación validado: `d1a0fb4aa87bda514f7d60e9710f8381539fa581`.
+- GitHub Actions run: `32868872498`.
+- Job remoto: `97870799842`.
+- CI remota: **SUCCESS**.
+
+## Incidencias resueltas durante cierre
+
+Durante la validación de instalación real se detectó una incompatibilidad entre `SkiaSharp.dll 4.151.1` y `libSkiaSharp.so 3.119.4`, introducida por resolución transitiva del grafo NuGet. La dependencia nativa Linux se alineó explícitamente a `4.151.1`; publish, paquete Debian e instalación real quedaron verificados con el mismo binario nativo.
+
+La primera ejecución remota detectó además dependencia de la cultura del sistema en el texto de orbe. `NatalAspectRowViewModel` pasó a formatear explícitamente con cultura `es-ES`, quedando validado también bajo `C.UTF-8`.
+
+## Cierre
+
+La matriz definitiva queda en:
+
+**88 PASS / 0 FAIL / 0 PENDING**
+
+No queda ningún criterio de aceptación abierto.
+
+**La Fase 8 no se ha iniciado.**
+
+<!-- PHASE7-FINAL-CLOSURE-END -->
