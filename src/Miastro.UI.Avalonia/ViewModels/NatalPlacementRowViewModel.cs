@@ -10,6 +10,9 @@ public sealed record NatalPlacementRowViewModel(
     string HouseText,
     string MotionText)
 {
+    public AstrologicalObjectId ObjectId
+        { get; init; }
+
     public static NatalPlacementRowViewModel From(
         NatalPlacementSnapshot placement)
         => new(
@@ -21,7 +24,11 @@ public sealed record NatalPlacementRowViewModel(
                 ? $"Casa {house}"
                 : "—",
             MotionLabel(
-                placement.Motion));
+                placement.Motion))
+        {
+            ObjectId =
+                placement.ObjectId
+        };
 
     private static string FormatPosition(
         double longitude)
@@ -82,7 +89,7 @@ public sealed record NatalPlacementRowViewModel(
                 "—"
         };
 
-    private static string ObjectLabel(
+    internal static string ObjectLabel(
         AstrologicalObjectId objectId)
         => objectId switch
         {

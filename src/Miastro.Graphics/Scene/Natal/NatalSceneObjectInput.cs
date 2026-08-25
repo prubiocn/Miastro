@@ -7,7 +7,9 @@ public sealed record NatalSceneObjectInput
     public NatalSceneObjectInput(
         string id,
         string glyphKey,
-        SceneLayer layer)
+        SceneLayer layer,
+        string? labelText = null,
+        bool isRetrograde = false)
     {
         if (string.IsNullOrWhiteSpace(id))
         {
@@ -31,9 +33,23 @@ public sealed record NatalSceneObjectInput
                 "Natal objects must use BodyLayer or PointLayer.");
         }
 
-        Id = id.Trim();
-        GlyphKey = glyphKey.Trim();
-        Layer = layer;
+        Id =
+            id.Trim();
+
+        GlyphKey =
+            glyphKey.Trim();
+
+        Layer =
+            layer;
+
+        LabelText =
+            string.IsNullOrWhiteSpace(
+                labelText)
+                ? Id
+                : labelText.Trim();
+
+        IsRetrograde =
+            isRetrograde;
     }
 
     public string Id { get; }
@@ -41,4 +57,8 @@ public sealed record NatalSceneObjectInput
     public string GlyphKey { get; }
 
     public SceneLayer Layer { get; }
+
+    public string LabelText { get; }
+
+    public bool IsRetrograde { get; }
 }

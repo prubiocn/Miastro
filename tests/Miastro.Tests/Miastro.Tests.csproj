@@ -7,8 +7,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="MSTest" />
-      <ProjectReference Include="..\..\src\Miastro.Graphics\Miastro.Graphics.csproj" />
-</ItemGroup>
+    <ProjectReference Include="..\..\src\Miastro.Graphics\Miastro.Graphics.csproj" />
+    <ProjectReference Include="../../src/Miastro.UI.Avalonia/Miastro.UI.Avalonia.csproj" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Miastro.Domain/Miastro.Domain.csproj" />
     <ProjectReference Include="../../src/Miastro.Application/Miastro.Application.csproj" />

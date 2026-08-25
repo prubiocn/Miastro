@@ -47,7 +47,7 @@ public sealed class Phase7LayoutSnapshotTests
                 Tolerance);
 
             Assert.AreEqual(
-                -30.0,
+                30.0,
                 snapshot.ZodiacSectors[i]
                     .SweepAngleDegrees,
                 Tolerance);

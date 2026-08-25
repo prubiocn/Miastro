@@ -68,9 +68,43 @@ public sealed class SkiaNatalSceneRenderer
             pixelHeight
             / (float)scene.Height;
 
+        var scale =
+            Math.Min(
+                sx,
+                sy);
+
+        var renderedWidth =
+            (float)scene.Width
+            * scale;
+
+        var renderedHeight =
+            (float)scene.Height
+            * scale;
+
+        var offsetX =
+            (
+                pixelWidth
+                - renderedWidth
+            )
+            / 2.0f;
+
+        var offsetY =
+            (
+                pixelHeight
+                - renderedHeight
+            )
+            / 2.0f;
+
+        canvas.Translate(
+            offsetX,
+            offsetY);
+
         canvas.Scale(
-            sx,
-            sy);
+            scale,
+            scale);
+
+        using var context =
+            new RenderContext();
 
         foreach (
             var node
@@ -78,7 +112,8 @@ public sealed class SkiaNatalSceneRenderer
         {
             DrawNode(
                 canvas,
-                node);
+                node,
+                context);
         }
 
         canvas.Restore();
@@ -97,44 +132,51 @@ public sealed class SkiaNatalSceneRenderer
 
     private static void DrawNode(
         SKCanvas canvas,
-        SceneNode node)
+        SceneNode node,
+        RenderContext context)
     {
         switch (node)
         {
             case CircleNode circle:
                 DrawCircle(
                     canvas,
-                    circle);
+                    circle,
+                    context);
                 break;
 
             case ArcNode arc:
                 DrawArc(
                     canvas,
-                    arc);
+                    arc,
+                    context);
                 break;
 
             case LineNode line:
                 DrawLine(
                     canvas,
-                    line);
+                    line,
+                    context);
                 break;
 
             case GlyphNode glyph:
                 DrawGlyph(
                     canvas,
-                    glyph);
+                    glyph,
+                    context);
                 break;
 
             case TextNode text:
                 DrawText(
                     canvas,
-                    text);
+                    text,
+                    context);
                 break;
 
             case PathNode path:
                 DrawPath(
                     canvas,
-                    path);
+                    path,
+                    context);
                 break;
 
             case GroupNode group:
@@ -149,7 +191,8 @@ public sealed class SkiaNatalSceneRenderer
                 {
                     DrawNode(
                         canvas,
-                        child);
+                        child,
+                        context);
                 }
 
                 break;
@@ -158,26 +201,65 @@ public sealed class SkiaNatalSceneRenderer
 
     private static void DrawCircle(
         SKCanvas canvas,
-        CircleNode node)
+        CircleNode node,
+        RenderContext context)
     {
-        using var paint =
-            CreateStrokePaint(
+        var style =
+            ResolveStyle(
+                context.StyleCatalog,
                 node);
+
+        if (style.FillColor is not null)
+        {
+            var fill =
+                style.FillColor.Value;
+
+            var alpha =
+                (byte)Math.Round(
+                    fill.Alpha
+                    * style.Opacity);
+
+            using var fillPaint =
+                new SKPaint
+                {
+                    IsAntialias = true,
+                    Style = SKPaintStyle.Fill,
+                    Color =
+                        new SKColor(
+                            fill.Red,
+                            fill.Green,
+                            fill.Blue,
+                            alpha)
+                };
+
+            canvas.DrawCircle(
+                (float)node.Center.X,
+                (float)node.Center.Y,
+                (float)node.Radius,
+                fillPaint);
+        }
+
+        using var strokePaint =
+            CreateStrokePaint(
+                node,
+                context);
 
         canvas.DrawCircle(
             (float)node.Center.X,
             (float)node.Center.Y,
             (float)node.Radius,
-            paint);
+            strokePaint);
     }
 
     private static void DrawArc(
         SKCanvas canvas,
-        ArcNode node)
+        ArcNode node,
+        RenderContext context)
     {
         using var paint =
             CreateStrokePaint(
-                node);
+                node,
+                context);
 
         var radius =
             (float)node.Radius;
@@ -191,19 +273,21 @@ public sealed class SkiaNatalSceneRenderer
 
         canvas.DrawArc(
             rect,
-            (float)node.StartAngleDegrees,
-            (float)node.SweepAngleDegrees,
+            (float)-node.StartAngleDegrees,
+            (float)-node.SweepAngleDegrees,
             false,
             paint);
     }
 
     private static void DrawLine(
         SKCanvas canvas,
-        LineNode node)
+        LineNode node,
+        RenderContext context)
     {
         using var paint =
             CreateStrokePaint(
-                node);
+                node,
+                context);
 
         canvas.DrawLine(
             (float)node.Start.X,
@@ -215,16 +299,15 @@ public sealed class SkiaNatalSceneRenderer
 
     private static void DrawGlyph(
         SKCanvas canvas,
-        GlyphNode node)
+        GlyphNode node,
+        RenderContext context)
     {
-        var catalog =
-            new NatalVectorGlyphCatalog();
-
         using var paint =
             CreateStrokePaint(
-                node);
+                node,
+                context);
 
-        if (!catalog.TryGet(
+        if (!context.GlyphCatalog.TryGet(
             node.GlyphKey,
             out var glyph))
         {
@@ -358,24 +441,56 @@ public sealed class SkiaNatalSceneRenderer
 
     private static void DrawText(
         SKCanvas canvas,
-        TextNode node)
+        TextNode node,
+        RenderContext context)
     {
-        using var typography =
-            new SkiaTypographyProvider();
-
         using var paint =
             CreateStrokePaint(
-                node);
+                node,
+                context);
 
         using var font =
             new SKFont(
-                typography.Typeface,
+                context.Typography.Typeface,
                 (float)Math.Max(
                     1.0,
                     node.Size));
 
         paint.Style =
             SKPaintStyle.Fill;
+
+        // ASC y MC usan AngleLabelMajor.
+        // Source Sans 3 Regular permanece como tipografía
+        // empaquetada; StrokeAndFill aporta un emboldening
+        // determinista sin depender de fuentes del sistema.
+        if (string.Equals(
+            node.StyleKey,
+            NatalSceneStyleKeys.AngleLabelMajor,
+            StringComparison.Ordinal))
+        {
+            paint.Style =
+                SKPaintStyle.StrokeAndFill;
+
+            paint.StrokeWidth =
+                (float)Math.Max(
+                    0.55,
+                    node.Size * 0.045);
+        }
+        else if (string.Equals(
+            node.StyleKey,
+            NatalSceneStyleKeys.AngleLabelMinor,
+            StringComparison.Ordinal))
+        {
+            // DSC e IC continúan siendo secundarios,
+            // pero deben distinguirse claramente.
+            paint.Style =
+                SKPaintStyle.StrokeAndFill;
+
+            paint.StrokeWidth =
+                (float)Math.Max(
+                    0.35,
+                    node.Size * 0.028);
+        }
 
         var textWidth =
             font.MeasureText(
@@ -407,7 +522,8 @@ public sealed class SkiaNatalSceneRenderer
 
     private static void DrawPath(
         SKCanvas canvas,
-        PathNode node)
+        PathNode node,
+        RenderContext context)
     {
         if (node.Points.Count == 0)
         {
@@ -416,7 +532,8 @@ public sealed class SkiaNatalSceneRenderer
 
         using var paint =
             CreateStrokePaint(
-                node);
+                node,
+                context);
 
         using var builder =
             new SKPathBuilder();
@@ -449,14 +566,12 @@ public sealed class SkiaNatalSceneRenderer
     }
 
     private static SKPaint CreateStrokePaint(
-        SceneNode node)
+        SceneNode node,
+        RenderContext context)
     {
-        var catalog =
-            new NatalSceneStyleCatalog();
-
         var style =
             ResolveStyle(
-                catalog,
+                context.StyleCatalog,
                 node);
 
         var alpha =
@@ -575,4 +690,33 @@ public sealed class SkiaNatalSceneRenderer
                 intervals,
                 0);
     }
+    private sealed class RenderContext : IDisposable
+    {
+        public RenderContext()
+        {
+            GlyphCatalog =
+                new NatalVectorGlyphCatalog();
+
+            StyleCatalog =
+                new NatalSceneStyleCatalog();
+
+            Typography =
+                new SkiaTypographyProvider();
+        }
+
+        public NatalVectorGlyphCatalog
+            GlyphCatalog { get; }
+
+        public NatalSceneStyleCatalog
+            StyleCatalog { get; }
+
+        public SkiaTypographyProvider
+            Typography { get; }
+
+        public void Dispose()
+        {
+            Typography.Dispose();
+        }
+    }
+
 }

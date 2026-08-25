@@ -8,6 +8,7 @@ using Miastro.Domain.Placements;
 using Miastro.Graphics.Adapters.Natal;
 using Miastro.Graphics.Scene;
 using Miastro.Graphics.Scene.Natal.Aspects;
+using Miastro.UI.Avalonia.ViewModels;
 
 namespace Miastro.Tests.Phase7;
 
@@ -289,6 +290,206 @@ public sealed class Phase7SnapshotGraphicsAdapterTests
     }
 
     [TestMethod]
+    public void Persisted_retrograde_maps_to_scene_object_flag()
+    {
+        var model =
+            new NatalChartSnapshotGraphicsAdapter()
+                .Adapt(
+                    BuildSnapshot(
+                        MotionState.Retrograde),
+                    800,
+                    800);
+
+        var mercury =
+            model.Objects
+                .Single(
+                    x => x.Id
+                        == "Mercury");
+
+        Assert.IsTrue(
+            mercury.IsRetrograde);
+    }
+
+    [TestMethod]
+    public void Non_retrograde_motion_does_not_set_scene_object_flag()
+    {
+        foreach (
+            var motion
+            in new MotionState?[]
+            {
+                null,
+                MotionState.Direct,
+                MotionState.Stationary
+            })
+        {
+            var model =
+                new NatalChartSnapshotGraphicsAdapter()
+                    .Adapt(
+                        BuildSnapshot(
+                            motion),
+                        800,
+                        800);
+
+            var mercury =
+                model.Objects
+                    .Single(
+                        x => x.Id
+                            == "Mercury");
+
+            Assert.IsFalse(
+                mercury.IsRetrograde,
+                $"Unexpected retrograde flag for {motion?.ToString() ?? "null"}.");
+        }
+    }
+
+    [TestMethod]
+    public void Persisted_retrograde_surfaces_through_motion_read_model()
+    {
+        var snapshot =
+            BuildSnapshot(
+                MotionState.Retrograde);
+
+        var model =
+            new NatalChartSnapshotGraphicsAdapter()
+                .Adapt(
+                    snapshot,
+                    800,
+                    800);
+
+        var mercuryObject =
+            model.Objects
+                .Single(
+                    x =>
+                        x.Id
+                        == "Mercury");
+
+        Assert.IsTrue(
+            mercuryObject.IsRetrograde);
+
+        var mercuryPlacement =
+            snapshot.Placements
+                .Single(
+                    x =>
+                        x.ObjectId
+                        == AstrologicalObjectId.Mercury);
+
+        var row =
+            NatalPlacementRowViewModel.From(
+                mercuryPlacement);
+
+        Assert.AreEqual(
+            "Retrógrado",
+            row.MotionText);
+
+        // La rueda ya no imprime posiciones ni movimiento.
+        var visualPlacement =
+            model.Placements
+                .Placements
+                .Single(
+                    x =>
+                        x.Id
+                        == "Mercury");
+
+        var scene =
+            new Miastro.Graphics.Scene.Natal
+                .NatalWheelSceneBuilder()
+                .Build(
+                    model.Wheel,
+                    new Miastro.Graphics.Layout.Placement
+                        .NatalObjectPlacementSnapshot(
+                            new[]
+                            {
+                                visualPlacement
+                            }),
+                    new[]
+                    {
+                        mercuryObject
+                    });
+
+        Assert.IsFalse(
+            scene.Nodes
+                .OfType<TextNode>()
+                .Any(
+                    x =>
+                        x.Id
+                        == "object-label-Mercury"));
+    }
+
+
+    [TestMethod]
+    public void Direct_motion_surfaces_through_motion_read_model()
+    {
+        var snapshot =
+            BuildSnapshot(
+                MotionState.Direct);
+
+        var model =
+            new NatalChartSnapshotGraphicsAdapter()
+                .Adapt(
+                    snapshot,
+                    800,
+                    800);
+
+        var mercuryObject =
+            model.Objects
+                .Single(
+                    x =>
+                        x.Id
+                        == "Mercury");
+
+        Assert.IsFalse(
+            mercuryObject.IsRetrograde);
+
+        var mercuryPlacement =
+            snapshot.Placements
+                .Single(
+                    x =>
+                        x.ObjectId
+                        == AstrologicalObjectId.Mercury);
+
+        var row =
+            NatalPlacementRowViewModel.From(
+                mercuryPlacement);
+
+        Assert.AreEqual(
+            "Directo",
+            row.MotionText);
+
+        var visualPlacement =
+            model.Placements
+                .Placements
+                .Single(
+                    x =>
+                        x.Id
+                        == "Mercury");
+
+        var scene =
+            new Miastro.Graphics.Scene.Natal
+                .NatalWheelSceneBuilder()
+                .Build(
+                    model.Wheel,
+                    new Miastro.Graphics.Layout.Placement
+                        .NatalObjectPlacementSnapshot(
+                            new[]
+                            {
+                                visualPlacement
+                            }),
+                    new[]
+                    {
+                        mercuryObject
+                    });
+
+        Assert.IsFalse(
+            scene.Nodes
+                .OfType<TextNode>()
+                .Any(
+                    x =>
+                        x.Id
+                        == "object-label-Mercury"));
+    }
+
+
+    [TestMethod]
     public void Adapter_is_deterministic()
     {
         var snapshot =
@@ -326,7 +527,8 @@ public sealed class Phase7SnapshotGraphicsAdapterTests
                     800);
 
     private static NatalChartSnapshotReadModel
-        BuildSnapshot()
+        BuildSnapshot(
+            MotionState? mercuryMotion = null)
     {
         var values =
             new Dictionary<
@@ -370,7 +572,11 @@ public sealed class Phase7SnapshotGraphicsAdapterTests
                             LongitudeSpeedDegreesPerDay: null,
                             LatitudeSpeedDegreesPerDay: null,
                             DistanceSpeedAuPerDay: null,
-                            Motion: null,
+                            Motion:
+                                x.Key
+                                    == AstrologicalObjectId.Mercury
+                                    ? mercuryMotion
+                                    : null,
                             ZodiacSign:
                                 (int)(x.Value / 30.0),
                             DegreeInSign:
@@ -508,7 +714,7 @@ public sealed class Phase7SnapshotGraphicsAdapterTests
                         "|",
                         model.Objects.Select(
                             x =>
-                                $"{x.Id}:{x.GlyphKey}:{x.Layer}")),
+                                $"{x.Id}:{x.GlyphKey}:{x.Layer}:{x.IsRetrograde}")),
                     string.Join(
                         "|",
                         model.Aspects.Select(

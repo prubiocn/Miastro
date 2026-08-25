@@ -11,6 +11,9 @@ public static class NatalSceneStyleKeys
     public const string ZodiacGlyph =
         "zodiac-glyph";
 
+    public const string DegreeBoundary =
+        "degree-boundary";
+
     public const string DegreeMinor =
         "degree-minor";
 
@@ -25,6 +28,12 @@ public static class NatalSceneStyleKeys
 
     public const string HouseNumber =
         "house-number";
+
+    public const string PlanetOrbit =
+        "planet-orbit";
+
+    public const string SoulCore =
+        "soul-core";
 
     public const string AngleMajor =
         "angle-major";
@@ -49,6 +58,9 @@ public static class NatalSceneStyleKeys
 
     public const string LeaderLine =
         "leader-line";
+
+    public const string AspectRing =
+        "aspect-ring";
 
     public const string AspectMajor =
         "aspect-major";

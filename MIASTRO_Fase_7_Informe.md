@@ -520,3 +520,134 @@ Implementado:
 - canvas pequeño
 - independencia del orden de entrada
 - ADR-058
+
+## Bloque 7F3B — Leader lines y etiquetas
+
+Implementado:
+
+- GlyphBounds separados de bounds de colisión
+- GlyphSize explícito en placement
+- leader line terminada en borde del glifo
+- ancla real conservada
+- etiquetas de objetos en LabelLayer
+- contenido derivado de longitud real
+- grado/minuto/signo
+- soporte de marcador R
+- evitación de glifos
+- evitación entre etiquetas
+- candidatos deterministas
+- bounds dentro del canvas
+- ADR-059
+
+Pendiente del siguiente subbloque:
+
+- cablear MotionState.Retrograde desde el snapshot persistido al
+  NatalSceneObjectInput
+
+## Bloque 7F3C — Retrogradación persistida
+
+Implementado:
+
+- MotionState.Retrograde mapeado a IsRetrograde
+- Direct no muestra R
+- Stationary no muestra R
+- Motion null no muestra R
+- marcador R visible procedente del snapshot persistido
+- ningún recálculo de velocidad en Graphics
+- ninguna dependencia Swiss para movimiento visual
+
+## Bloque 7G1 — Goldens gráficos headless
+
+Implementado:
+
+- corpus golden gráfico controlado
+- carta sencilla
+- stellium
+- muchas líneas de aspectos
+- fixture Placidus con cúspides persistidas
+- fixture Koch con cúspides persistidas
+- PNG headless
+- manifiesto SHA-256
+- comparación raster tolerante
+- invariantes estructurales complementarias
+- determinismo byte a byte dentro del runtime
+- actualización únicamente mediante opt-in explícito
+- ninguna astronomía en Graphics.Skia
+- ADR-060
+
+## Bloque 7G2 — Rendimiento y HiDPI
+
+Implementado:
+
+- escalado uniforme del Scene Graph
+- centrado en superficies con distinta relación de aspecto
+- soporte técnico 1x, 1,5x, 2x y 3x
+- determinismo por resolución
+- contexto único por operación RenderPng
+- catálogo de glifos reutilizado durante el render
+- catálogo de estilos reutilizado durante el render
+- tipografía embebida reutilizada durante el render
+- smoke test de rendimiento no frágil
+- renderer sin dependencias astronómicas
+- ADR-061
+
+## Bloque 7H1 — Responsive Avalonia y accesibilidad
+
+Implementado:
+
+- retirada del tamaño fijo 560x560
+- viewport cuadrado dependiente del espacio disponible
+- Stretch Uniform
+- RenderScaling físico desde TopLevel
+- hit testing compatible con letterboxing
+- navegación por teclado de objetos visibles
+- Home / End / Escape
+- texto accesible equivalente
+- panel textual de selección conservado
+- ninguna geometría natal central en Avalonia
+- ninguna dependencia directa Swiss en UI
+- ADR-062
+
+## Bloque 7H2 — Ciclo de selección e interacción
+
+Implementado:
+
+- conservación de selección en rebuilds puramente visuales
+- conservación tras resize y cambio de RenderScaling
+- conservación tras cambios de modo mientras el objeto siga visible
+- limpieza automática al ocultar el objeto seleccionado
+- reinicio al cargar un snapshot nuevo
+- validación de selección contra la escena visible
+- foco de teclado al hacer click en la rueda
+- continuidad ratón -> teclado
+- ninguna geometría central duplicada en Avalonia
+- ADR-063
+
+## Bloque 7I2 — Paneles, sincronización y casas extremas
+
+Implementado:
+
+- panel Datos explícito
+- panel Posiciones explícito
+- panel Aspectos explícito
+- identidad AstrologicalObjectId en filas de posiciones
+- lista de posiciones seleccionable por teclado
+- SelectedItem TwoWay
+- selección rueda -> panel usando la misma instancia de fila
+- selección panel -> estado de rueda mediante ApplyNatalWheelSelection
+- aspectos derivados únicamente del snapshot persistido
+- sin recálculo de aspectos en UI
+- prueba de casa extremadamente estrecha
+- prueba de casa extremadamente ancha
+- prueba de geometría de casas alrededor de 0/360
+- ADR-064
+
+Impacto provisional en aceptación:
+
+- criterio 47: cubierto técnicamente
+- criterio 49: cubierto técnicamente
+- criterio 51: cubierto técnicamente
+- criterio 52: cubierto técnicamente
+- criterio 65: cubierto técnicamente
+
+La fase permanece abierta hasta completar toda la matriz 1–88.

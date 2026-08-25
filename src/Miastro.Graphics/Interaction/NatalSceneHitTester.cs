@@ -35,21 +35,77 @@ public sealed class NatalSceneHitTester
                 nameof(viewportWidth));
         }
 
+        if (!double.IsFinite(tolerance)
+            || tolerance < 0.0)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(tolerance));
+        }
+
+        var scale =
+            Math.Min(
+                viewportWidth / scene.Width,
+                viewportHeight / scene.Height);
+
+        var renderedWidth =
+            scene.Width * scale;
+
+        var renderedHeight =
+            scene.Height * scale;
+
+        var offsetX =
+            (
+                viewportWidth
+                - renderedWidth
+            )
+            / 2.0;
+
+        var offsetY =
+            (
+                viewportHeight
+                - renderedHeight
+            )
+            / 2.0;
+
+        if (x < offsetX
+            || x > offsetX + renderedWidth
+            || y < offsetY
+            || y > offsetY + renderedHeight)
+        {
+            return null;
+        }
+
         var scenePoint =
             new ChartPoint(
-                x * scene.Width / viewportWidth,
-                y * scene.Height / viewportHeight);
+                (x - offsetX) / scale,
+                (y - offsetY) / scale);
 
         var sceneTolerance =
-            tolerance
-            * Math.Max(
-                scene.Width / viewportWidth,
-                scene.Height / viewportHeight);
+            tolerance / scale;
 
         return HitTest(
             scene,
             scenePoint,
             sceneTolerance);
+    }
+
+    public IReadOnlyList<string>
+        GetSelectableObjectIds(
+            NatalScene scene)
+    {
+        ArgumentNullException.ThrowIfNull(scene);
+
+        return scene.OrderedNodes
+            .OfType<GlyphNode>()
+            .Where(
+                IsSelectableObjectGlyph)
+            .Select(
+                glyph =>
+                    glyph.Id[
+                        ObjectGlyphPrefix.Length..])
+            .Distinct(
+                StringComparer.Ordinal)
+            .ToArray();
     }
 
     public NatalHitTestResult? HitTest(

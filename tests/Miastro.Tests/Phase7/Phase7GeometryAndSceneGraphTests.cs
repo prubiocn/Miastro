@@ -69,7 +69,7 @@ public sealed class Phase7GeometryAndSceneGraphTests
             Tolerance);
 
         Assert.AreEqual(
-            90.0,
+            270.0,
             NatalWheelCoordinates
                 .EclipticToScreenAngleDegrees(
                     asc + 90.0,
@@ -85,12 +85,39 @@ public sealed class Phase7GeometryAndSceneGraphTests
             Tolerance);
 
         Assert.AreEqual(
-            270.0,
+            90.0,
             NatalWheelCoordinates
                 .EclipticToScreenAngleDegrees(
                     asc + 270.0,
                     asc),
             Tolerance);
+    }
+
+    [TestMethod]
+    public void Longitude_ninety_degrees_after_ascendant_is_below_center()
+    {
+        var center =
+            new ChartPoint(
+                400.0,
+                300.0);
+
+        var point =
+            NatalWheelCoordinates
+                .PointForLongitude(
+                    center,
+                    200.0,
+                    132.5,
+                    42.5);
+
+        Assert.AreEqual(
+            400.0,
+            point.X,
+            1e-9);
+
+        Assert.AreEqual(
+            500.0,
+            point.Y,
+            1e-9);
     }
 
     [TestMethod]

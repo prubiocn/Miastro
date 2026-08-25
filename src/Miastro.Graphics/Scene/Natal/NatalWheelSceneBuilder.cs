@@ -63,6 +63,10 @@ public sealed class NatalWheelSceneBuilder
             nodes,
             wheel);
 
+        AddAspectRing(
+            nodes,
+            wheel);
+
         AddObjects(
             nodes,
             wheel,
@@ -81,6 +85,10 @@ public sealed class NatalWheelSceneBuilder
             nodes.Add(
                 aspectNode);
         }
+
+        AddSoulCore(
+            nodes,
+            wheel);
 
         return new NatalScene(
             wheel.Metrics.Width,
@@ -114,17 +122,6 @@ public sealed class NatalWheelSceneBuilder
                 SceneLayer.ZodiacRing,
                 wheel.Metrics.Center,
                 wheel.Metrics.OuterRadius)
-            {
-                StyleKey =
-                    NatalSceneStyleKeys.ZodiacBoundary
-            });
-
-        nodes.Add(
-            new CircleNode(
-                "zodiac-inner-ring",
-                SceneLayer.ZodiacRing,
-                wheel.Metrics.Center,
-                wheel.Metrics.ZodiacInnerRadius)
             {
                 StyleKey =
                     NatalSceneStyleKeys.ZodiacBoundary
@@ -194,6 +191,17 @@ public sealed class NatalWheelSceneBuilder
         ICollection<SceneNode> nodes,
         NatalWheelLayoutSnapshot wheel)
     {
+        nodes.Add(
+            new CircleNode(
+                "zodiac-degree-ring",
+                SceneLayer.DegreeRing,
+                wheel.Metrics.Center,
+                wheel.Metrics.DegreeRingRadius)
+            {
+                StyleKey =
+                    NatalSceneStyleKeys.DegreeBoundary
+            });
+
         foreach (
             var tick
             in wheel.DegreeTicks)
@@ -263,13 +271,45 @@ public sealed class NatalWheelSceneBuilder
         }
     }
 
+    private static void AddAspectRing(
+        ICollection<SceneNode> nodes,
+        NatalWheelLayoutSnapshot wheel)
+    {
+        nodes.Add(
+            new CircleNode(
+                "aspect-anchor-ring",
+                SceneLayer.AspectLayer,
+                wheel.Metrics.Center,
+                wheel.Metrics.AspectRadius)
+            {
+                StyleKey =
+                    NatalSceneStyleKeys.AspectRing
+            });
+    }
+
+    private static void AddSoulCore(
+        ICollection<SceneNode> nodes,
+        NatalWheelLayoutSnapshot wheel)
+    {
+        nodes.Add(
+            new CircleNode(
+                "soul-core",
+                SceneLayer.AspectLayer,
+                wheel.Metrics.Center,
+                wheel.Metrics.SoulRadius)
+            {
+                StyleKey =
+                    NatalSceneStyleKeys.SoulCore
+            });
+    }
+
     private static void AddAngles(
         ICollection<SceneNode> nodes,
         NatalWheelLayoutSnapshot wheel)
     {
         var labelRadius =
-            wheel.Metrics.HouseOuterRadius
-            + 18.0 * wheel.Metrics.Scale;
+            wheel.Metrics.OuterRadius
+            + 34.0 * wheel.Metrics.Scale;
 
         var labelSize =
             14.0
@@ -303,13 +343,61 @@ public sealed class NatalWheelSceneBuilder
                                 : NatalSceneStyleKeys.AngleMinor
                 });
 
-            var labelCenter =
-                Miastro.Graphics.Geometry
-                    .NatalWheelCoordinates
-                    .PointOnCircle(
-                        wheel.Metrics.Center,
-                        labelRadius,
-                        axis.ScreenAngleDegrees);
+            ChartPoint labelCenter;
+
+            if (axis.Kind
+                == NatalAngleKind.Ascendant)
+            {
+                // ASC: encima del tramo exterior izquierdo y
+                // desplazado ligeramente hacia dentro para evitar
+                // cualquier recorte por el borde del canvas.
+                labelCenter =
+                    new ChartPoint(
+                        axis.OuterPoint.X
+                            + 10.0
+                            * wheel.Metrics.Scale,
+                        axis.OuterPoint.Y
+                            - 13.0
+                            * wheel.Metrics.Scale);
+            }
+            else if (axis.Kind
+                == NatalAngleKind.Midheaven)
+            {
+                // MC: al lado derecho del tramo exterior.
+                labelCenter =
+                    new ChartPoint(
+                        axis.OuterPoint.X
+                            + 14.0
+                            * wheel.Metrics.Scale,
+                        axis.OuterPoint.Y);
+            }
+            else if (axis.Kind
+                == NatalAngleKind.Descendant)
+            {
+                // DSC: encima del tramo exterior derecho y
+                // desplazado hacia dentro para evitar recorte.
+                labelCenter =
+                    new ChartPoint(
+                        axis.OuterPoint.X
+                            - 10.0
+                            * wheel.Metrics.Scale,
+                        axis.OuterPoint.Y
+                            - 13.0
+                            * wheel.Metrics.Scale);
+            }
+            else
+            {
+                // IC: al lado derecho del tramo exterior inferior,
+                // ligeramente elevado para mantenerlo dentro del canvas.
+                labelCenter =
+                    new ChartPoint(
+                        axis.OuterPoint.X
+                            + 14.0
+                            * wheel.Metrics.Scale,
+                        axis.OuterPoint.Y
+                            - 10.0
+                            * wheel.Metrics.Scale);
+            }
 
             nodes.Add(
                 new TextNode(
@@ -339,11 +427,6 @@ public sealed class NatalWheelSceneBuilder
             string,
             NatalSceneObjectInput> objectMap)
     {
-        var markRadius =
-            Math.Max(
-                1.5,
-                2.0 * wheel.Metrics.Scale);
-
         foreach (
             var placement
             in placements.Placements)
@@ -351,17 +434,9 @@ public sealed class NatalWheelSceneBuilder
             var definition =
                 objectMap[placement.Id];
 
-            nodes.Add(
-                new CircleNode(
-                    $"real-mark-{placement.Id}",
-                    definition.Layer,
-                    placement.RealAnchor,
-                    markRadius)
-                {
-                    StyleKey =
-                        NatalSceneStyleKeys.RealPositionMark
-                });
-
+            // No se dibuja una marca explícita de posición real.
+            // La posición astrológica sigue preservada en placement
+            // y se expone mediante interacción/tooltip.
             if (placement.HasLeaderLine
                 && placement.LeaderLineStart is not null
                 && placement.LeaderLineEnd is not null)
@@ -378,27 +453,62 @@ public sealed class NatalWheelSceneBuilder
                     });
             }
 
-            var visualSize =
-                Math.Min(
-                    placement.Bounds.Width,
-                    placement.Bounds.Height);
-
             nodes.Add(
                 new GlyphNode(
                     $"object-glyph-{placement.Id}",
                     definition.Layer,
                     definition.GlyphKey,
                     placement.VisualCenter,
-                    visualSize,
-                    placement.Bounds)
-            {
-                StyleKey =
-                    definition.Layer == SceneLayer.BodyLayer
-                        ? NatalSceneStyleKeys.BodyGlyph
-                        : NatalSceneStyleKeys.PointGlyph
-            });
+                    placement.GlyphSize,
+                    placement.GlyphBounds)
+                {
+                    StyleKey =
+                        definition.Layer
+                            == SceneLayer.BodyLayer
+                            ? NatalSceneStyleKeys.BodyGlyph
+                            : NatalSceneStyleKeys.PointGlyph
+                });
         }
     }
+
+    private static bool IsInsideCanvas(
+        ChartRect bounds,
+        NatalWheelLayoutSnapshot wheel)
+        =>
+            bounds.Left >= 0.0
+            && bounds.Top >= 0.0
+            && bounds.Right
+                <= wheel.Metrics.Width
+            && bounds.Bottom
+                <= wheel.Metrics.Height;
+
+    private static ChartRect BoundsFromCenter(
+        ChartPoint center,
+        double width,
+        double height)
+        =>
+            new(
+                center.X - width / 2.0,
+                center.Y - height / 2.0,
+                width,
+                height);
+
+    private static readonly string[]
+        ZodiacAbbreviations =
+    [
+        "Ari",
+        "Tau",
+        "Gem",
+        "Cán",
+        "Leo",
+        "Vir",
+        "Lib",
+        "Esc",
+        "Sag",
+        "Cap",
+        "Acu",
+        "Pis"
+    ];
 
     private static ChartRect BoundsFromCenter(
         ChartPoint center,

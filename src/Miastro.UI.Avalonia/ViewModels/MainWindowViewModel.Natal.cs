@@ -17,6 +17,17 @@ public sealed partial class MainWindowViewModel
     private const double DefaultNatalWheelSize =
         640.0;
 
+    private double _natalWheelViewportWidth =
+        DefaultNatalWheelSize;
+
+    private double _natalWheelViewportHeight =
+        DefaultNatalWheelSize;
+
+    private double _natalWheelRenderScaling =
+        1.0;
+
+    private string? _selectedNatalObjectId;
+
     private readonly NatalWheelPresentationService
         _natalWheelPresentationService = new();
 
@@ -28,6 +39,9 @@ public sealed partial class MainWindowViewModel
 
     private string _selectedNatalObjectText =
         "Ningún objeto seleccionado.";
+
+    private string _natalWheelTooltipText =
+        string.Empty;
 
     private NatalPlacementRowViewModel?
         _selectedNatalPlacement;
@@ -69,6 +83,10 @@ public sealed partial class MainWindowViewModel
         NatalPlacementRowViewModel>
         NatalPlacements { get; } = [];
 
+    public ObservableCollection<
+        NatalAspectRowViewModel>
+        NatalAspects { get; } = [];
+
     public AsyncCommand CalculateNatalCommand
         { get; private set; } = null!;
 
@@ -103,6 +121,9 @@ public sealed partial class MainWindowViewModel
     public bool HasNatalPlacements
         => NatalPlacements.Count > 0;
 
+    public bool HasNatalAspects
+        => NatalAspects.Count > 0;
+
     public Bitmap? NatalWheelBitmap
         => _natalWheelBitmap;
 
@@ -113,9 +134,42 @@ public sealed partial class MainWindowViewModel
     public string SelectedNatalObjectText
         => _selectedNatalObjectText;
 
+    public string NatalWheelTooltipText
+        => _natalWheelTooltipText;
+
+    public string NatalWheelAccessibilityText
+        =>
+            _selectedNatalPlacement is null
+                ? "Rueda natal interactiva. Usa las flechas para recorrer planetas y puntos visibles."
+                : "Rueda natal. Seleccionado "
+                  + _selectedNatalPlacement.ObjectName
+                  + ". "
+                  + _selectedNatalPlacement.PositionText
+                  + ". "
+                  + _selectedNatalPlacement.HouseText
+                  + ". "
+                  + _selectedNatalPlacement.MotionText
+                  + ". Usa las flechas para cambiar de objeto.";
+
     public NatalPlacementRowViewModel?
         SelectedNatalPlacement
-        => _selectedNatalPlacement;
+    {
+        get =>
+            _selectedNatalPlacement;
+
+        set
+        {
+            if (ReferenceEquals(
+                _selectedNatalPlacement,
+                value))
+            {
+                return;
+            }
+
+            ApplyNatalWheelSelection(
+                value?.ObjectId.ToString());
+        }
+    }
 
     public bool HasSelectedNatalObject
         => _selectedNatalPlacement is not null;
@@ -442,6 +496,15 @@ public sealed partial class MainWindowViewModel
     private void ApplyNatalSnapshot(
         NatalChartSnapshotReadModel snapshot)
     {
+        _selectedNatalObjectId =
+            null;
+
+        _selectedNatalPlacement =
+            null;
+
+        _selectedNatalObjectText =
+            "Ningún objeto seleccionado.";
+
         _currentNatalSnapshot =
             snapshot;
 
@@ -473,6 +536,18 @@ public sealed partial class MainWindowViewModel
                         placement));
         }
 
+        NatalAspects.Clear();
+
+        foreach (
+            var aspect
+            in snapshot.Aspects)
+        {
+            NatalAspects.Add(
+                NatalAspectRowViewModel
+                    .From(
+                        aspect));
+        }
+
         _natalCalculationFailed =
             false;
 
@@ -485,6 +560,7 @@ public sealed partial class MainWindowViewModel
             null;
 
         NatalPlacements.Clear();
+        NatalAspects.Clear();
 
         _natalCalculationFailed =
             false;
@@ -509,6 +585,9 @@ public sealed partial class MainWindowViewModel
 
                 nameof(
                     HasNatalPlacements),
+
+                nameof(
+                    HasNatalAspects),
 
                 nameof(
                     NatalCalculationFailed),
@@ -545,13 +624,17 @@ public sealed partial class MainWindowViewModel
             return;
         }
 
+        var previousSelectionId =
+            _selectedNatalObjectId;
+
         var presentation =
             _natalWheelPresentationService
                 .Build(
                     _currentNatalSnapshot,
-                    DefaultNatalWheelSize,
-                    DefaultNatalWheelSize,
-                    BuildNatalWheelConfiguration());
+                    _natalWheelViewportWidth,
+                    _natalWheelViewportHeight,
+                    BuildNatalWheelConfiguration(),
+                    _natalWheelRenderScaling);
 
         using var stream =
             new MemoryStream(
@@ -569,26 +652,41 @@ public sealed partial class MainWindowViewModel
         _natalWheelBitmap =
             bitmap;
 
-        _selectedNatalObjectText =
-            "Ningún objeto seleccionado.";
-
-        _selectedNatalPlacement =
-            null;
-
         OnPropertyChanged(
             nameof(NatalWheelBitmap));
 
         OnPropertyChanged(
             nameof(HasNatalWheel));
 
-        OnPropertyChanged(
-            nameof(SelectedNatalObjectText));
+        RestoreNatalWheelSelection(
+            previousSelectionId);
+    }
 
-        OnPropertyChanged(
-            nameof(SelectedNatalPlacement));
+    private void RestoreNatalWheelSelection(
+        string? objectId)
+    {
+        if (_natalWheelPresentation is null
+            || objectId is null)
+        {
+            ApplyNatalWheelSelection(
+                null);
+            return;
+        }
 
-        OnPropertyChanged(
-            nameof(HasSelectedNatalObject));
+        var selectableIds =
+            new NatalSceneHitTester()
+                .GetSelectableObjectIds(
+                    _natalWheelPresentation.Scene);
+
+        var remainsVisible =
+            selectableIds.Contains(
+                objectId,
+                StringComparer.Ordinal);
+
+        ApplyNatalWheelSelection(
+            remainsVisible
+                ? objectId
+                : null);
     }
 
     private void ClearNatalWheel()
@@ -607,6 +705,9 @@ public sealed partial class MainWindowViewModel
         _selectedNatalPlacement =
             null;
 
+        _selectedNatalObjectId =
+            null;
+
         OnPropertyChanged(
             nameof(NatalWheelBitmap));
 
@@ -621,6 +722,131 @@ public sealed partial class MainWindowViewModel
 
         OnPropertyChanged(
             nameof(HasSelectedNatalObject));
+
+        OnPropertyChanged(
+            nameof(NatalWheelAccessibilityText));
+    }
+
+    public void UpdateNatalWheelViewport(
+        double width,
+        double height,
+        double renderScaling)
+    {
+        if (!double.IsFinite(width)
+            || !double.IsFinite(height)
+            || !double.IsFinite(renderScaling)
+            || width <= 0.0
+            || height <= 0.0
+            || renderScaling <= 0.0)
+        {
+            return;
+        }
+
+        if (Math.Abs(
+                _natalWheelViewportWidth
+                - width)
+                < 0.5
+            && Math.Abs(
+                _natalWheelViewportHeight
+                - height)
+                < 0.5
+            && Math.Abs(
+                _natalWheelRenderScaling
+                - renderScaling)
+                < 0.01)
+        {
+            return;
+        }
+
+        _natalWheelViewportWidth =
+            width;
+
+        _natalWheelViewportHeight =
+            height;
+
+        _natalWheelRenderScaling =
+            renderScaling;
+
+        if (_currentNatalSnapshot is not null)
+        {
+            RebuildNatalWheel();
+        }
+    }
+
+    public void UpdateNatalWheelTooltipAt(
+        double x,
+        double y,
+        double viewportWidth,
+        double viewportHeight)
+    {
+        if (_natalWheelPresentation is null
+            || viewportWidth <= 0.0
+            || viewportHeight <= 0.0)
+        {
+            ClearNatalWheelTooltip();
+            return;
+        }
+
+        var hit =
+            new NatalSceneHitTester()
+                .HitTestViewport(
+                    _natalWheelPresentation.Scene,
+                    x,
+                    y,
+                    viewportWidth,
+                    viewportHeight,
+                    tolerance: 5.0);
+
+        var row =
+            hit is null
+                ? null
+                : FindNatalPlacementRow(
+                    hit.ObjectId);
+
+        var next =
+            row is null
+                ? string.Empty
+                : row.ObjectName
+                    + "\n"
+                    + row.PositionText
+                    + " · "
+                    + row.HouseText
+                    + (
+                        row.MotionText == "—"
+                            ? string.Empty
+                            : " · "
+                              + row.MotionText
+                      );
+
+        if (string.Equals(
+            _natalWheelTooltipText,
+            next,
+            StringComparison.Ordinal))
+        {
+            return;
+        }
+
+        _natalWheelTooltipText =
+            next;
+
+        OnPropertyChanged(
+            nameof(
+                NatalWheelTooltipText));
+    }
+
+    public void ClearNatalWheelTooltip()
+    {
+        if (_natalWheelTooltipText.Length == 0)
+        {
+            return;
+        }
+
+        _natalWheelTooltipText =
+            string.Empty;
+
+        OnPropertyChanged(
+            nameof(
+                NatalWheelTooltipText));
     }
 
     public void SelectNatalWheelAt(
@@ -644,7 +870,131 @@ public sealed partial class MainWindowViewModel
                     viewportHeight,
                     tolerance: 5.0);
 
-        if (hit is null)
+        ApplyNatalWheelSelection(
+            hit?.ObjectId);
+    }
+
+    public void MoveNatalWheelSelection(
+        int delta)
+    {
+        if (_natalWheelPresentation is null
+            || delta == 0)
+        {
+            return;
+        }
+
+        var ids =
+            new NatalSceneHitTester()
+                .GetSelectableObjectIds(
+                    _natalWheelPresentation.Scene);
+
+        if (ids.Count == 0)
+        {
+            return;
+        }
+
+        var currentIndex =
+            _selectedNatalObjectId is null
+                ? -1
+                : ids
+                    .Select(
+                        (id, index) =>
+                            (
+                                Id: id,
+                                Index: index
+                            ))
+                    .Where(
+                        item =>
+                            item.Id
+                                == _selectedNatalObjectId)
+                    .Select(
+                        item =>
+                            item.Index)
+                    .DefaultIfEmpty(-1)
+                    .First();
+
+        var nextIndex =
+            currentIndex < 0
+                ? delta > 0
+                    ? 0
+                    : ids.Count - 1
+                : (
+                    currentIndex
+                    + delta % ids.Count
+                    + ids.Count
+                  )
+                  % ids.Count;
+
+        ApplyNatalWheelSelection(
+            ids[nextIndex]);
+    }
+
+    public void SelectFirstNatalWheelObject()
+    {
+        SelectNatalWheelBoundary(
+            last: false);
+    }
+
+    public void SelectLastNatalWheelObject()
+    {
+        SelectNatalWheelBoundary(
+            last: true);
+    }
+
+    public void ClearNatalWheelSelection()
+    {
+        ApplyNatalWheelSelection(
+            null);
+    }
+
+    private void SelectNatalWheelBoundary(
+        bool last)
+    {
+        if (_natalWheelPresentation is null)
+        {
+            return;
+        }
+
+        var ids =
+            new NatalSceneHitTester()
+                .GetSelectableObjectIds(
+                    _natalWheelPresentation.Scene);
+
+        if (ids.Count == 0)
+        {
+            return;
+        }
+
+        ApplyNatalWheelSelection(
+            last
+                ? ids[^1]
+                : ids[0]);
+    }
+
+    private void ApplyNatalWheelSelection(
+        string? objectId)
+    {
+        if (objectId is not null
+            && _natalWheelPresentation is not null)
+        {
+            var selectableIds =
+                new NatalSceneHitTester()
+                    .GetSelectableObjectIds(
+                        _natalWheelPresentation.Scene);
+
+            if (!selectableIds.Contains(
+                objectId,
+                StringComparer.Ordinal))
+            {
+                objectId =
+                    null;
+            }
+        }
+
+        _selectedNatalObjectId =
+            objectId;
+
+        if (objectId is null)
         {
             _selectedNatalObjectText =
                 "Ningún objeto seleccionado.";
@@ -655,11 +1005,11 @@ public sealed partial class MainWindowViewModel
         else
         {
             _selectedNatalObjectText =
-                $"Seleccionado: {hit.ObjectId}";
+                $"Seleccionado: {objectId}";
 
             _selectedNatalPlacement =
                 FindNatalPlacementRow(
-                    hit.ObjectId);
+                    objectId);
         }
 
         OnPropertyChanged(
@@ -672,10 +1022,7 @@ public sealed partial class MainWindowViewModel
             nameof(HasSelectedNatalObject));
 
         OnPropertyChanged(
-            nameof(SelectedNatalPlacement));
-
-        OnPropertyChanged(
-            nameof(HasSelectedNatalObject));
+            nameof(NatalWheelAccessibilityText));
     }
 
     private NatalWheelSceneConfiguration
@@ -705,26 +1052,19 @@ public sealed partial class MainWindowViewModel
         FindNatalPlacementRow(
             string objectId)
     {
-        if (_currentNatalSnapshot is null
-            || !Enum.TryParse<
-                AstrologicalObjectId>(
-                    objectId,
-                    ignoreCase: false,
-                    out var parsed))
+        if (!Enum.TryParse<
+            AstrologicalObjectId>(
+                objectId,
+                ignoreCase: false,
+                out var parsed))
         {
             return null;
         }
 
-        var placement =
-            _currentNatalSnapshot
-                .Placements
-                .FirstOrDefault(
-                    x => x.ObjectId == parsed);
-
-        return placement is null
-            ? null
-            : NatalPlacementRowViewModel
-                .From(placement);
+        return NatalPlacements
+            .FirstOrDefault(
+                x =>
+                    x.ObjectId == parsed);
     }
 
     private static string HumanNatalFailure(

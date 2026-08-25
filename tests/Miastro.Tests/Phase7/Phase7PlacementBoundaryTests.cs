@@ -143,7 +143,7 @@ public sealed class Phase7PlacementBoundaryTests
         {
             var realUnwrapped =
                 180.0
-                - (
+                + (
                     placement.RealLongitudeDegrees
                     - ascendant
                 );
@@ -156,8 +156,8 @@ public sealed class Phase7PlacementBoundaryTests
             {
                 Assert.IsTrue(
                     visualUnwrapped
-                        <= previousValue + 1e-9,
-                    $"{placement.Id}: {visualUnwrapped} > {previousValue}");
+                        >= previousValue - 1e-9,
+                    $"{placement.Id}: {visualUnwrapped} < {previousValue}");
             }
 
             previous =

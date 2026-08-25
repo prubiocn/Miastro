@@ -84,7 +84,7 @@ public sealed class NatalWheelLayoutBuilder
                         .EclipticToScreenAngleDegrees(
                             startLongitude,
                             ascendant),
-                    -30.0);
+                    30.0);
         }
 
         return result;
@@ -156,12 +156,11 @@ public sealed class NatalWheelLayoutBuilder
         var result =
             new HouseCuspLayout[12];
 
+        // Los números de casa pertenecen visualmente a la
+        // segunda circunferencia, junto a los planetas.
         var labelRadius =
-            (
-                metrics.HouseOuterRadius
-                + metrics.HouseInnerRadius
-            )
-            / 2.0;
+            metrics.PlanetOrbitRadius
+            - 18.0 * metrics.Scale;
 
         for (var index = 0; index < 12; index++)
         {
@@ -203,12 +202,12 @@ public sealed class NatalWheelLayoutBuilder
                     NatalWheelCoordinates
                         .PointOnCircle(
                             metrics.Center,
-                            metrics.HouseOuterRadius,
+                            metrics.OuterRadius,
                             cuspAngle),
                     NatalWheelCoordinates
                         .PointOnCircle(
                             metrics.Center,
-                            metrics.HouseInnerRadius,
+                            metrics.AspectRadius,
                             cuspAngle),
                     centerLongitude,
                     centerAngle,
@@ -274,12 +273,13 @@ public sealed class NatalWheelLayoutBuilder
                 NatalWheelCoordinates
                     .PointOnCircle(
                         metrics.Center,
-                        metrics.HouseOuterRadius,
+                        metrics.OuterRadius
+                            + 18.0 * metrics.Scale,
                         angle),
                 NatalWheelCoordinates
                     .PointOnCircle(
                         metrics.Center,
-                        metrics.HouseInnerRadius,
+                        metrics.AspectRadius,
                         angle));
         }
     }

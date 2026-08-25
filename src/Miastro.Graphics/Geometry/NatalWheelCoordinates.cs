@@ -43,7 +43,7 @@ public static class NatalWheelCoordinates
 
         return NormalizeDegrees(
             AscendantScreenAngleDegrees
-            - relative);
+            + relative);
     }
 
     public static ChartPoint PointOnCircle(
@@ -68,7 +68,7 @@ public static class NatalWheelCoordinates
             center.X
                 + radius * Math.Cos(radians),
             center.Y
-                + radius * Math.Sin(radians));
+                - radius * Math.Sin(radians));
     }
 
     public static ChartPoint PointForLongitude(

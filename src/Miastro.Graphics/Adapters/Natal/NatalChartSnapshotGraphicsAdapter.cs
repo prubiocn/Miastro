@@ -1,6 +1,7 @@
 using Miastro.Application.Natal;
 using Miastro.Domain.Aspects;
 using Miastro.Domain.Objects;
+using Miastro.Domain.Placements;
 using Miastro.Graphics.Layout;
 using Miastro.Graphics.Layout.Placement;
 using Miastro.Graphics.Scene;
@@ -118,7 +119,10 @@ public sealed class NatalChartSnapshotGraphicsAdapter
                             GlyphKey(
                                 x.ObjectId),
                             SceneLayerFor(
-                                x.ObjectId)))
+                                x.ObjectId),
+                            isRetrograde:
+                                x.Motion
+                                    == MotionState.Retrograde))
                 .ToArray();
 
         var visibleIds =

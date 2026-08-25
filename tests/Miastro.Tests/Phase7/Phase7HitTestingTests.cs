@@ -105,7 +105,7 @@ public sealed class Phase7HitTestingTests
 
         var point =
             new ChartPoint(
-                chiron.Bounds.Right + 3.0,
+                chiron.GlyphBounds.Right + 3.0,
                 chiron.VisualCenter.Y);
 
         var withoutTolerance =

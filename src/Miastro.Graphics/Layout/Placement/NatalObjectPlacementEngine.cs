@@ -29,11 +29,7 @@ public sealed class NatalObjectPlacementEngine
             wheel.AscendantLongitudeDegrees;
 
         var baseRadius =
-            (
-                wheel.Metrics.HouseOuterRadius
-                + wheel.Metrics.ZodiacInnerRadius
-            )
-            / 2.0;
+            wheel.Metrics.PlanetOrbitRadius;
 
         var protectedSize =
             policy.GlyphSize
@@ -44,11 +40,11 @@ public sealed class NatalObjectPlacementEngine
             / Math.Sqrt(2.0);
 
         var minimumSafeRadius =
-            wheel.Metrics.HouseInnerRadius
+            wheel.Metrics.PlanetBandInnerRadius
             + protectedHalfDiagonal;
 
         var maximumSafeRadius =
-            wheel.Metrics.ZodiacInnerRadius
+            wheel.Metrics.PlanetBandOuterRadius
             - protectedHalfDiagonal;
 
         if (minimumSafeRadius
@@ -105,7 +101,7 @@ public sealed class NatalObjectPlacementEngine
 
             var realAngleUnwrapped =
                 180.0
-                - (
+                + (
                     item.RealLongitudeDegrees
                     - ascendant
                 );
@@ -135,12 +131,12 @@ public sealed class NatalObjectPlacementEngine
             {
                 var visualUnwrapped =
                     realAngleUnwrapped
-                    - angularStep
+                    + angularStep
                     * angularStepDegrees;
 
                 if (previousVisualUnwrapped is double previous
                     && visualUnwrapped
-                        > previous + GeometryTolerance)
+                        < previous - GeometryTolerance)
                 {
                     continue;
                 }
@@ -181,6 +177,11 @@ public sealed class NatalObjectPlacementEngine
                             policy.GlyphSize,
                             policy.MinimumGap);
 
+                    var glyphBounds =
+                        CreateGlyphBounds(
+                            visualCenter,
+                            policy.GlyphSize);
+
                     if (placed.Any(
                         existing =>
                             existing.Bounds
@@ -198,6 +199,14 @@ public sealed class NatalObjectPlacementEngine
                         displacement
                         >= policy.LeaderLineThreshold;
 
+                    var leaderLineEnd =
+                        hasLeaderLine
+                            ? ClipLeaderToGlyphBoundary(
+                                realAnchor,
+                                visualCenter,
+                                glyphBounds)
+                            : (ChartPoint?)null;
+
                     accepted =
                         new NatalVisualPlacement(
                             item.Id,
@@ -209,13 +218,13 @@ public sealed class NatalObjectPlacementEngine
                             realAnchor,
                             visualCenter,
                             bounds,
+                            policy.GlyphSize,
+                            glyphBounds,
                             hasLeaderLine,
                             hasLeaderLine
                                 ? realAnchor
                                 : null,
-                            hasLeaderLine
-                                ? visualCenter
-                                : null);
+                            leaderLineEnd);
 
                     acceptedVisualUnwrapped =
                         visualUnwrapped;
@@ -300,6 +309,61 @@ public sealed class NatalObjectPlacementEngine
             yield return level;
             yield return -level;
         }
+    }
+
+    private static ChartRect CreateGlyphBounds(
+        ChartPoint center,
+        double glyphSize)
+        =>
+            new(
+                center.X
+                    - glyphSize / 2.0,
+                center.Y
+                    - glyphSize / 2.0,
+                glyphSize,
+                glyphSize);
+
+    private static ChartPoint ClipLeaderToGlyphBoundary(
+        ChartPoint start,
+        ChartPoint center,
+        ChartRect glyphBounds)
+    {
+        var dx =
+            start.X - center.X;
+
+        var dy =
+            start.Y - center.Y;
+
+        if (Math.Abs(dx) <= GeometryTolerance
+            && Math.Abs(dy) <= GeometryTolerance)
+        {
+            return center;
+        }
+
+        var halfWidth =
+            glyphBounds.Width / 2.0;
+
+        var halfHeight =
+            glyphBounds.Height / 2.0;
+
+        var tx =
+            Math.Abs(dx) <= GeometryTolerance
+                ? double.PositiveInfinity
+                : halfWidth / Math.Abs(dx);
+
+        var ty =
+            Math.Abs(dy) <= GeometryTolerance
+                ? double.PositiveInfinity
+                : halfHeight / Math.Abs(dy);
+
+        var scale =
+            Math.Min(
+                tx,
+                ty);
+
+        return new ChartPoint(
+            center.X + dx * scale,
+            center.Y + dy * scale);
     }
 
     private static ChartRect CreateBounds(

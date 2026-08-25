@@ -329,15 +329,45 @@ public sealed class Phase7AspectSceneTests
 
         Assert.AreEqual(
             1,
-            visible.Nodes.Count(
-                x => x.Layer
-                    == SceneLayer.AspectLayer));
+            visible.Nodes
+                .OfType<LineNode>()
+                .Count(
+                    x =>
+                        x.Layer
+                            == SceneLayer.AspectLayer
+                        && x.Id.StartsWith(
+                            "aspect-",
+                            StringComparison.Ordinal)));
 
         Assert.AreEqual(
             0,
-            hidden.Nodes.Count(
-                x => x.Layer
-                    == SceneLayer.AspectLayer));
+            hidden.Nodes
+                .OfType<LineNode>()
+                .Count(
+                    x =>
+                        x.Layer
+                            == SceneLayer.AspectLayer
+                        && x.Id.StartsWith(
+                            "aspect-",
+                            StringComparison.Ordinal)));
+
+        Assert.AreEqual(
+            1,
+            visible.Nodes
+                .OfType<CircleNode>()
+                .Count(
+                    x =>
+                        x.Id
+                            == "soul-core"));
+
+        Assert.AreEqual(
+            1,
+            hidden.Nodes
+                .OfType<CircleNode>()
+                .Count(
+                    x =>
+                        x.Id
+                            == "soul-core"));
 
         var visibleObjects =
             DescribeObjects(

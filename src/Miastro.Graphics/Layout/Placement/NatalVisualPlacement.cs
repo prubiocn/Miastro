@@ -12,6 +12,8 @@ public sealed record NatalVisualPlacement(
     ChartPoint RealAnchor,
     ChartPoint VisualCenter,
     ChartRect Bounds,
+    double GlyphSize,
+    ChartRect GlyphBounds,
     bool HasLeaderLine,
     ChartPoint? LeaderLineStart,
     ChartPoint? LeaderLineEnd)

@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Miastro.Graphics.Geometry;
 using Miastro.Graphics.Layout;
 using Miastro.Graphics.Layout.Placement;
 using Miastro.Graphics.Scene;
@@ -97,7 +98,7 @@ public sealed class Phase7NatalSceneBuilderTests
     }
 
     [TestMethod]
-    public void Each_object_has_real_mark_and_visual_glyph()
+    public void Each_object_has_visual_glyph_without_real_mark()
     {
         var scene =
             BuildScene();
@@ -109,16 +110,19 @@ public sealed class Phase7NatalSceneBuilderTests
             Assert.AreEqual(
                 1,
                 scene.Nodes.Count(
-                    x => x.Id
-                        == $"real-mark-{id}"));
+                    x =>
+                        x.Id
+                        == $"object-glyph-{id}"));
 
             Assert.AreEqual(
-                1,
+                0,
                 scene.Nodes.Count(
-                    x => x.Id
-                        == $"object-glyph-{id}"));
+                    x =>
+                        x.Id
+                        == $"real-mark-{id}"));
         }
     }
+
 
     [TestMethod]
     public void Displaced_object_has_leader_line()
@@ -137,40 +141,48 @@ public sealed class Phase7NatalSceneBuilderTests
     }
 
     [TestMethod]
-    public void Real_mark_and_visual_glyph_are_distinct_when_displaced()
+    public void Displaced_object_uses_leader_without_real_mark()
     {
         var scene =
             BuildScene();
 
-        var leader =
+        var leaders =
             scene.Nodes
                 .OfType<LineNode>()
-                .Single(
-                    x => x.Id.StartsWith(
-                        "leader-",
-                        StringComparison.Ordinal));
+                .Where(
+                    x =>
+                        x.Id.StartsWith(
+                            "leader-",
+                            StringComparison.Ordinal))
+                .ToArray();
 
-        var id =
-            leader.Id["leader-".Length..];
+        Assert.IsTrue(
+            leaders.Length
+            > 0);
 
-        var mark =
-            scene.Nodes
-                .OfType<CircleNode>()
-                .Single(
-                    x => x.Id
-                        == $"real-mark-{id}");
+        foreach (
+            var leader
+            in leaders)
+        {
+            var id =
+                leader.Id["leader-".Length..];
 
-        var glyph =
-            scene.Nodes
-                .OfType<GlyphNode>()
-                .Single(
-                    x => x.Id
-                        == $"object-glyph-{id}");
+            Assert.IsTrue(
+                scene.Nodes
+                    .OfType<GlyphNode>()
+                    .Any(
+                        x =>
+                            x.Id
+                            == $"object-glyph-{id}"));
 
-        Assert.AreNotEqual(
-            mark.Center,
-            glyph.Position);
+            Assert.IsFalse(
+                scene.Nodes.Any(
+                    x =>
+                        x.Id
+                        == $"real-mark-{id}"));
+        }
     }
+
 
     [TestMethod]
     public void Scene_generation_is_deterministic()

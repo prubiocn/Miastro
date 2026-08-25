@@ -14,6 +14,35 @@ public sealed record NatalWheelMetrics(
     double HouseInnerRadius,
     double AspectRadius)
 {
+    // Primera circunferencia:
+    // borde exterior del zodiaco.
+    public double ZodiacOuterRingRadius =>
+        OuterRadius;
+
+    // Segunda circunferencia:
+    // graduación zodiacal.
+    public double DegreeRingRadius =>
+        ZodiacInnerRadius;
+
+    // Banda planetaria:
+    // espacio abierto entre grados y aspectos.
+    public double PlanetBandOuterRadius =>
+        DegreeRingRadius;
+
+    public double PlanetBandInnerRadius =>
+        AspectRadius;
+
+    // Radio base de colocación de los glifos.
+    public double PlanetOrbitRadius =>
+        OuterRadius
+        * 0.70;
+
+    // Cuarta circunferencia:
+    // alma.
+    public double SoulRadius =>
+        OuterRadius
+        * 0.12;
+
     public const double ReferenceSize = 800.0;
 
     public const double MinimumUsableSize = 360.0;
@@ -55,10 +84,15 @@ public sealed record NatalWheelMetrics(
                 width / 2.0,
                 height / 2.0),
             outerRadius,
+            // Métricas auxiliares del zodiaco/grados.
             outerRadius * 0.88,
             outerRadius * 0.81,
-            outerRadius * 0.73,
-            outerRadius * 0.44,
-            outerRadius * 0.40);
+
+            // Segunda circunferencia: planetas/casas.
+            outerRadius * 0.70,
+
+            // Tercera circunferencia: aspectos.
+            outerRadius * 0.48,
+            outerRadius * 0.48);
     }
 }

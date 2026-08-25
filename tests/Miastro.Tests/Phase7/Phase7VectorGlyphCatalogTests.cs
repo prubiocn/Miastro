@@ -29,6 +29,64 @@ public sealed class Phase7VectorGlyphCatalogTests
     }
 
     [TestMethod]
+    public void Taurus_uses_horn_strokes_and_circular_head()
+    {
+        var glyph =
+            new NatalVectorGlyphCatalog()
+                .GetRequired(
+                    "zodiac-01");
+
+        Assert.AreEqual(
+            2,
+            glyph.Strokes.Count);
+
+        Assert.AreEqual(
+            1,
+            glyph.Circles.Count);
+    }
+
+    [TestMethod]
+    public void Pluto_uses_circle_cup_vertical_and_crossbar()
+    {
+        var glyph =
+            new NatalVectorGlyphCatalog()
+                .GetRequired(
+                    "planet-pluto");
+
+        Assert.AreEqual(
+            3,
+            glyph.Strokes.Count);
+
+        Assert.AreEqual(
+            1,
+            glyph.Circles.Count);
+
+        var circle =
+            glyph.Circles.Single();
+
+        Assert.IsTrue(
+            circle.Center.Y < 0.0);
+
+        Assert.IsTrue(
+            glyph.Strokes.Any(
+                stroke =>
+                    stroke.Points.Count == 2
+                    && Math.Abs(
+                        stroke.Points[0].X
+                        - stroke.Points[1].X)
+                        < 1e-12));
+
+        Assert.IsTrue(
+            glyph.Strokes.Any(
+                stroke =>
+                    stroke.Points.Count == 2
+                    && Math.Abs(
+                        stroke.Points[0].Y
+                        - stroke.Points[1].Y)
+                        < 1e-12));
+    }
+
+    [TestMethod]
     public void Catalog_contains_required_planets()
     {
         var catalog =

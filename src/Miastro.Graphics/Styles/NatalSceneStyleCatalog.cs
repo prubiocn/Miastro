@@ -103,6 +103,12 @@ public sealed class NatalSceneStyleCatalog
             1.6);
 
         yield return new SceneStyle(
+            NatalSceneStyleKeys.DegreeBoundary,
+            warmGrey,
+            1.0,
+            Opacity: 0.90);
+
+        yield return new SceneStyle(
             NatalSceneStyleKeys.DegreeMinor,
             warmGreySoft,
             0.65,
@@ -129,6 +135,18 @@ public sealed class NatalSceneStyleCatalog
             NatalSceneStyleKeys.HouseNumber,
             charcoal,
             1.0);
+
+        yield return new SceneStyle(
+            NatalSceneStyleKeys.PlanetOrbit,
+            warmGrey,
+            1.45,
+            Opacity: 0.82);
+
+        yield return new SceneStyle(
+            NatalSceneStyleKeys.SoulCore,
+            blueGrey,
+            1.15,
+            FillColor: ivory);
 
         yield return new SceneStyle(
             NatalSceneStyleKeys.AngleMajor,
@@ -173,6 +191,12 @@ public sealed class NatalSceneStyleCatalog
             0.85,
             SceneLinePattern.Dashed,
             0.85);
+
+        yield return new SceneStyle(
+            NatalSceneStyleKeys.AspectRing,
+            warmGrey,
+            1.0,
+            Opacity: 0.80);
 
         yield return new SceneStyle(
             NatalSceneStyleKeys.AspectMajor,

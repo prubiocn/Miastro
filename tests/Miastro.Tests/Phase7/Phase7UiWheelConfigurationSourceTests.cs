@@ -186,22 +186,33 @@ public sealed class Phase7UiWheelConfigurationSourceTests
         Assert.IsNotNull(
             wheelBorder);
 
-        var natalPlacements =
+        var positionsPanel =
             document
                 .Descendants()
                 .Single(
                     x =>
                         AttributeValue(
-                                x,
-                                "ItemsSource")
-                            .Contains(
-                                "NatalPlacements",
-                                StringComparison.Ordinal));
+                            x,
+                            "Name")
+                        == "NatalPositionsPanel");
 
-        Assert.AreSame(
-            wheelBorder.Parent,
-            natalPlacements.Parent,
-            "La rueda debe ser hermana del control NatalPlacements.");
+        var natalSection =
+            wheelBorder
+                .Ancestors()
+                .FirstOrDefault(
+                    x =>
+                        x.Name.LocalName
+                            == "StackPanel"
+                        && x.Descendants()
+                            .Any(
+                                child =>
+                                    ReferenceEquals(
+                                        child,
+                                        positionsPanel)));
+
+        Assert.IsNotNull(
+            natalSection,
+            "Rueda y panel Posiciones deben pertenecer a la misma sección natal.");
     }
 
     private static string AttributeValue(

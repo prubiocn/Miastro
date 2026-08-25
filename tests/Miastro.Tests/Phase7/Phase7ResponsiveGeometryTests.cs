@@ -71,7 +71,15 @@ public sealed class Phase7ResponsiveGeometryTests
     [TestMethod]
     public void Concentric_radii_remain_strictly_ordered()
     {
-        foreach (var size in Sizes)
+        foreach (
+            var size
+            in new[]
+            {
+                320.0,
+                480.0,
+                800.0,
+                1200.0
+            })
         {
             var metrics =
                 NatalWheelMetrics.Create(
@@ -80,28 +88,26 @@ public sealed class Phase7ResponsiveGeometryTests
 
             Assert.IsTrue(
                 metrics.OuterRadius
-                > metrics.ZodiacInnerRadius);
+                > metrics.DegreeRingRadius);
 
             Assert.IsTrue(
-                metrics.ZodiacInnerRadius
-                > metrics.DegreeInnerRadius);
+                metrics.DegreeRingRadius
+                > metrics.PlanetOrbitRadius);
 
             Assert.IsTrue(
-                metrics.DegreeInnerRadius
-                > metrics.HouseOuterRadius);
-
-            Assert.IsTrue(
-                metrics.HouseOuterRadius
-                > metrics.HouseInnerRadius);
-
-            Assert.IsTrue(
-                metrics.HouseInnerRadius
+                metrics.PlanetOrbitRadius
                 > metrics.AspectRadius);
 
             Assert.IsTrue(
-                metrics.AspectRadius > 0.0);
+                metrics.AspectRadius
+                > metrics.SoulRadius);
+
+            Assert.IsTrue(
+                metrics.SoulRadius
+                > 0.0);
         }
     }
+
 
     [TestMethod]
     public void Geometry_scales_monotonically()

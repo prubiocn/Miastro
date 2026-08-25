@@ -139,7 +139,7 @@ public sealed class Phase7VisibilityAndModeTests
             after);
 
         Assert.IsFalse(
-            result.Scene.Nodes.Any(
+            result.Scene.Nodes.OfType<LineNode>().Any(
                 x => x.Layer
                     == SceneLayer.AspectLayer));
     }

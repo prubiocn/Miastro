@@ -16,14 +16,17 @@ public sealed class NatalWheelPresentationService
         NatalChartSnapshotReadModel snapshot,
         double width,
         double height,
-        NatalWheelSceneConfiguration? configuration = null)
+        NatalWheelSceneConfiguration? configuration = null,
+        double renderScaling = 1.0)
     {
         ArgumentNullException.ThrowIfNull(snapshot);
 
         if (!double.IsFinite(width)
             || !double.IsFinite(height)
+            || !double.IsFinite(renderScaling)
             || width <= 0.0
-            || height <= 0.0)
+            || height <= 0.0
+            || renderScaling <= 0.0)
         {
             throw new ArgumentOutOfRangeException(
                 nameof(width));
@@ -50,12 +53,16 @@ public sealed class NatalWheelPresentationService
         var pixelWidth =
             Math.Max(
                 1,
-                (int)Math.Round(width));
+                (int)Math.Round(
+                    width
+                    * renderScaling));
 
         var pixelHeight =
             Math.Max(
                 1,
-                (int)Math.Round(height));
+                (int)Math.Round(
+                    height
+                    * renderScaling));
 
         var png =
             new SkiaNatalSceneRenderer()

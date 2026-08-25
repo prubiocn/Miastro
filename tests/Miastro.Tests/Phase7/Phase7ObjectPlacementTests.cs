@@ -315,9 +315,13 @@ public sealed class Phase7ObjectPlacementTests
             displaced.RealAnchor,
             displaced.LeaderLineStart);
 
-        Assert.AreEqual(
+        Assert.AreNotEqual(
             displaced.VisualCenter,
             displaced.LeaderLineEnd);
+
+        Assert.IsTrue(
+            displaced.GlyphBounds.Contains(
+                displaced.LeaderLineEnd.Value));
     }
 
     [TestMethod]
