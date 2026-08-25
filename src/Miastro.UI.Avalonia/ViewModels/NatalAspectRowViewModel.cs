@@ -1,3 +1,4 @@
+using System.Globalization;
 using Miastro.Application.Natal;
 using Miastro.Domain.Aspects;
 using Miastro.Domain.Objects;
@@ -23,7 +24,10 @@ public sealed record NatalAspectRowViewModel(
                 aspect.Kind),
             NatalPlacementRowViewModel.ObjectLabel(
                 aspect.SecondObject),
-            $"Orbe {aspect.UsedOrbDegrees:0.00}°");
+            string.Format(
+                CultureInfo.GetCultureInfo("es-ES"),
+                "Orbe {0:0.00}°",
+                aspect.UsedOrbDegrees));
 
     private static string AspectLabel(
         AspectKind kind)
