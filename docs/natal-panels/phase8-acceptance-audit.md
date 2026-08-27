@@ -85,7 +85,7 @@ Esta auditoría no constituye el cierre formal de Fase 8.
 | 77 | deb | **PASS** |
 | 78 | real install | **PASS** |
 | 79 | installed smoke | **PASS** |
-| 80 | remote CI | **PENDING** |
+| 80 | remote CI | **PASS** |
 | 81 | no extensive interpretation | **PASS** |
 | 82 | no reports | **PASS** |
 | 83 | no Solar Return | **PASS** |
@@ -94,13 +94,11 @@ Esta auditoría no constituye el cierre formal de Fase 8.
 
 ## Resultado provisional
 
-- PASS: **84**
+- PASS: **85**
 - FAIL: **0**
-- PENDING: **1**
+- PENDING: **0**
 
-El único PENDING es:
-
-- 80 — CI remota.
+No quedan criterios PENDING.
 
 El criterio 75 se considera PASS porque el build Release local ha sido validado tras los bloques funcionales.
 
