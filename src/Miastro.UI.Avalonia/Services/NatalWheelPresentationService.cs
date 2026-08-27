@@ -1,5 +1,6 @@
 using Miastro.Application.Natal;
 using Miastro.Graphics.Adapters.Natal;
+using Miastro.Graphics.Interaction;
 using Miastro.Graphics.Scene;
 using Miastro.Graphics.Scene.Natal.Configuration;
 using Miastro.Graphics.Skia.Rendering;
@@ -75,4 +76,60 @@ public sealed class NatalWheelPresentationService
             composed.Scene,
             png);
     }
+
+    public NatalWheelPresentation RenderSelection(
+        NatalWheelPresentation presentation,
+        IReadOnlyCollection<string> selectedObjectIds,
+        string? aspectFirstObjectId,
+        string? aspectSecondObjectId,
+        double renderScaling)
+    {
+        ArgumentNullException.ThrowIfNull(
+            presentation);
+
+        ArgumentNullException.ThrowIfNull(
+            selectedObjectIds);
+
+        if (!double.IsFinite(
+                renderScaling)
+            || renderScaling <= 0.0)
+        {
+            throw new ArgumentOutOfRangeException(
+                nameof(renderScaling));
+        }
+
+        var scene =
+            new NatalSceneSelectionOverlay()
+                .Apply(
+                    presentation.Scene,
+                    selectedObjectIds,
+                    aspectFirstObjectId,
+                    aspectSecondObjectId);
+
+        var pixelWidth =
+            Math.Max(
+                1,
+                (int)Math.Round(
+                    scene.Width
+                    * renderScaling));
+
+        var pixelHeight =
+            Math.Max(
+                1,
+                (int)Math.Round(
+                    scene.Height
+                    * renderScaling));
+
+        var png =
+            new SkiaNatalSceneRenderer()
+                .RenderPng(
+                    scene,
+                    pixelWidth,
+                    pixelHeight);
+
+        return new NatalWheelPresentation(
+            scene,
+            png);
+    }
+
 }

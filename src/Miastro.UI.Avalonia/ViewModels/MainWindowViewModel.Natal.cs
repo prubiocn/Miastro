@@ -508,6 +508,9 @@ public sealed partial class MainWindowViewModel
         _currentNatalSnapshot =
             snapshot;
 
+        BuildNatalPanels(
+            snapshot);
+
         var choice =
             NatalHouseSystems
                 .FirstOrDefault(x =>
@@ -558,6 +561,8 @@ public sealed partial class MainWindowViewModel
     {
         _currentNatalSnapshot =
             null;
+
+        ClearNatalPanels();
 
         NatalPlacements.Clear();
         NatalAspects.Clear();
@@ -627,6 +632,13 @@ public sealed partial class MainWindowViewModel
         var previousSelectionId =
             _selectedNatalObjectId;
 
+        var previousAspectCell =
+            _natalPanels?.SelectedAspectCell;
+
+        var previousWasDual =
+            _natalPanels?.SelectionState
+                .SecondaryObjectId is not null;
+
         var presentation =
             _natalWheelPresentationService
                 .Build(
@@ -660,6 +672,15 @@ public sealed partial class MainWindowViewModel
 
         RestoreNatalWheelSelection(
             previousSelectionId);
+
+        if (previousWasDual
+            && previousAspectCell is not null)
+        {
+            _natalPanels?.SyncDualSelection(
+                previousAspectCell);
+
+            RenderNatalWheelSelectionHighlight();
+        }
     }
 
     private void RestoreNatalWheelSelection(
@@ -941,10 +962,15 @@ public sealed partial class MainWindowViewModel
             last: true);
     }
 
-    public void ClearNatalWheelSelection()
+    public void ClearNatalSelection()
     {
         ApplyNatalWheelSelection(
             null);
+    }
+
+    public void ClearNatalWheelSelection()
+    {
+        ClearNatalSelection();
     }
 
     private void SelectNatalWheelBoundary(
@@ -1023,7 +1049,11 @@ public sealed partial class MainWindowViewModel
 
         OnPropertyChanged(
             nameof(NatalWheelAccessibilityText));
-    }
+
+        SyncNatalPanelsFromWheelSelection();
+
+        RenderNatalWheelSelectionHighlight();
+}
 
     private NatalWheelSceneConfiguration
         BuildNatalWheelConfiguration()

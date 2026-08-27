@@ -74,6 +74,9 @@ public static class NatalSceneStyleKeys
     public const string LabelSecondary =
         "label-secondary";
 
+    public const string InteractionDimmed =
+        "interaction-dimmed";
+
     public const string InteractionSelected =
         "interaction-selected";
 }

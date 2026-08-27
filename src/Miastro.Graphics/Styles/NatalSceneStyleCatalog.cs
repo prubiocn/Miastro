@@ -223,6 +223,13 @@ public sealed class NatalSceneStyleCatalog
             0.9);
 
         yield return new SceneStyle(
+            NatalSceneStyleKeys.InteractionDimmed,
+            warmGreySoft,
+            2.2,
+            SceneLinePattern.Solid,
+            0.86);
+
+        yield return new SceneStyle(
             NatalSceneStyleKeys.InteractionSelected,
             sand,
             2.6);

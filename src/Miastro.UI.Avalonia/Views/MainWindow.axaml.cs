@@ -15,6 +15,13 @@ public sealed partial class MainWindow
         Loaded += OnLoaded;
     }
 
+    private const double
+        NatalPanelResponsiveCollapseWidth =
+            720.0;
+
+    private bool
+        _natalPanelAutoCollapsed;
+
     private async void OnLoaded(
         object? sender,
         RoutedEventArgs e)
@@ -93,6 +100,71 @@ public sealed partial class MainWindow
 
         e.Handled =
             true;
+    }
+
+    private void OnNatalWheelPanelLayoutSizeChanged(
+        object? sender,
+        SizeChangedEventArgs e)
+    {
+        var width =
+            e.NewSize.Width;
+
+        if (!double.IsFinite(
+                width)
+            || width <= 0.0)
+        {
+            return;
+        }
+
+        if (width
+            < NatalPanelResponsiveCollapseWidth)
+        {
+            if (NatalPhase8PanelHost.IsVisible)
+            {
+                SetNatalPhase8PanelExpanded(
+                    false);
+
+                _natalPanelAutoCollapsed =
+                    true;
+            }
+
+            return;
+        }
+
+        if (_natalPanelAutoCollapsed)
+        {
+            SetNatalPhase8PanelExpanded(
+                true);
+
+            _natalPanelAutoCollapsed =
+                false;
+        }
+    }
+
+    private void OnNatalPhase8PanelToggleClick(
+        object? sender,
+        RoutedEventArgs e)
+    {
+        var expand =
+            !NatalPhase8PanelHost.IsVisible;
+
+        SetNatalPhase8PanelExpanded(
+            expand);
+
+        _natalPanelAutoCollapsed =
+            false;
+    }
+
+    private void SetNatalPhase8PanelExpanded(
+        bool expanded)
+    {
+        NatalPhase8PanelHost.IsVisible =
+            expanded;
+
+        NatalPhase8PanelToggleButton.Content =
+            expanded
+                ? "Ocultar panel"
+                : "Mostrar panel";
     }
 
     private void OnNatalWheelViewportHostSizeChanged(
@@ -182,7 +254,7 @@ public sealed partial class MainWindow
 
             case Key.Escape:
                 viewModel
-                    .ClearNatalWheelSelection();
+                    .ClearNatalSelection();
                 break;
 
             default:
@@ -191,6 +263,44 @@ public sealed partial class MainWindow
 
         e.Handled =
             true;
+    }
+
+
+    private void OnMainWindowKeyDown(
+        object? sender,
+        KeyEventArgs e)
+    {
+        if (e.Key != Key.Escape
+            || DataContext
+                is not MainWindowViewModel viewModel)
+        {
+            return;
+        }
+
+        viewModel.ClearNatalSelection();
+
+        e.Handled =
+            true;
+    }
+
+
+    private void OnNatalAspectMatrixCellClick(
+        object? sender,
+        RoutedEventArgs e)
+    {
+        if (sender is not Button button
+            || button.DataContext
+                is not global::Miastro.Application.Natal.Reading.NatalAspectMatrixCell cell
+            || !cell.HasAspect
+            || DataContext
+                is not MainWindowViewModel viewModel
+            || viewModel.NatalPanels is null)
+        {
+            return;
+        }
+
+        viewModel.NatalPanels.SelectedAspectCell =
+            cell;
     }
 
 }

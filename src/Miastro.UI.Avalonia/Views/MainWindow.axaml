@@ -3,12 +3,15 @@
     xmlns="https://github.com/avaloniaui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vm="using:Miastro.UI.Avalonia.ViewModels"
+    xmlns:reading="using:Miastro.Application.Natal.Reading"
+    xmlns:panelvm="using:Miastro.UI.Avalonia.ViewModels.NatalPanels"
     x:DataType="vm:MainWindowViewModel"
     Width="1180"
     Height="760"
     MinWidth="900"
     MinHeight="620"
-    Title="{Binding Title}">
+    Title="{Binding Title}"
+    KeyDown="OnMainWindowKeyDown">
 
     <Grid
         RowDefinitions="Auto,*,Auto"
@@ -781,8 +784,10 @@
                                             </Grid>
 
                                             <Grid
-                                                ColumnDefinitions="*,220"
-                                                ColumnSpacing="14">
+                                                Name="NatalWheelPanelLayout"
+                                                ColumnDefinitions="*,Auto"
+                                                ColumnSpacing="14"
+                                                SizeChanged="OnNatalWheelPanelLayoutSizeChanged">
 
                                                 <Border
                                                     Name="NatalWheelViewportHost"
@@ -810,49 +815,849 @@
 
                                                 </Border>
 
-                                                <Border
+                                                <StackPanel
+                                                    Name="NatalPhase8PanelShell"
                                                     Grid.Column="1"
-                                                    Padding="12"
-                                                    AutomationProperties.Name="Detalle del objeto natal seleccionado"
-                                                    CornerRadius="6"
-                                                    Background="{DynamicResource SystemControlBackgroundAltHighBrush}">
+                                                    Spacing="6"
+                                                    HorizontalAlignment="Right"
+                                                    IsVisible="{Binding HasNatalPanels}">
 
-                                                    <StackPanel
-                                                        Spacing="8">
+                                                    <Button
+                                                        Name="NatalPhase8PanelToggleButton"
+                                                        HorizontalAlignment="Right"
+                                                        Content="Ocultar panel"
+                                                        Click="OnNatalPhase8PanelToggleClick"
+                                                        AutomationProperties.Name="Mostrar u ocultar panel natal"
+                                                        AutomationProperties.HelpText="Permite dar más espacio a la rueda natal." />
 
-                                                        <TextBlock
-                                                            Text="Objeto seleccionado"
-                                                            FontWeight="SemiBold" />
+                                                    <Border
+                                                        Name="NatalPhase8PanelHost"
+                                                        Width="360"
+                                                        MinWidth="300"
+                                                        MaxWidth="420"
+                                                        Padding="10"
+                                                        CornerRadius="6"
+                                                        BorderThickness="1"
+                                                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                                        Background="{DynamicResource SystemControlBackgroundAltHighBrush}"
+                                                        AutomationProperties.Name="Panel natal de consulta">
 
-                                                        <TextBlock
-                                                            IsVisible="{Binding !HasSelectedNatalObject}"
-                                                            Text="Pulsa sobre un planeta o punto de la rueda."
-                                                            TextWrapping="Wrap"
-                                                            Opacity="0.65" />
+                                                    <TabControl
+                                                        Name="NatalPhase8PanelTabs"
+                                                        SelectedIndex="{Binding NatalPanels.SelectedIndex, Mode=TwoWay}"
+                                                        AutomationProperties.Name="Paneles natales">
 
-                                                        <StackPanel
-                                                            IsVisible="{Binding HasSelectedNatalObject}"
-                                                            Spacing="5">
+                                                        <TabItem
+                                                            Header="Datos"
+                                                            AutomationProperties.Name="Datos">
 
-                                                            <TextBlock
-                                                                Text="{Binding SelectedNatalPlacement.ObjectName}"
-                                                                FontSize="17"
-                                                                FontWeight="SemiBold" />
+                                                            <ScrollViewer
+                                                                VerticalScrollBarVisibility="Auto"
+                                                                HorizontalScrollBarVisibility="Auto">
 
-                                                            <TextBlock
-                                                                Text="{Binding SelectedNatalPlacement.PositionText}" />
+                                                                <StackPanel
+                                                                    Margin="4"
+                                                                    Spacing="5">
 
-                                                            <TextBlock
-                                                                Text="{Binding SelectedNatalPlacement.HouseText}" />
+                                                                    <Grid
+                                                                        ColumnDefinitions="42,1.35*,72,1*,1.35*"
+                                                                        ColumnSpacing="8"
+                                                                        Margin="4,0,4,3">
 
-                                                            <TextBlock
-                                                                Text="{Binding SelectedNatalPlacement.MotionText}" />
+                                                                        <TextBlock
+                                                                            Grid.Column="0"
+                                                                            Text="Glifo"
+                                                                            FontSize="11"
+                                                                            FontWeight="SemiBold" />
 
-                                                        </StackPanel>
+                                                                        <TextBlock
+                                                                            Grid.Column="1"
+                                                                            Text="Nombre"
+                                                                            FontSize="11"
+                                                                            FontWeight="SemiBold" />
 
-                                                    </StackPanel>
+                                                                        <TextBlock
+                                                                            Grid.Column="2"
+                                                                            Text="Grado"
+                                                                            FontSize="11"
+                                                                            FontWeight="SemiBold" />
+
+                                                                        <TextBlock
+                                                                            Grid.Column="3"
+                                                                            Text="Signo"
+                                                                            FontSize="11"
+                                                                            FontWeight="SemiBold" />
+
+                                                                        <TextBlock
+                                                                            Grid.Column="4"
+                                                                            Text="Regente"
+                                                                            FontSize="11"
+                                                                            FontWeight="SemiBold" />
+
+                                                                    </Grid>
+
+                                                                    <ListBox
+                                                                        Name="NatalDataList"
+                                                                        ItemsSource="{Binding NatalPanels.Data.Rows}"
+                                                                        SelectedItem="{Binding NatalPanels.SelectedDataRow, Mode=TwoWay}"
+                                                                        SelectionMode="Single"
+                                                                        AutomationProperties.Name="Datos natales">
+
+                                                                        <ListBox.ItemTemplate>
+                                                                            <DataTemplate
+                                                                                x:DataType="reading:NatalDataRowReadModel">
+
+                                                                                <Border
+                                                                                    Padding="4,7"
+                                                                                    BorderThickness="0,0,0,1"
+                                                                                    BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                                                                    AutomationProperties.Name="{Binding AccessibleName}">
+
+                                                                                    <Grid
+                                                                                        ColumnDefinitions="42,1.35*,72,1*,1.35*"
+                                                                                        ColumnSpacing="8">
+
+                                                                                        <TextBlock
+                                                                                            Grid.Column="0"
+                                                                                            Text="{Binding GlyphText}"
+                                                                                            FontSize="17"
+                                                                                            FontWeight="SemiBold"
+                                                                                            HorizontalAlignment="Center"
+                                                                                            VerticalAlignment="Center" />
+
+                                                                                        <StackPanel
+                                                                                            Grid.Column="1"
+                                                                                            Spacing="1">
+
+                                                                                            <TextBlock
+                                                                                                Text="{Binding ObjectName}"
+                                                                                                FontWeight="SemiBold"
+                                                                                                TextWrapping="Wrap" />
+
+                                                                                            <TextBlock
+                                                                                                Text="ÁNGULO"
+                                                                                                IsVisible="{Binding IsAngle}"
+                                                                                                FontSize="9"
+                                                                                                FontWeight="SemiBold" />
+
+                                                                                        </StackPanel>
+
+                                                                                        <TextBlock
+                                                                                            Grid.Column="2"
+                                                                                            Text="{Binding DegreeText}"
+                                                                                            VerticalAlignment="Center" />
+
+                                                                                        <TextBlock
+                                                                                            Grid.Column="3"
+                                                                                            Text="{Binding SignName}"
+                                                                                            TextWrapping="Wrap"
+                                                                                            VerticalAlignment="Center" />
+
+                                                                                        <TextBlock
+                                                                                            Grid.Column="4"
+                                                                                            Text="{Binding SignRulersText}"
+                                                                                            TextWrapping="Wrap"
+                                                                                            VerticalAlignment="Center" />
+
+                                                                                    </Grid>
+
+                                                                                </Border>
+
+                                                                            </DataTemplate>
+                                                                        </ListBox.ItemTemplate>
+
+                                                                    </ListBox>
+
+                                                                </StackPanel>
+
+                                                            </ScrollViewer>
+
+                                                        </TabItem>
+
+                                                        <TabItem
+                                                            Header="Posiciones"
+                                                            AutomationProperties.Name="Posiciones">
+
+                                                            <ScrollViewer
+                                                                VerticalScrollBarVisibility="Auto"
+                                                                HorizontalScrollBarVisibility="Auto">
+
+                                                                <StackPanel
+                                                                    Margin="4"
+                                                                    Spacing="5">
+
+                                                                    <TextBlock
+                                                                        Text="Selecciona una fila para sincronizarla con la rueda. Expande para consultar los datos técnicos."
+                                                                        FontSize="11"
+                                                                        TextWrapping="Wrap" />
+
+                                                                    <ListBox
+                                                                        Name="NatalPositionsList"
+                                                                        ItemsSource="{Binding NatalPanels.Positions.Rows}"
+                                                                        SelectedItem="{Binding NatalPanels.SelectedPositionRow, Mode=TwoWay}"
+                                                                        SelectionMode="Single"
+                                                                        AutomationProperties.Name="Posiciones natales">
+
+                                                                        <ListBox.ItemTemplate>
+                                                                            <DataTemplate
+                                                                                x:DataType="reading:NatalPositionRowReadModel">
+
+                                                                                <Border
+                                                                                    Padding="4,6"
+                                                                                    BorderThickness="0,0,0,1"
+                                                                                    BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                                                                    AutomationProperties.Name="{Binding AccessibleName}">
+
+                                                                                    <Expander
+                                                                                        HorizontalAlignment="Stretch">
+
+                                                                                        <Expander.Header>
+                                                                                            <Grid
+                                                                                                ColumnDefinitions="42,1.25*,1.45*,92,90"
+                                                                                                ColumnSpacing="7"
+                                                                                                MinWidth="490">
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Column="0"
+                                                                                                    Text="{Binding GlyphText}"
+                                                                                                    FontSize="17"
+                                                                                                    FontWeight="SemiBold"
+                                                                                                    HorizontalAlignment="Center"
+                                                                                                    VerticalAlignment="Center" />
+
+                                                                                                <StackPanel
+                                                                                                    Grid.Column="1"
+                                                                                                    Spacing="1">
+
+                                                                                                    <TextBlock
+                                                                                                        Text="{Binding ObjectName}"
+                                                                                                        FontWeight="SemiBold"
+                                                                                                        TextWrapping="Wrap" />
+
+                                                                                                    <TextBlock
+                                                                                                        Text="ÁNGULO"
+                                                                                                        IsVisible="{Binding IsAngle}"
+                                                                                                        FontSize="9"
+                                                                                                        FontWeight="SemiBold" />
+
+                                                                                                </StackPanel>
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Column="2"
+                                                                                                    Text="{Binding ExactPositionText}"
+                                                                                                    TextWrapping="Wrap"
+                                                                                                    VerticalAlignment="Center" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Column="3"
+                                                                                                    Text="{Binding HouseText}"
+                                                                                                    VerticalAlignment="Center" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Column="4"
+                                                                                                    Text="{Binding MotionText}"
+                                                                                                    TextWrapping="Wrap"
+                                                                                                    VerticalAlignment="Center" />
+
+                                                                                            </Grid>
+                                                                                        </Expander.Header>
+
+                                                                                        <Border
+                                                                                            Margin="42,6,0,2"
+                                                                                            Padding="8"
+                                                                                            BorderThickness="1"
+                                                                                            BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                                                                            CornerRadius="4">
+
+                                                                                            <Grid
+                                                                                                ColumnDefinitions="Auto,*"
+                                                                                                RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
+                                                                                                ColumnSpacing="12"
+                                                                                                RowSpacing="5">
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Row="0"
+                                                                                                    Grid.Column="0"
+                                                                                                    Text="Posición exacta"
+                                                                                                    FontWeight="SemiBold" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Row="0"
+                                                                                                    Grid.Column="1"
+                                                                                                    Text="{Binding ExactPositionText}"
+                                                                                                    TextWrapping="Wrap" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Row="1"
+                                                                                                    Grid.Column="0"
+                                                                                                    Text="Casa"
+                                                                                                    FontWeight="SemiBold" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Row="1"
+                                                                                                    Grid.Column="1"
+                                                                                                    Text="{Binding HouseText}" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Row="2"
+                                                                                                    Grid.Column="0"
+                                                                                                    Text="Regente(s) del signo"
+                                                                                                    FontWeight="SemiBold" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Row="2"
+                                                                                                    Grid.Column="1"
+                                                                                                    Text="{Binding SignRulersText}"
+                                                                                                    TextWrapping="Wrap" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Row="3"
+                                                                                                    Grid.Column="0"
+                                                                                                    Text="Signo de la cúspide"
+                                                                                                    FontWeight="SemiBold" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Row="3"
+                                                                                                    Grid.Column="1"
+                                                                                                    Text="{Binding HouseCuspSignText}"
+                                                                                                    TextWrapping="Wrap" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Row="4"
+                                                                                                    Grid.Column="0"
+                                                                                                    Text="Regente(s) de la casa"
+                                                                                                    FontWeight="SemiBold" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Row="4"
+                                                                                                    Grid.Column="1"
+                                                                                                    Text="{Binding HouseRulersText}"
+                                                                                                    TextWrapping="Wrap" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Row="5"
+                                                                                                    Grid.Column="0"
+                                                                                                    Text="Movimiento"
+                                                                                                    FontWeight="SemiBold" />
+
+                                                                                                <TextBlock
+                                                                                                    Grid.Row="5"
+                                                                                                    Grid.Column="1"
+                                                                                                    Text="{Binding MotionText}" />
+
+                                                                                            </Grid>
+
+                                                                                        </Border>
+
+                                                                                    </Expander>
+
+                                                                                </Border>
+
+                                                                            </DataTemplate>
+                                                                        </ListBox.ItemTemplate>
+
+                                                                    </ListBox>
+
+                                                                </StackPanel>
+
+                                                            </ScrollViewer>
+
+                                                        </TabItem>
+
+                                                        <TabItem
+                                                            Header="Aspectos"
+                                                            AutomationProperties.Name="Aspectos">
+
+                                                            <ScrollViewer
+                                                                VerticalScrollBarVisibility="Auto"
+                                                                HorizontalScrollBarVisibility="Auto">
+
+                                                                <StackPanel
+                                                                    Margin="4"
+                                                                    Spacing="10">
+
+                                                                    <TextBlock
+                                                                        Text="Matriz de aspectos"
+                                                                        FontWeight="SemiBold" />
+
+                                                                    <Border
+                                                                        Padding="6"
+                                                                        BorderThickness="1"
+                                                                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                                                        CornerRadius="4">
+
+                                                                        <StackPanel
+                                                                            Spacing="4">
+
+                                                                            <StackPanel
+                                                                                Orientation="Horizontal"
+                                                                                Spacing="2">
+
+                                                                                <Border
+                                                                                    Width="92"
+                                                                                    Height="42" />
+
+                                                                                <ItemsControl
+                                                                                    ItemsSource="{Binding NatalPanels.Aspects.Columns}">
+
+                                                                                    <ItemsControl.ItemsPanel>
+                                                                                        <ItemsPanelTemplate>
+                                                                                            <StackPanel
+                                                                                                Orientation="Horizontal"
+                                                                                                Spacing="2" />
+                                                                                        </ItemsPanelTemplate>
+                                                                                    </ItemsControl.ItemsPanel>
+
+                                                                                    <ItemsControl.ItemTemplate>
+                                                                                        <DataTemplate
+                                                                                            x:DataType="panelvm:NatalAspectMatrixColumnViewModel">
+
+                                                                                            <Border
+                                                                                                Width="58"
+                                                                                                MinHeight="42"
+                                                                                                Padding="2"
+                                                                                                VerticalAlignment="Stretch">
+
+                                                                                                <TextBlock
+                                                                                                    Text="{Binding ObjectName}"
+                                                                                                    FontSize="11"
+                                                                                                    TextAlignment="Center"
+                                                                                                    TextWrapping="Wrap"
+                                                                                                    VerticalAlignment="Center" />
+
+                                                                                            </Border>
+
+                                                                                        </DataTemplate>
+                                                                                    </ItemsControl.ItemTemplate>
+
+                                                                                </ItemsControl>
+
+                                                                            </StackPanel>
+
+                                                                            <ItemsControl
+                                                                                Name="NatalAspectTriangularMatrix"
+                                                                                ItemsSource="{Binding NatalPanels.Aspects.Rows}"
+                                                                                AutomationProperties.Name="Matriz triangular de aspectos natales"
+                                                                                AutomationProperties.HelpText="Tab recorre las celdas con aspecto. Enter o espacio selecciona. Escape limpia la selección.">
+
+                                                                                <ItemsControl.ItemTemplate>
+                                                                                    <DataTemplate
+                                                                                        x:DataType="panelvm:NatalAspectMatrixRowViewModel">
+
+                                                                                        <StackPanel
+                                                                                            Orientation="Horizontal"
+                                                                                            Spacing="2">
+
+                                                                                            <Border
+                                                                                                Width="92"
+                                                                                                MinHeight="52"
+                                                                                                Padding="4">
+
+                                                                                                <TextBlock
+                                                                                                    Text="{Binding ObjectName}"
+                                                                                                    FontSize="11"
+                                                                                                    FontWeight="SemiBold"
+                                                                                                    TextWrapping="Wrap"
+                                                                                                    VerticalAlignment="Center" />
+
+                                                                                            </Border>
+
+                                                                                            <ItemsControl
+                                                                                                ItemsSource="{Binding Cells}">
+
+                                                                                                <ItemsControl.ItemsPanel>
+                                                                                                    <ItemsPanelTemplate>
+                                                                                                        <StackPanel
+                                                                                                            Orientation="Horizontal"
+                                                                                                            Spacing="2" />
+                                                                                                    </ItemsPanelTemplate>
+                                                                                                </ItemsControl.ItemsPanel>
+
+                                                                                                <ItemsControl.ItemTemplate>
+                                                                                                    <DataTemplate
+                                                                                                        x:DataType="reading:NatalAspectMatrixCell">
+
+                                                                                                        <Button
+                                                                                                            Width="58"
+                                                                                                            Height="52"
+                                                                                                            Padding="2"
+                                                                                                            IsEnabled="{Binding HasAspect}"
+                                                                                                            Click="OnNatalAspectMatrixCellClick"
+                                                                                                            AutomationProperties.Name="{Binding AccessibleName}"
+                                                                                                            AutomationProperties.HelpText="{Binding AccessibleName}"
+                                                                                                            ToolTip.Tip="{Binding AccessibleName}">
+
+                                                                                                            <StackPanel
+                                                                                                                HorizontalAlignment="Center"
+                                                                                                                VerticalAlignment="Center"
+                                                                                                                Spacing="1">
+
+                                                                                                                <TextBlock
+                                                                                                                    Text="{Binding AspectSymbol}"
+                                                                                                                    FontSize="17"
+                                                                                                                    FontWeight="SemiBold"
+                                                                                                                    HorizontalAlignment="Center" />
+
+                                                                                                                <TextBlock
+                                                                                                                    Text="{Binding OrbText}"
+                                                                                                                    FontSize="9"
+                                                                                                                    HorizontalAlignment="Center" />
+
+                                                                                                            </StackPanel>
+
+                                                                                                        </Button>
+
+                                                                                                    </DataTemplate>
+                                                                                                </ItemsControl.ItemTemplate>
+
+                                                                                            </ItemsControl>
+
+                                                                                        </StackPanel>
+
+                                                                                    </DataTemplate>
+                                                                                </ItemsControl.ItemTemplate>
+
+                                                                            </ItemsControl>
+
+                                                                        </StackPanel>
+
+                                                                    </Border>
+
+                                                                    <Expander
+                                                                        Header="Lista accesible de aspectos"
+                                                                        IsExpanded="False">
+
+                                                                        <ListBox
+                                                                            Name="NatalAspectMatrixList"
+                                                                            MinWidth="300"
+                                                                            ItemsSource="{Binding NatalPanels.Aspects.Cells}"
+                                                                            SelectedItem="{Binding NatalPanels.SelectedAspectCell, Mode=TwoWay}"
+                                                                            SelectionMode="Single"
+                                                                            AutomationProperties.Name="Matriz de aspectos natales"
+                                                                            AutomationProperties.HelpText="Usa las flechas para recorrer los aspectos. Escape limpia la selección.">
+
+                                                                            <ListBox.ItemTemplate>
+                                                                                <DataTemplate
+                                                                                    x:DataType="reading:NatalAspectMatrixCell">
+
+                                                                                    <Border
+                                                                                        IsVisible="{Binding HasAspect}"
+                                                                                        Padding="4,7"
+                                                                                        BorderThickness="0,0,0,1"
+                                                                                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                                                                        AutomationProperties.Name="{Binding AccessibleName}"
+                                                                                        AutomationProperties.HelpText="{Binding AccessibleName}"
+                                                                                        ToolTip.Tip="{Binding AccessibleName}">
+
+                                                                                        <Grid
+                                                                                            ColumnDefinitions="*,Auto,1.2*,*,Auto"
+                                                                                            ColumnSpacing="7">
+
+                                                                                            <TextBlock
+                                                                                                Grid.Column="0"
+                                                                                                Text="{Binding ColumnObjectName}"
+                                                                                                TextWrapping="Wrap" />
+
+                                                                                            <TextBlock
+                                                                                                Grid.Column="1"
+                                                                                                Text="{Binding AspectSymbol}"
+                                                                                                FontWeight="SemiBold" />
+
+                                                                                            <TextBlock
+                                                                                                Grid.Column="2"
+                                                                                                Text="{Binding AspectName}"
+                                                                                                TextWrapping="Wrap" />
+
+                                                                                            <TextBlock
+                                                                                                Grid.Column="3"
+                                                                                                Text="{Binding RowObjectName}"
+                                                                                                TextWrapping="Wrap" />
+
+                                                                                            <TextBlock
+                                                                                                Grid.Column="4"
+                                                                                                Text="{Binding OrbText}" />
+
+                                                                                        </Grid>
+
+                                                                                    </Border>
+
+                                                                                </DataTemplate>
+                                                                            </ListBox.ItemTemplate>
+
+                                                                        </ListBox>
+
+                                                                    </Expander>
+
+                                                                </StackPanel>
+
+                                                            </ScrollViewer>
+
+                                                        </TabItem>
+
+                                                        <TabItem
+                                                            Header="Distribución"
+                                                            AutomationProperties.Name="Distribución">
+
+                                                            <ScrollViewer
+                                                                VerticalScrollBarVisibility="Auto"
+                                                                HorizontalScrollBarVisibility="Disabled">
+
+                                                                <StackPanel
+                                                                    Margin="4"
+                                                                    Spacing="10">
+
+                                                                    <StackPanel
+                                                                        Spacing="2">
+
+                                                                        <TextBlock
+                                                                            Text="Distribución factual"
+                                                                            FontWeight="SemiBold" />
+
+                                                                        <TextBlock
+                                                                            Text="{Binding NatalPanels.Distribution.ProfileText}"
+                                                                            FontSize="11"
+                                                                            Opacity="0.72" />
+
+                                                                    </StackPanel>
+
+                                                                    <ItemsControl
+                                                                        Name="NatalDistributionSections"
+                                                                        ItemsSource="{Binding NatalPanels.Distribution.Sections}"
+                                                                        AutomationProperties.Name="Distribución estructurada de la carta">
+
+                                                                        <ItemsControl.ItemTemplate>
+                                                                            <DataTemplate
+                                                                                x:DataType="panelvm:NatalDistributionSectionViewModel">
+
+                                                                                <Border
+                                                                                    Margin="0,0,0,8"
+                                                                                    Padding="7"
+                                                                                    BorderThickness="1"
+                                                                                    BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                                                                    CornerRadius="4">
+
+                                                                                    <StackPanel
+                                                                                        Spacing="5">
+
+                                                                                        <Grid
+                                                                                            ColumnDefinitions="*,Auto"
+                                                                                            ColumnSpacing="8">
+
+                                                                                            <TextBlock
+                                                                                                Grid.Column="0"
+                                                                                                Text="{Binding Title}"
+                                                                                                FontWeight="SemiBold"
+                                                                                                TextWrapping="Wrap" />
+
+                                                                                            <TextBlock
+                                                                                                Grid.Column="1"
+                                                                                                Text="{Binding StatusText}"
+                                                                                                FontSize="10"
+                                                                                                Opacity="0.75"
+                                                                                                TextWrapping="Wrap" />
+
+                                                                                        </Grid>
+
+                                                                                        <ItemsControl
+                                                                                            ItemsSource="{Binding Rows}">
+
+                                                                                            <ItemsControl.ItemTemplate>
+                                                                                                <DataTemplate
+                                                                                                    x:DataType="panelvm:NatalDistributionRowViewModel">
+
+                                                                                                    <Grid
+                                                                                                        Margin="0,2"
+                                                                                                        ColumnDefinitions="1.15*,42,1.8*"
+                                                                                                        ColumnSpacing="8"
+                                                                                                        AutomationProperties.Name="{Binding AccessibleName}">
+
+                                                                                                        <TextBlock
+                                                                                                            Grid.Column="0"
+                                                                                                            Text="{Binding Label}"
+                                                                                                            TextWrapping="Wrap" />
+
+                                                                                                        <TextBlock
+                                                                                                            Grid.Column="1"
+                                                                                                            Text="{Binding CountText}"
+                                                                                                            FontWeight="SemiBold"
+                                                                                                            HorizontalAlignment="Center" />
+
+                                                                                                        <TextBlock
+                                                                                                            Grid.Column="2"
+                                                                                                            Text="{Binding ObjectsText}"
+                                                                                                            FontSize="10"
+                                                                                                            TextWrapping="Wrap"
+                                                                                                            Opacity="0.78" />
+
+                                                                                                    </Grid>
+
+                                                                                                </DataTemplate>
+                                                                                            </ItemsControl.ItemTemplate>
+
+                                                                                        </ItemsControl>
+
+                                                                                    </StackPanel>
+
+                                                                                </Border>
+
+                                                                            </DataTemplate>
+                                                                        </ItemsControl.ItemTemplate>
+
+                                                                    </ItemsControl>
+
+                                                                    <Border
+                                                                        Padding="7"
+                                                                        BorderThickness="1"
+                                                                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                                                        CornerRadius="4">
+
+                                                                        <StackPanel
+                                                                            Spacing="4">
+
+                                                                            <TextBlock
+                                                                                Text="Síntesis"
+                                                                                FontWeight="SemiBold" />
+
+                                                                            <ItemsControl
+                                                                                ItemsSource="{Binding NatalPanels.Distribution.SynthesisLines}"
+                                                                                AutomationProperties.Name="Síntesis factual de distribución">
+
+                                                                                <ItemsControl.ItemTemplate>
+                                                                                    <DataTemplate>
+                                                                                        <TextBlock
+                                                                                            Margin="0,2"
+                                                                                            Text="{Binding}"
+                                                                                            TextWrapping="Wrap" />
+                                                                                    </DataTemplate>
+                                                                                </ItemsControl.ItemTemplate>
+
+                                                                            </ItemsControl>
+
+                                                                        </StackPanel>
+
+                                                                    </Border>
+
+                                                                </StackPanel>
+
+                                                            </ScrollViewer>
+
+                                                        </TabItem>
+
+                                                        <TabItem
+                                                            Header="Resumen"
+                                                            AutomationProperties.Name="Resumen">
+
+                                                            <ScrollViewer
+                                                                VerticalScrollBarVisibility="Auto"
+                                                                HorizontalScrollBarVisibility="Disabled">
+
+                                                                <StackPanel
+                                                                    Margin="4"
+                                                                    Spacing="8"
+                                                                    AutomationProperties.Name="Resumen natal factual">
+
+                                                                    <TextBlock
+                                                                        Text="Resumen factual"
+                                                                        FontWeight="SemiBold" />
+
+                                                                    <Border
+                                                                        Padding="7"
+                                                                        BorderThickness="1"
+                                                                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                                                        CornerRadius="4">
+
+                                                                        <StackPanel
+                                                                            Spacing="4">
+
+                                                                            <TextBlock
+                                                                                Text="{Binding NatalPanels.Summary.SunText}"
+                                                                                TextWrapping="Wrap" />
+
+                                                                            <TextBlock
+                                                                                Text="{Binding NatalPanels.Summary.MoonText}"
+                                                                                TextWrapping="Wrap" />
+
+                                                                            <TextBlock
+                                                                                Text="{Binding NatalPanels.Summary.AscendantText}"
+                                                                                TextWrapping="Wrap" />
+
+                                                                            <TextBlock
+                                                                                Text="{Binding NatalPanels.Summary.MidheavenText}"
+                                                                                TextWrapping="Wrap" />
+
+                                                                        </StackPanel>
+
+                                                                    </Border>
+
+                                                                    <Border
+                                                                        Padding="7"
+                                                                        BorderThickness="1"
+                                                                        BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}"
+                                                                        CornerRadius="4">
+
+                                                                        <StackPanel
+                                                                            Spacing="4">
+
+                                                                            <TextBlock
+                                                                                Text="{Binding NatalPanels.Summary.ElementText}"
+                                                                                TextWrapping="Wrap" />
+
+                                                                            <TextBlock
+                                                                                Text="{Binding NatalPanels.Summary.ModalityText}"
+                                                                                TextWrapping="Wrap" />
+
+                                                                            <TextBlock
+                                                                                Text="{Binding NatalPanels.Summary.HouseConcentrationText}"
+                                                                                TextWrapping="Wrap" />
+
+                                                                            <TextBlock
+                                                                                Text="{Binding NatalPanels.Summary.RetrogradesText}"
+                                                                                TextWrapping="Wrap" />
+
+                                                                        </StackPanel>
+
+                                                                    </Border>
+
+                                                                    <StackPanel
+                                                                        Spacing="4">
+
+                                                                        <TextBlock
+                                                                            Text="Aspectos principales"
+                                                                            FontWeight="SemiBold" />
+
+                                                                        <ItemsControl
+                                                                            Name="NatalSummaryMainAspects"
+                                                                            ItemsSource="{Binding NatalPanels.Summary.MainAspects}"
+                                                                            AutomationProperties.Name="Aspectos principales del resumen">
+
+                                                                            <ItemsControl.ItemTemplate>
+                                                                                <DataTemplate
+                                                                                    x:DataType="reading:NatalSummaryAspectReadModel">
+
+                                                                                    <TextBlock
+                                                                                        Margin="0,2"
+                                                                                        Text="{Binding Text}"
+                                                                                        TextWrapping="Wrap"
+                                                                                        AutomationProperties.Name="{Binding Text}" />
+
+                                                                                </DataTemplate>
+                                                                            </ItemsControl.ItemTemplate>
+
+                                                                        </ItemsControl>
+
+                                                                    </StackPanel>
+
+                                                                </StackPanel>
+
+                                                            </ScrollViewer>
+
+                                                        </TabItem>
+
+                                                    </TabControl>
 
                                                 </Border>
+
+                                                </StackPanel>
 
                                             </Grid>
 
@@ -909,7 +1714,7 @@
                                             </Grid>
 
                                             <ListBox
-                                                Name="NatalPositionsList"
+                                                Name="NatalPositionsLegacyList"
                                                 ItemsSource="{Binding NatalPlacements}"
                                                 SelectedItem="{Binding SelectedNatalPlacement, Mode=TwoWay}"
                                                 MaxHeight="300"
